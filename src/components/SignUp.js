@@ -53,7 +53,7 @@ const Login  = () => {
 
 
   return (
-    <div>
+    <div id="outerMain">
 
 <p id="title">Kindle</p>
     <div id="box">

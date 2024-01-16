@@ -1,0 +1,33 @@
+#p1box{
+    display : absolute ; 
+    width: 20% ; 
+    height : fit-content ; 
+    background-color: rgb(241, 98, 98) ;
+    color : white;
+    padding :10px ; 
+    padding-bottom: 40px;
+    position: absolute;
+    top:0; bottom:0;left:0;right:0;
+    margin: auto ;
+    border-radius: 10px;
+    z-index: 5;
+
+
+}
+#p1p{
+    font-size: 30px ; 
+    word-wrap: break-word;
+    text-align: center;
+}
+#p1dec{
+    display: flex ; 
+    justify-content: space-around;
+    
+}
+#p1dec button{
+    width:40%;
+    height : 30px;
+    border-radius: 12px;
+    border : 0 ; 
+    
+}

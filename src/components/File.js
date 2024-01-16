@@ -7,10 +7,15 @@ import { Link } from 'react-router-dom';
 import urlHelper from '../utils/urlHelper';
 import { getEmail } from '../utils/emailSet';
 import FileCard from './FileCard';
+import { useOutletContext } from 'react-router-dom';
+import DeletePopup from './DeletePopup';
 const File = () => {
-    
-    const [fileUpload, setFileUpload] = useState(null)  ;
-    const [fileList ,setFileList] = useState( [] ) ; 
+  const [fileUpload, setFileUpload,fileList ,setFileList] = useOutletContext() ; 
+    // const [fileUpload, setFileUpload] = useState(null)  ;
+    // const [fileList ,setFileList] = useState( [] ) ;
+    const [black , setBlack] = useState(false  ) ;  
+    const [deleteName , setDeleteName ]  = useState("") ; 
+    const [ deleteInd , setDeletInd ] = useState(-1) ; 
     const listRef = ref( storage , "decostarsharma113@gmail.com/") ;
 
 
@@ -83,12 +88,15 @@ const File = () => {
                 // const temp = "" + Object.keys(obj).length  ;
                 // console.log( " the temp is " , temp );  
                 // urlHelper( temp  , url , 1 ) 
+                // console.log( snapshot.ref) ; 
                 setFileList(prev=>[...prev , url]) ;
             })
         })
     } 
 
-    
+    useEffect(()=>{
+
+    } , [fileUpload] ) ; 
     useEffect( () => {
       // alert(getEmail()) ; 
         
@@ -108,7 +116,12 @@ const File = () => {
               const temp = "" + ind;
               console.log("the temp is ", temp);
               urlHelper(temp, url, 1);
-              ans[ind] = { "url": url, "path": item._location.path_ } ;
+              if( ind === 0 ){
+                console.log( "ind===0") ; 
+                console.log( item.name  ) ; 
+              }
+              ans[ind] = { "url": url, "path": item._location.path_ , 
+            "name" : item.name } ;
         
               console.log(fileList, "22222");
             }
@@ -128,7 +141,7 @@ const File = () => {
       }, []);
       
   return (
-    <div style={{backgroundColor:"#f0f2f5"}}>
+    <div style={{backgroundColor:"#f0f2f5"  , marginTop:"80px"}}>
         <input type="file" onChange={(e)=> setFileUpload(e.target.files[0]) }/>
         <button onClick={()=>uploadFile()}>Upload Image</button>
         <div style={{display:"flex" , flexWrap:"wrap"  }}>
@@ -142,7 +155,10 @@ const File = () => {
                         urlHelper( key, ele.url , 1 ) ; 
                     return(
                       
-                        <FileCard  ind={ind} ele={ele}/> 
+                        <FileCard  ind={ind} ele={ele} deleteFile={deleteFile}
+                          setDeleteName={setDeleteName} setBlack={setBlack} 
+                          setDeletInd={setDeletInd}
+                        /> 
                                          
                        
                         
@@ -153,6 +169,19 @@ const File = () => {
            
         }
         </div>
+        {
+          black && <div onClick={()=>{setDeletInd(-1) ; setBlack(false);}}
+           style={{backgroundColor:"black", position:"absolute", 
+          top:"0", left:"0", right:"0",bottom:"0",
+          opacity:"0.6" , zIndex:"4" , width:"100%" , height:"100%"}}></div>
+        }
+        {
+          black && <DeletePopup deleteName={deleteName} setBlack={setBlack}
+            setDeletInd={setDeletInd}
+          />
+          
+        }
+        
         
     </div>
   )

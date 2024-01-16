@@ -7,7 +7,8 @@ import ShowFile from "./components/ShowFile";
 import { createContext ,  useState} from 'react';
 import File from './components/File';
 import Login from './components/Login';
- 
+ import Header from "./components/Header" ; 
+import MainPage from "./components/MainPage"
 const appRouter = createBrowserRouter([
   {
     path :'/' , 
@@ -24,7 +25,24 @@ const appRouter = createBrowserRouter([
   {
     path : '/showfile' , 
     element : <ShowFile />
+  }, 
+  {
+    path : "/head" , 
+    element : <Header/>
+  } , 
+  {
+    path : "/aaa" , 
+    element :  <MainPage/> , 
+    children : [
+      {
+        path : "/aaa" , 
+        element : <File/>
+      }
+    ]
   }
+  
+  
+
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

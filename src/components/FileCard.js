@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {dustbin} from "../utils/imageLink"
 
-const FileCard = ({ind, ele }) => {
+const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd}) => {
+
   return (
         <div key={ind} style={{ width:"320px"  , padding:"8px", margin:"8px" , 
         flexGrow:"1" , boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" , 
@@ -21,8 +22,12 @@ const FileCard = ({ind, ele }) => {
                 {/* <img src={dustbin} style={{width:"35px" , height:"35px"} } /> */}
                 <button style={{width:"45%"  , 
                 backgroundColor:"#CCCCCC", fontSize:"20px" , borderRadius:"10px",
-                padding:"5px", border:"0"
+                padding:"5px", border:"0" 
 
+                }} onClick={()=> {
+                  setDeleteName(ele.name) ; 
+                  setBlack( true ) ; 
+                  setDeletInd(ind) ; 
                 }}>Delete File</button>
 
             </div>
@@ -38,6 +43,7 @@ const FileCard = ({ind, ele }) => {
 
    
   )
+
 }
 
 export default FileCard
