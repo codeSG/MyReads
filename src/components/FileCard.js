@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {dustbin} from "../utils/imageLink"
 
-const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd}) => {
+const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd,
+  setFileName}) => {
 
   return (
         <div key={ind} style={{ width:"320px"  , padding:"8px", margin:"8px" , 
@@ -14,12 +15,18 @@ const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd}) 
             </div>
             <div id="inner" style={{width:"100%" , display:"flex",
             justifyContent:"space-around" , paddingTop:"10px"}}>
-                <Link to={`/showfile/?url=${ind}`} style={{width:"45%" }}>
+                <Link to={`/file/showfile/?url=${ind}`} style={{width:"45%" }}>
                 <button style={{ width:"100%" , height:"100%" , 
                 backgroundColor: "#1877f2",color:"white" ,
-                fontSize:"20px" , borderRadius:"10px", padding:"5px",border:"0"}}>View File</button>
+                fontSize:"20px" , borderRadius:"10px", padding:"5px",border:"0"}}
+                onClick={()=>setFileName(ele.name)}>
+                View File
+                </button>
                 </Link>
                 {/* <img src={dustbin} style={{width:"35px" , height:"35px"} } /> */}
+                
+                
+                
                 <button style={{width:"45%"  , 
                 backgroundColor:"#CCCCCC", fontSize:"20px" , borderRadius:"10px",
                 padding:"5px", border:"0" 
@@ -27,7 +34,7 @@ const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd}) 
                 }} onClick={()=> {
                   setDeleteName(ele.name) ; 
                   setBlack( true ) ; 
-                  setDeletInd(ind) ; 
+                  setDeletInd(ele.path) ; 
                 }}>Delete File</button>
 
             </div>

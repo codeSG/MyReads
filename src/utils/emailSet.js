@@ -1,4 +1,4 @@
-let email = "" ; 
+var email = "" ; 
 
 function setEmail( temp ){
     email = temp ; 
@@ -6,4 +6,4 @@ function setEmail( temp ){
 function getEmail(){
     return email ; 
 }
-export { setEmail , getEmail }  ; 
+export  default { setEmail , getEmail }  ; 

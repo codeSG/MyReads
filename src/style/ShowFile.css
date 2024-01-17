@@ -1,0 +1,15 @@
+.ifram{
+    width:70vw; 
+    height:70vh ;
+    position:absolute;
+    top:100px;right:0;left:0;
+    margin:auto ; 
+    border:5px ;
+    border-style: outset;
+    border-color:aqua;
+}
+.ifname{
+    position:absolute;
+    bottom:25px;right:0;left:0;
+    text-wrap: wrap;
+}

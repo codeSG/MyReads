@@ -1,13 +1,17 @@
-import React , {useRef} from 'react'
+import React , {useRef, useEffet} from 'react'
 import "../style/Header.css"
 import shutdown from "../image/shutdown.png"
 import { useOutletContext } from 'react-router-dom';
 import {storage} from "./firebase" ; 
 import {ref, uploadBytes , listAll, getDownloadURL, deleteObject} from "firebase/storage" ; 
 import {v4} from "uuid" ; 
+import { useEffect } from 'react';
+import obj from '../utils/emailSet';
 
-const Header = ({fileUpload, setFileUpload,fileList ,setFileList}) => {
+const Header = ({fileUpload, setFileUpload,fileList ,setFileList, setSpinner,
+                    hashID, setHashID}) => {
     // const [fileUpload, setFileUpload,fileList ,setFileList] = useOutletContext() ; 
+    // const { setEmail , getEmail} = obj ;
     const uploadRef = useRef( null ) ; 
     function setUpload(){
         // alert("got clicked ")
@@ -22,26 +26,36 @@ const Header = ({fileUpload, setFileUpload,fileList ,setFileList}) => {
         //     console.log(fileInput.files[0])  ; 
         // })
     }
-
-
-    const uploadFile = ()=>{
+    const uploadFile = (  )=>{
+        // setFileUpload(uf  );
         console.log("111111111111111 in the Header ");
         console.log( fileUpload) ;
         if( fileUpload === null ) return ; 
         console.log("2222222222222222 fileuplaod is not null ");
-        const fileRef = ref( storage , `decostarsharma113@gmail.com/${fileUpload.name}-${v4()}`) ; 
+        const fileRef = ref( storage , `${hashID}/${fileUpload.name}-${v4()}`) ; 
         uploadBytes( fileRef , fileUpload ).then( (snapshot)=>{
-            alert("image uploaded ");
+            // alert("image uploaded ");
             getDownloadURL( snapshot.ref).then( url =>{
                 // const obj = urlHelper(0,0,0) ; 
                 // const temp = "" + Object.keys(obj).length  ;
                 // console.log( " the temp is " , temp );  
                 // urlHelper( temp  , url , 1 ) 
                 console.log(" uploaded successfully " , snapshot.ref)
-                setFileList(prev=>[...prev , url]) ;
+                setFileList(prev=>[...prev , {url : url ,path:snapshot.ref._location.path_,
+                    name:snapshot.ref.name }])
             })     
-        })
+        }).then(()=> {
+            setSpinner( false ) ; 
+            setFileUpload(null) ; 
+            alert("File upoaded succcessfully") ; 
+        } )
     } 
+    useEffect(()=>{
+        uploadFile() ; 
+    }, 
+    [fileUpload]);
+
+   
 
 
 
@@ -56,9 +70,13 @@ const Header = ({fileUpload, setFileUpload,fileList ,setFileList}) => {
     <div id="boxx2">
         <button  onClick={()=>setUpload()} id="uploadd"> Upload File  
         <input onChange={(e)=>{
-            console.log("000000 a least file got selecetd " )
-         console.log(e.target.files[0]);
-            setFileUpload(e.target.files[0] );  uploadFile() ;
+            setSpinner(true) ; 
+            e.preventDefault() ; 
+        // console.log( fileUpload , setFileUpload ) ; 
+        // alert("setFileUpload(e.target.files[0] );");
+        // console.log("000000 a least file got selecetd " );
+        //  console.log(e.target.files[0]);
+         setFileUpload(e.target.files[0]) ;
         }}id="fileInputt" ref={uploadRef} type="file" />    
         </button>
         <div id="boxx3">

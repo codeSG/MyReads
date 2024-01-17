@@ -9,34 +9,29 @@ import File from './components/File';
 import Login from './components/Login';
  import Header from "./components/Header" ; 
 import MainPage from "./components/MainPage"
+
 const appRouter = createBrowserRouter([
   {
     path :'/' , 
     element : <App/>
   }, 
-  {
-    path: '/file' , 
-    element : <File />
-  },
+  
   {
     path : "/login" , 
     element : <Login/>
   },
+
+   
   {
-    path : '/showfile' , 
-    element : <ShowFile />
-  }, 
-  {
-    path : "/head" , 
-    element : <Header/>
-  } , 
-  {
-    path : "/aaa" , 
+    path : "/file" , 
     element :  <MainPage/> , 
     children : [
       {
-        path : "/aaa" , 
+        path : "/file" , 
         element : <File/>
+      },{
+        path:"/file/showfile",
+        element : <ShowFile/>
       }
     ]
   }

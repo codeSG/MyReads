@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import "../style/SignUp.css"
 import {  createUserWithEmailAndPassword , onAuthStateChanged} from "firebase/auth";
 import { auth } from './firebase';
-import { setEmail , getEmail} from '../utils/emailSet';
+import obj from '../utils/emailSet';
+import {sha256} from 'crypto-hash';
+import { Link } from 'react-router-dom';
+
 const Login  = () => {
+  const { setEmail , getEmail} = obj ; 
     const [ registerEmail , setRegisterEmail] = useState("") ;
     const [ registerPassword , setRegisterPassword ] = useState("") ;
 
@@ -15,11 +19,20 @@ const Login  = () => {
           const user = userCredential.user;
           console.log( user   ) ;
           setEmail(registerEmail)  ;
-          const url = "http://localhost:3000/file" ; 
+          // const url = "http://localhost:3000/file" ;
+          sha256(registerEmail )
+        .then(hash => { 
+          const pp = "the hash is " + hash ; 
+          // alert(" Try to Login ") ; 
+          const url = "http://localhost:3000/file/?id=" + hash ; 
+          window.open(url, "_self")
+        })
+        .catch(e => console.log(e)); 
         //   window.open( url , "_self ")
+        
         const temp = "wlcome" + getEmail() 
         console.log( temp )  ; 
-        alert( temp  ) ; 
+        // alert( temp  ) ; 
             
          
           // ...
@@ -42,8 +55,19 @@ const Login  = () => {
           setEmail( user.email ) ;  
           console.log( "22222",auth) ;
           const mail = " welcome " + getEmail()  ; 
-          alert( mail ) ; 
+          // alert( mail ) ; 
+          const url = "http://localhost:3000/file"
 
+          sha256( user.email)
+        .then(hash => { 
+          const pp = "the hash is " + hash ; 
+          // alert(" Try to Login ") ; 
+          const url = "http://localhost:3000/file/?id=" + hash ; 
+          window.open(url, "_self")
+        })
+        .catch(e => console.log(e));
+          // window.open( url , "_self" );
+            // alert("Error ocurred. Try again later "); 
           // ...
         } else {
           // User is signed out
@@ -72,9 +96,13 @@ const Login  = () => {
                     <input className='inpt' type="text" name="password" required
                     onChange={(e)=>setRegisterPassword(e.target.value )} />
                 </div>
+
                 <button id="btn" type="submit">SignUp</button>
                 <p id="account">
-                    <a href="#">Alrady Have an Accont?</a>
+                <Link to="/login">
+                Alrady Have an Accont?
+                </Link>
+                    
                 </p>
                
             </form>

@@ -5,19 +5,30 @@ import {ref, uploadBytes , listAll, getDownloadURL, deleteObject} from "firebase
 import {v4} from "uuid" ; 
 import { Link } from 'react-router-dom';
 import urlHelper from '../utils/urlHelper';
-import { getEmail } from '../utils/emailSet';
+import obj from '../utils/emailSet';
 import FileCard from './FileCard';
 import { useOutletContext } from 'react-router-dom';
 import DeletePopup from './DeletePopup';
+import Spinner from './Spinner';
+import { useSearchParams } from 'react-router-dom';
 const File = () => {
-  const [fileUpload, setFileUpload,fileList ,setFileList] = useOutletContext() ; 
+  const [ hash , setHash] = useSearchParams()  ;
+  // const { setEmail , getEmail} = obj ;
+  const [fileUpload, setFileUpload,fileList ,setFileList,spinner,fileName, setFileName , 
+      hashID, setHashID ] = useOutletContext() ; 
     // const [fileUpload, setFileUpload] = useState(null)  ;
     // const [fileList ,setFileList] = useState( [] ) ;
-    const [black , setBlack] = useState(false  ) ;  
+    const tt =  hash.get("id") ;
+
+    // alert(tt) ; 
+    const [black , setBlack] = useState(false   ) ;  
     const [deleteName , setDeleteName ]  = useState("") ; 
     const [ deleteInd , setDeletInd ] = useState(-1) ; 
-    const listRef = ref( storage , "decostarsharma113@gmail.com/") ;
+    
+    const listRef = ref( storage , `${tt}/`) ;
+    useEffect(()=>{
 
+    }, [deleteInd])
 
     async function deleteFile(path) {
         try {
@@ -26,7 +37,7 @@ const File = () => {
       
           // Delete the file
           await deleteObject(desertRef);
-          alert("File got deleted");
+          alert("The File got deleted Successdully !!");
       
           const res = await listAll(listRef);
       
@@ -80,23 +91,26 @@ const File = () => {
          
     const uploadFile = ()=>{
         if( fileUpload === null ) return ; 
-        const fileRef = ref( storage , `decostarsharma113@gmail.com/${fileUpload.name}-${v4()}`) ; 
+        const fileRef = ref( storage , `${hash.get("id")}/${fileUpload.name}-${v4()}`) ; 
         uploadBytes( fileRef , fileUpload ).then( (snapshot)=>{
-            alert("image uploaded ");
+            // alert("image uploaded ");
             getDownloadURL( snapshot.ref).then( url =>{
                 // const obj = urlHelper(0,0,0) ; 
                 // const temp = "" + Object.keys(obj).length  ;
                 // console.log( " the temp is " , temp );  
                 // urlHelper( temp  , url , 1 ) 
                 // console.log( snapshot.ref) ; 
-                setFileList(prev=>[...prev , url]) ;
+            //     { "url": url, "path": item._location.path_ , 
+            // "name" : item.name }
+                setFileList(prev=>[...prev , {url : url ,path:snapshot.ref._location.path_,
+                name:snapshot.ref.name }]) ;
             })
-        })
+        }).then(()=> setFileUpload(null) )
     } 
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-    } , [fileUpload] ) ; 
+    // } , [fileUpload] ) ; 
     useEffect( () => {
       // alert(getEmail()) ; 
         
@@ -136,7 +150,7 @@ const File = () => {
 
         }
         fun() ; 
-
+        setHashID(hash.get("id")) ; 
 
       }, []);
       
@@ -157,7 +171,7 @@ const File = () => {
                       
                         <FileCard  ind={ind} ele={ele} deleteFile={deleteFile}
                           setDeleteName={setDeleteName} setBlack={setBlack} 
-                          setDeletInd={setDeletInd}
+                          setDeletInd={setDeletInd} setFileName={setFileName}
                         /> 
                                          
                        
@@ -178,9 +192,20 @@ const File = () => {
         {
           black && <DeletePopup deleteName={deleteName} setBlack={setBlack}
             setDeletInd={setDeletInd}
+            deleteInd={deleteInd} deleteFile={deleteFile}
           />
           
         }
+        {
+          spinner && <div>
+              <div onClick={()=>{setDeletInd(-1) ; setBlack(false);}}
+              style={{backgroundColor:"black", position:"absolute", 
+              top:"0", left:"0", right:"0",bottom:"0",
+              opacity:"0.6" , zIndex:"4" , width:"100%" , height:"100%"}}></div>
+              <Spinner/>
+          </div>
+        }
+        
         
         
     </div>

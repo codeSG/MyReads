@@ -2,9 +2,11 @@ import React , {useState} from 'react'
 import "../style/Login.css" ; 
 import {  signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from './firebase';
-import { setEmail , getEmail} from '../utils/emailSet';
+import obj  from '../utils/emailSet';
+import {sha256} from 'crypto-hash';
+import { Link } from 'react-router-dom';
 const Login = () => {
-
+  const { setEmail , getEmail} = obj ;
     const [ loginEmail , setLoginEmail] = useState("") ;
     const [ loginPassword , setLoginPassword ] = useState("") ;
 
@@ -13,14 +15,23 @@ const Login = () => {
         signInWithEmailAndPassword(auth, loginEmail, loginPassword)
         .then((userCredential) => {
           // Signed up 
-          const user = userCredential.user;
-          console.log( user   ) ;
-          setEmail(loginEmail)  ;
-          const url = "http://localhost:3000/file" ; 
-        //   window.open( url , "_self ")
-        const temp = "wlcome" + getEmail() 
-        console.log( temp )  ; 
-        alert( temp  ) ; 
+        //   const user = userCredential.user;
+        //   console.log( user   ) ;
+        //   setEmail(loginEmail)  ;
+        //   const url = "http://localhost:3000/file" ; 
+        // //   window.open( url , "_self ")
+        // const temp = "wlcome" + getEmail() 
+        // console.log( temp )  ; 
+        // alert( temp  ) ; 
+
+        sha256(loginEmail )
+        .then(hash => { 
+          const pp = "the hash is " + hash ; 
+          // alert(" Try to Login ") ; 
+          const url = "http://localhost:3000/file/?id=" + hash ; 
+          window.open(url, "_self")
+        })
+        .catch(e => console.log(e)); 
             
          
           // ...
@@ -54,7 +65,10 @@ const Login = () => {
                 </div>
                 <button id="bbtn">LogIn</button>
                 <p id="account">
-                    <a href="#">Sign Up For Kindle </a>
+                    <Link to="/">
+                    Sign Up For Kindle
+                    </Link>
+                    
                 </p>
                
             </form>
