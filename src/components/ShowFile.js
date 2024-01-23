@@ -11,7 +11,7 @@ const ShowFile = () => {
   console.log( searchParams)
 
   return (
-      <div>
+      <div className="Card">
               <iframe  className="ifram" src={obj[url]}  ></iframe>
               <h1 className="ifname">File Name:{fileName}</h1>
       </div>

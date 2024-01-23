@@ -5,6 +5,8 @@ import { useOutletContext } from 'react-router-dom';
 import {storage} from "./firebase" ; 
 import {ref, uploadBytes , listAll, getDownloadURL, deleteObject} from "firebase/storage" ; 
 import {v4} from "uuid" ; 
+import {auth} from "./firebase"
+import { deleteUser } from 'firebase/auth';
 import { useEffect } from 'react';
 import obj from '../utils/emailSet';
 
@@ -12,6 +14,18 @@ const Header = ({fileUpload, setFileUpload,fileList ,setFileList, setSpinner,
                     hashID, setHashID}) => {
     // const [fileUpload, setFileUpload,fileList ,setFileList] = useOutletContext() ; 
     // const { setEmail , getEmail} = obj ;
+    function Signout(){
+        const user = auth.currentUser;
+
+        deleteUser(user).then(() => {
+            
+            window.open("http://localhost:3000");
+        // User deleted.
+         }).catch((error) => {
+        // An error ocurred
+        // ...
+        });
+    }
     const uploadRef = useRef( null ) ; 
     function setUpload(){
         // alert("got clicked ")

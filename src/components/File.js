@@ -11,6 +11,7 @@ import { useOutletContext } from 'react-router-dom';
 import DeletePopup from './DeletePopup';
 import Spinner from './Spinner';
 import { useSearchParams } from 'react-router-dom';
+import "../style/File.css"
 const File = () => {
   const [ hash , setHash] = useSearchParams()  ;
   // const { setEmail , getEmail} = obj ;
@@ -153,12 +154,11 @@ const File = () => {
         setHashID(hash.get("id")) ; 
 
       }, []);
-      
+      // backgroundColor:"#f0f2f5"
   return (
-    <div style={{backgroundColor:"#f0f2f5"  , marginTop:"80px"}}>
-        <input type="file" onChange={(e)=> setFileUpload(e.target.files[0]) }/>
-        <button onClick={()=>uploadFile()}>Upload Image</button>
-        <div style={{display:"flex" , flexWrap:"wrap"  }}>
+    <div className="fileContainer" >
+       
+        {/* <div style={{display:"flex"}}> */}
         {
 
                 
@@ -182,7 +182,7 @@ const File = () => {
             
            
         }
-        </div>
+        {/* </div> */}
         {
           black && <div onClick={()=>{setDeletInd(-1) ; setBlack(false);}}
            style={{backgroundColor:"black", position:"absolute", 

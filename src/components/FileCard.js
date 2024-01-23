@@ -1,24 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {dustbin} from "../utils/imageLink"
-
+import "../style/FileCard.css"
 const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd,
   setFileName}) => {
 
   return (
-        <div key={ind} style={{ width:"320px"  , padding:"8px", margin:"8px" , 
-        flexGrow:"1" , boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" , 
-        borderRadius:"10px"}}>
-            <div>
-            <iframe  src={ele.url} width='100%' height='250px' 
+        <div className="fileCard" key={ind} >
+            <div class="frame">
+            <iframe 
+            id="iframe" src={ele.url} 
             ></iframe>
             </div>
-            <div id="inner" style={{width:"100%" , display:"flex",
-            justifyContent:"space-around" , paddingTop:"10px"}}>
-                <Link to={`/file/showfile/?url=${ind}`} style={{width:"45%" }}>
-                <button style={{ width:"100%" , height:"100%" , 
-                backgroundColor: "#1877f2",color:"white" ,
-                fontSize:"20px" , borderRadius:"10px", padding:"5px",border:"0"}}
+            <div id="inner" >
+                <Link id="link" to={`/file/showfile/?url=${ind}`} >
+                <button class="View" 
                 onClick={()=>setFileName(ele.name)}>
                 View File
                 </button>
@@ -27,11 +23,7 @@ const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd,
                 
                 
                 
-                <button style={{width:"45%"  , 
-                backgroundColor:"#CCCCCC", fontSize:"20px" , borderRadius:"10px",
-                padding:"5px", border:"0" 
-
-                }} onClick={()=> {
+                <button class="Delete" onClick={()=> {
                   setDeleteName(ele.name) ; 
                   setBlack( true ) ; 
                   setDeletInd(ele.path) ; 

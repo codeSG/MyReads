@@ -1,0 +1,34 @@
+body{
+    margin :0 ; 
+}
+.react-pdf__Page{
+    width : 800 !important;
+    height : 600 !important
+}
+.react-pdf__Page__canvas{
+    width : inherit !important;
+    height : inherit !important
+}
+img{
+    width : 100% !important;
+}
+.pdfContainer{
+    width:100vw ; 
+    height :100vh ;
+    background-color: red ;
+    /* display:flex ; 
+    justify-content: center; */
+}
+.abc{
+    width:100vw ; 
+    height :100vh ;
+    background-color: red ;
+    display:flex ; 
+    justify-content: center;
+    align-items: center;
+}
+.turn-page-wrapper > div{
+    /* width:inherit !important ;
+    height : inherit  !important; */
+    /* background-color: aqua !important; */
+}

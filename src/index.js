@@ -8,8 +8,9 @@ import { createContext ,  useState} from 'react';
 import File from './components/File';
 import Login from './components/Login';
  import Header from "./components/Header" ; 
-import MainPage from "./components/MainPage"
-
+import MainPage from "./components/MainPage";
+import PdfViewer from './components/PdfViewer';
+import WrapPage from './components/WrapPage';
 const appRouter = createBrowserRouter([
   {
     path :'/' , 
@@ -31,7 +32,7 @@ const appRouter = createBrowserRouter([
         element : <File/>
       },{
         path:"/file/showfile",
-        element : <ShowFile/>
+        element : <WrapPage/>
       }
     ]
   }

@@ -12,16 +12,21 @@ const Login  = () => {
     const [ registerPassword , setRegisterPassword ] = useState("") ;
 
     const register= (e)=>{
+      alert("11111111111111111"); 
+      console.log( e ) ; 
         e.preventDefault() ;
+       
         createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
         .then((userCredential) => {
           // Signed up 
+          alert("2222222222222222")
           const user = userCredential.user;
           console.log( user   ) ;
           setEmail(registerEmail)  ;
           // const url = "http://localhost:3000/file" ;
           sha256(registerEmail )
         .then(hash => { 
+          alert("333333333333333333")
           const pp = "the hash is " + hash ; 
           // alert(" Try to Login ") ; 
           const url = "http://localhost:3000/file/?id=" + hash ; 
@@ -84,7 +89,7 @@ const Login  = () => {
         
 
             <img src="https://www.hip-books.com/wp-content/uploads/2020/01/0443f79590506ede414d369f0a92012c_taking-notes-clipart_1300-1204.jpeg"/>
-            <form id="form" onSubmit={(e)=>(register(e))}>
+            <form id="form" onSubmit={register}>
                 <h1>Create a new Account</h1>
                 <p>It's quick and easy </p>
                 <div  style={{ width:"100%" }}  >
