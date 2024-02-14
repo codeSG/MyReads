@@ -1,0 +1,84 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+input[type='checkbox'] {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #e3be9b;
+    /* cursor: pointer; */
+    display: inline-block;
+    position: relative;
+}
+
+.checkbox-custom::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 5px;
+    /* border: 2px solid #fff; */
+    border: 2px solid black ; 
+    /* size:20px ; */
+    border-top: none;
+    border-right: none;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    transform: translate(20%, 7%) rotate(-60deg);
+    scale: 2.7;
+    opacity : 0 ; 
+}
+
+input[type='checkbox']:checked + .checkbox-custom::before {
+    opacity: 1;
+    font-size:25px;
+}
+   
+#dateBox{
+    /* background-color: yellow ; */
+    width: fit-content;
+    
+    /* margin-top:100px ;  */
+    position:relative ; 
+    top:25%;
+    
+}
+#date{
+    display: grid ;
+    grid-template-columns: repeat( 6 , 30px );
+    column-gap: 10px ;
+    row-gap: 10px;
+    /* width:400px  ;  */
+    width:fit-content;
+    padding:20px ;
+    background-color: white;
+    /* background-color: yellow ; */
+    border : 2px solid black;
+    border-radius: 12px;
+    position : absolute ;
+    top:50px  ; 
+    left:60px ; 
+}
+#dateBox p{
+    text-align: center;
+    font-weight: bold ;
+    width : fit-content;
+    font-size:15px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    width  : 500px  ;
+    /* top:0px ;  */
+    top:30px;
+    left:-100px ;
+    /* left:30px ; */
+
+    /* margin-bottom:5px ; */
+    
+}

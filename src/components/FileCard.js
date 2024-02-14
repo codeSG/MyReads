@@ -35,7 +35,7 @@ const FileCard = ({ind, ele , deleteFile, setDeleteName, setBlack,setDeletInd,
             
             
 
-        </div>
+      </div>
 
                         
 

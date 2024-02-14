@@ -12,11 +12,12 @@ import DeletePopup from './DeletePopup';
 import Spinner from './Spinner';
 import { useSearchParams } from 'react-router-dom';
 import "../style/File.css"
-const File = () => {
+const File = ({fileUpload, setFileUpload,fileList ,setFileList,spinner,fileName, setFileName , 
+  hashID, setHashID}) => {
   const [ hash , setHash] = useSearchParams()  ;
   // const { setEmail , getEmail} = obj ;
-  const [fileUpload, setFileUpload,fileList ,setFileList,spinner,fileName, setFileName , 
-      hashID, setHashID ] = useOutletContext() ; 
+  // const [fileUpload, setFileUpload,fileList ,setFileList,spinner,fileName, setFileName , 
+  //     hashID, setHashID ] = useOutletContext() ; 
     // const [fileUpload, setFileUpload] = useState(null)  ;
     // const [fileList ,setFileList] = useState( [] ) ;
     const tt =  hash.get("id") ;
@@ -162,7 +163,7 @@ const File = () => {
         {
 
                 
-                 fileList.map( (ele, ind)  =>
+                fileList.map( (ele, ind)  =>
                  
                   {
                      const key = "" + ind ; 

@@ -9,8 +9,9 @@ import File from './components/File';
 import Login from './components/Login';
  import Header from "./components/Header" ; 
 import MainPage from "./components/MainPage";
-import PdfViewer from './components/PdfViewer';
+// import PdfViewer from './components/PdfViewer';
 import WrapPage from './components/WrapPage';
+import BetterFile from './components/BetterFile';
 const appRouter = createBrowserRouter([
   {
     path :'/' , 
@@ -25,29 +26,28 @@ const appRouter = createBrowserRouter([
    
   {
     path : "/file" , 
+    // element : <BetterFile/>
     element :  <MainPage/> , 
-    children : [
-      {
-        path : "/file" , 
-        element : <File/>
-      },{
-        path:"/file/showfile",
-        element : <WrapPage/>
-      }
-    ]
+    
+  },{
+    path:"/file/showfile",
+    element : <WrapPage/>
   }
-  
+ 
   
 
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+
+
 root.render(
   // <React.StrictMode>
-    // <App />
-  
-      <RouterProvider router={appRouter} />
+    <App />
+    
+
+     
     
     
   // </React.StrictMode>

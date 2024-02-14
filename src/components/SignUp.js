@@ -50,53 +50,54 @@ const Login  = () => {
         });
     }
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/auth.user
-          const uid = user.uid;
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //       // User is signed in, see docs for a list of available properties
+    //       // https://firebase.google.com/docs/reference/js/auth.user
+    //       const uid = user.uid;
 
-          console.log( "11111",user) ;
-          setEmail( user.email ) ;  
-          console.log( "22222",auth) ;
-          const mail = " welcome " + getEmail()  ; 
-          // alert( mail ) ; 
-          const url = "http://localhost:3000/file"
+    //       console.log( "11111",user) ;
+    //       setEmail( user.email ) ;  
+    //       console.log( "22222",auth) ;
+    //       const mail = " welcome " + getEmail()  ; 
+    //       // alert( mail ) ; 
+    //       const url = "http://localhost:3000/file"
 
-          sha256( user.email)
-        .then(hash => { 
-          const pp = "the hash is " + hash ; 
-          // alert(" Try to Login ") ; 
-          const url = "http://localhost:3000/file/?id=" + hash ; 
-          window.open(url, "_self")
-        })
-        .catch(e => console.log(e));
-          // window.open( url , "_self" );
-            // alert("Error ocurred. Try again later "); 
-          // ...
-        } else {
-          // User is signed out
-          // ...
-        }
-      });
+    //       sha256( user.email)
+    //     .then(hash => { 
+    //       const pp = "the hash is " + hash ; 
+    //       // alert(" Try to Login ") ; 
+    //       const url = "http://localhost:3000/file/?id=" + hash ; 
+    //       window.open(url, "_self")
+    //     })
+    //     .catch(e => console.log(e));
+    //       // window.open( url , "_self" );
+    //         // alert("Error ocurred. Try again later "); 
+    //       // ...
+    //     } else {
+    //       // User is signed out
+    //       // ...
+    //     }
+    //   });
 
 
   return (
     <div id="outerMain">
 
-<p id="title">Kindle</p>
+<h1 id="title">Kindle</h1>
     <div id="box">
         
+          <div id="innerBox">
 
-            <img src="https://www.hip-books.com/wp-content/uploads/2020/01/0443f79590506ede414d369f0a92012c_taking-notes-clipart_1300-1204.jpeg"/>
+          <img id="signupImage" src="https://www.hip-books.com/wp-content/uploads/2020/01/0443f79590506ede414d369f0a92012c_taking-notes-clipart_1300-1204.jpeg"/>
             <form id="form" onSubmit={register}>
                 <h1>Create a new Account</h1>
-                <p>It's quick and easy </p>
-                <div  style={{ width:"100%" }}  >
+                <p id="quick"> It's quick and easy </p>
+                <div className="entry" id="mail" style={{ width:"100%" }}  >
                     <label>Enter Email </label>
                     <input className='inpt' type="text" required onChange={(e)=>setRegisterEmail(e.target.value)}/>
                 </div>
-                <div>
+                <div className="entry">
                     <label>Enter password  </label>
                     <input className='inpt' type="text" name="password" required
                     onChange={(e)=>setRegisterPassword(e.target.value )} />
@@ -105,12 +106,15 @@ const Login  = () => {
                 <button id="btn" type="submit">SignUp</button>
                 <p id="account">
                 <Link to="/login">
-                Alrady Have an Accont?
+                Already Have an Accont?
                 </Link>
                     
                 </p>
                
             </form>
+
+          </div>
+          
        
     </div>
 

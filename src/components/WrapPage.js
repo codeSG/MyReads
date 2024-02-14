@@ -1,37 +1,25 @@
 
-import React, {useState, useEffect , useRef} from 'react'
+import React, {useState, useEffect , useContext, useRef} from 'react'
 import { Document, Page , pdfjs, StyleSheet} from 'react-pdf';
-import "../style/PdfViewer.css"
+
 import { useSearchParams } from 'react-router-dom';
 import urlHelper from '../utils/urlHelper';
 import "../style/WrapPage.css"
 import $ from "jquery";
 import "./tturn.js";
 import Turn from "./Turn.js";
+import {v4} from "uuid" ; 
+import { ContextInfo } from '../App.js';
+import {ref, getMetadata, updateMetadata } from "firebase/storage" ;
+import {storage} from "./firebase" ;
+import ClockMessage from './features/ClockMessage.js';
 // const obj = urlHelper( 0 , 0  , 0  ) ; 
 
 const WrapPage = () => {
-
-
- 
-
-
-  const options = {
-    width: 800,
-    height: 600,
-    autoCenter: true,
-    display: "double",
-    acceleration: true,
-    elevation: 50,
-    gradients: !$.isTouch,
-    when: {
-      turned: function(e, page) {
-        console.log("Current view: ", $(this).turn("view"));
-      }
-    }
-  };
-  
-
+  const [expand , setExpand] = useState( true) ; 
+  const btnRef=useRef(null) ; 
+  const [animtionNumber, setAnimationNumber] =useState(0) ; 
+  const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath} = useContext(ContextInfo) ;
 
   const [searchParams, setSearchParams] = useSearchParams() ;
   const url= searchParams.get("url") ; 
@@ -39,20 +27,161 @@ const WrapPage = () => {
   const [rightDiv  , setRightDiv] = useState( false ) ; 
   const obj = urlHelper( 0 , 0  , 0  ) ; 
   const [numPages , setNumPages] = useState(null) ; 
-    const [pageNumber , setPageNumber]  = useState(1) ; 
+    const [_pageNumber , _setPageNumber]  = useState(1) ; 
+  const [ pdfURL , setPdfURL] = useState( obj[url]) ; 
+  const [bookIndex , setBookIndex] = useState(Number( url ) ) ;
+  const pdfDivRef = useRef(null)
+  // setOriginalFile( JSON.parse(localStorage.getItem("originalFile") ));
+          // alert("noooooooo") 
+  // alert( pdfURL ) ; 
+  
+// alert(originalFile) ; 
+console.log("originaFile" , originalFile)
+  const options = {
+    // mode: "no-cors",
+    width: 1000,
+    height: 700,
+    autoCenter: true,
+    display: "double",
+    acceleration: true,
+    elevation: 50,
+    gradients: !$.isTouch,
+    when: {
+      turned: function(e, page) {
+        // console.log("Current view: ", $(this).turn("view") , page ) ;
+        console.log(   " the page numbe is" ,page ) ;
+        // _setPageNumber(page) ; 
+        updatePageNumber(page  ) ;
 
-    useEffect(()=>{
+      }
+    } , 
+    page : !fileList[bookIndex] ? 1:fileList[bookIndex].currentPage
+    // currentPage ?originalFile[bookIndex].currentPage :1
 
+  };
+  const clockMessageRef= useRef(null)
+
+
+
+  useEffect(()=>{
+    if( obj[url] ){
+     window.localStorage.setItem( 'link' , obj[url]) ; 
+     setMetadataPath(obj[url])
+    }
+
+    console.log( "typeofurl" , typeof(url) ) ; 
+    // setIndex
+    setPdfURL( window.localStorage.getItem('link')   ) ; 
+    // setBookIndex( Number( url ) ) ;
+    console.log( "typeofurl" , typeof(bookIndex) ) ; 
+
+    const currDate = new Date().getDate() ; 
+    let calendarArr = JSON.parse(localStorage.getItem("calendarArray") );
+    console.log("localstorage" , calendarArr) ;
+    if( !calendarArr[currDate-1]){
+      calendarArr[ currDate-1] = true ;
+      localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ;
+
+      // setCalendarEntry[currDate-1] = true ;
+      setCalendarEntry( [...calendarArr] )  ;
       
-    }, []) ; 
+    }
+
+    
+    
+    // document.querySelector(".magazine").turn(  'page' , 2 ) ; 
+    // alert( pdfURL)
+    if( originalFile.length !== 0 ){
+      localStorage.setItem( "originalFile",JSON.stringify(fileList) )
+    }
+
+    document.documentElement.style.setProperty('--main-color1', '70vw');
+    document.documentElement.style.setProperty('--main-color2', '70vh');
+    document.documentElement.style.setProperty('--main-color3', '35vw');
+    
+  //  alert("metaDataAccess")
+    // up
+  }, []) ; 
 
   // const [pageNumber  , setP]
   console.log( "222222" , obj ); 
-  function onDocumentSuccess({numPages}){
+    function onDocumentSuccess({numPages}){
     console.log("pdfpages" , numPages);
         setNumPages(numPages) ; 
+      console.log( "originalFile[bokIndex", fileList[bookIndex]) ; 
+      setToatlPages(numPages);
+        // if( )
+
+
         console.log("&&&&&&&&&") ; 
 
+    }
+
+    async function updatePageNumber(pageNumber){
+      
+
+       
+        console.log("originalIle is tcausing triuble " , originalFile ) ; 
+        // if( originalFile.length === 0 ){
+        //   console.log( originalFile)
+        //   setOriginalFile( JSON.parse(localStorage.getItem("originalFile") ));
+        //   console.log(JSON.parse(localStorage.getItem("originalFile") )) ; 
+        //   alert(`I set the value ${originalFile}`) ; 
+
+        //   console.log( originalFile )
+        // }
+        const metaRef = ref( storage , fileList[bookIndex].path ) ;
+        console.log( "originalFile[bookIndex].path " , fileList[bookIndex].path );
+        const metaData= await  getMetadata(metaRef) ;
+        const obj = metaData.customMetadata ; 
+        console.log("obj" , obj ) ; 
+        const newMetadata = {
+            "customMetadata":{
+              ...obj , "currentPage" :pageNumber  
+            }
+          
+         
+        };
+        console.log( " newMetaData" , newMetadata  ) ; 
+
+        const resultMetaData = await updateMetadata(metaRef, newMetadata) ; 
+        console.log( "resultMetaData" , resultMetaData) ;
+        
+        // setOriginalFile( )
+        fileList[bookIndex].currentPage = pageNumber ;
+        // const pageUpdateArr = [...fileList] ; 
+        // pageUpdateArr[bookIndex].currentPage = pageNumber;
+        // setFileList(pageUpdateArr)
+        // _setPageNumber(pageNumber)
+      
+    }
+    async function setToatlPages(numPages){
+      if( numPages%2 === 0 ){
+        numPages +=2 ; 
+      }else{
+        numPages += 3 ; 
+      }
+      if( fileList[bookIndex].totalPage === -1 || !fileList[bookIndex].totalPage ){
+        const metaRef = ref( storage , fileList[bookIndex].path ) ;
+        console.log( "originalFile[bookIndex].path " , fileList[bookIndex].path );
+        const metaData= await  getMetadata(metaRef) ;
+        const obj = metaData.customMetadata ; 
+        console.log("obj" , obj ) ; 
+        const newMetadata = {
+            "customMetadata":{
+              ...obj , "totalPage" : numPages 
+            }
+          
+         
+        };
+        console.log( " newMetaData" , newMetadata  ) ; 
+
+        const resultMetaData = await updateMetadata(metaRef, newMetadata) ; 
+        console.log( "resultMetaData" , resultMetaData) ;
+        
+        // setOriginalFile( )
+        fileList[bookIndex].totalPage = numPages ;
+      }
     }
 
     // return <div style={{marginTop:"100px"}}><h1>Hi</h1></div>
@@ -83,6 +212,14 @@ const WrapPage = () => {
     // }
       // if( numPages === null ) return <h1>Searxhing</h1>
 
+      // useEffect(()=>{
+      //   console.log( " useefect the page number is" , pageNumber ) ; 
+      // } , [ pageNumber]) ;
+
+    if( fileList.length === 0 ){
+      setFileList( JSON.parse(localStorage.getItem("originalFile") ));
+      return <h1>Preparing Your Book .... </h1>
+    }
     return(
 
 
@@ -90,34 +227,36 @@ const WrapPage = () => {
     
     
     
-    <Document className="abc" file={"https://firebasestorage.googleapis.com/v0/b/uploadingfile-b50cc.appspot.com/o/8eab544d671a8b9a1bc3e99f376f17b2c1fe8855084c3f1fcec34d1141290dde%2Fweb_prac6.pdf-24c9204b-3e61-437d-b56f-fc025f9eb53b?alt=media&token=86401278-51a9-4e65-9451-8de5e347dfce"}
-  onLoadSuccess={onDocumentSuccess}
+    <Document   className="abc" file={pdfURL }
+        onLoadSuccess={onDocumentSuccess} 
    >
-    <Document className="def" file={"https://firebasestorage.googleapis.com/v0/b/uploadingfile-b50cc.appspot.com/o/8eab544d671a8b9a1bc3e99f376f17b2c1fe8855084c3f1fcec34d1141290dde%2Fweb_prac6.pdf-24c9204b-3e61-437d-b56f-fc025f9eb53b?alt=media&token=86401278-51a9-4e65-9451-8de5e347dfce"}>
-    <Turn options={options} className="magazine" >
-
-<div className="abc" key={4 } style={{backgroundColor:"gray"}}></div>
+    <Document className="def" file={pdfURL }    >
+    <Turn options={options} className="magazine"  >
+ 
+<div className="ghi" key={0 } ></div>
 { new Array(numPages).fill(1).map( ( ele , ind)=>
 
- (
-  
-  
-  
+ (    
+        
 
-          <Page  key={ind}
-              renderTextLayer={false}
-              renderAnnotationLayer={false}
-              customTextRenderer={false}
-              
-           pageNumber={ind+1   } />
-
- 
-           
+                <Page  
+                    // onMouseEnter={(()=>setPageNumber( ind+ 1))}
+                  key={ind+1}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    customTextRenderer={false}
+                    
+                pageNumber={ind+1} />
+        
+          
            )
  
 )}
-<div className="abc" key={5 } style={{backgroundColor:"gray"}}></div>
-<div className="abc" key={6 } style={{backgroundColor:"gray"}}></div>
+<div className="ghi" key={ numPages+1}></div>
+{
+  (numPages%2 !==0 ) && <div className="ghi" key={numPages+2 } ></div>
+}
+
 </Turn>
 
    
@@ -125,6 +264,7 @@ const WrapPage = () => {
  
     
     </Document>  
+    <ClockMessage clockMessageRef={clockMessageRef} fileList={fileList}/>
            
           {/* <Turn options={options} className="magazine">
       {pages.map((page, index) => (
@@ -136,8 +276,66 @@ const WrapPage = () => {
         
                          
                        
-                
+    <button ref={btnRef} style={{"backgroundColor":"black" , "padding":"5px" , "color":"white" , "position":"absolute" , "left":"5px", "bottom":"5px", "borderRadius":"10px", "cursor":"pointer"}}
+    onClick={()=>{
+      // console.log(clockMessageRef.current.classList);
+      if( clockMessageRef.current.classList.contains("move"))
+        {
+
+           btnRef.current.classList.remove("forward");
+            btnRef.current.classList.add("backward");
+          
+          // document.documentElement.style.setProperty('--main-color1', '70vw');
+          //   document.documentElement.style.setProperty('--main-color2', '70vh');
+          //   document.documentElement.style.setProperty('--main-color3', '35vw');
+            clockMessageRef.current.classList.remove("move")
+            clockMessageRef.current.classList.add("moveBack");
+            btnRef.current.textContent="Expand";
+            // console.log(pdfDivRef.current.classList)
+            document.querySelector(".abc").classList.remove("fullBlack") ; 
+            document.querySelector(".abc").classList.add("halfBlack") ;
+            // setExpand(true);
+            
+            
+        }else{
+            // alert("hi");
+            // element.style.setProperty('--main-color', '#00ff00');
+            clockMessageRef.current.classList.remove("moveBack")
+            clockMessageRef.current.classList.add("move");
+            btnRef.current.classList.add("forward");
+            btnRef.current.textContent="Colllapse";
+            btnRef.current.classList.remove("backward");
+            // console.log(pdfDivRef.current.classList)
+            // element.style.setProperty('--main-color', '#00ff00');
+            document.querySelector(".abc").classList.add("fullBlack") ; 
+            document.querySelector(".abc").classList.remove("halfBlack") ; 
+
+            // document.documentElement.style.setProperty('--main-color1', '90vw');
+            // document.documentElement.style.setProperty('--main-color2', '90vh');
+            // document.documentElement.style.setProperty('--main-color3', '45vw');
+            // document.querySelector(".def").style.setProperty('--main-color1', '90vw')
+            // document.querySelector(".def").style.setProperty('--main-color2', '90vh')
+
+            // document.querySelector(".magazine").style.setProperty('--main-color1', '90vw')
+            // document.querySelector(".magazine").style.setProperty('--main-color2', '90vh')
+
+            // document.querySelector(".turn-page-wrapper").style.setProperty('--main-color3', '45vw')
+            // document.querySelector(".turn-page-wrapper").style.setProperty('--main-color2', '90vh')
+
+            // document.querySelector(".react-pdf__Page").style.setProperty('--main-color3', '45vw')
+            // document.querySelector(".react-pdf__Page").style.setProperty('--main-color2', '90vh')
+
+
+            document.querySelector(".def").classList.add("fullWidth_nine") ;
+            document.querySelector(".magazine").classList.add("fullWidth_nine") ;
+            document.querySelector(".turn-page-wrapper").classList.add("halfWidth_nine") ; 
+            document.querySelector(".react-pdf__Page").classList.add("halfWidth_nine") ; 
+            // setExpand(false) ; 
+
+        }
+    }}>Expand</button>   
              
+
                       
     </div>
    ) 

@@ -10,8 +10,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    width: 60%;
-    /* height: 50%; */
+    width: fit-content;
+       /* height: 50%; */
     margin: auto;
     /* border: 2px solid black; */
     
@@ -21,28 +21,46 @@
     display : flex ; 
 
 }
-#box div{
-    width : 100% ; 
-    /* display: flex; */
+#innerBox {
+    width : fit-content ; 
+    display: flex;
+    height: fit-content;
     
 } 
-img{
-    width : 50%  ; 
-    height : 100% ;
-} 
+#signupImage{
+    width : 400px;  
+    height :400px;
+}
+
+.entry{
+    display:flex ; 
+    justify-content: space-around;
+    align-items: center;
+    margin-top:10px;
+}
 #form{
-    width: 50% ; 
+    width: 500px  ; 
     /* padding-top: 20px ; ; */
     padding-left: 5px;
-    border-radius: 12px ; ;
+    padding-right: 5px;
+    border-radius: 12px ; 
+    /* display: flex; */
+    /* flex-direction: column;
+    gap:20px; */
+    /* height : 100%; */
     /* margin:auto 0 ; */
 }
-label{
+#entry label{
+    /* margin-top:10px; */
     display:inline-block  ;
     width : 30% ; 
     font-size: 20px ;
 }
+#mail{
+    margin-top:20px ; 
+}
 .inpt{
+    font-size:20px;
     width:60% ; 
     margin: 5px ; 
     outline : none ; 
@@ -57,16 +75,23 @@ h1{
     text-align : center ; 
     margin-bottom: 0;
 }
-form p{
-    margin-top : 0 ;
+#form h1{
+    margin-top: 40px;
+}
+#quick{
+    margin-top : 10px ;
+
+    padding-bottom:10px ;
+    border-bottom: 1px solid gray  ;
+
+    /* border-bottom : 2px solid red ; */
     text-align: center;
     /* margin-bottom: 25px ; */
-    position: relative;
-    bottom:0 ; 
+    
 }
 #btn{
     display : block ; 
-    margin-top:10px ; 
+    margin-top:20px ; 
     margin-left: auto ;
     margin-right: auto;
     padding:10px ; 
@@ -80,9 +105,13 @@ form p{
     font-size: 22px ; 
 
 }
+#btn:active{
+    translate : 0 10px;
+}
 #account{
     margin-top: 20px ; 
     font-size: 20px ;
+    text-align:  center ;
 }
 a{
     color: #1877f2 ; 

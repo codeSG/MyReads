@@ -1,0 +1,91 @@
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#ANFP{
+    width : fit-content ; 
+    background-color: rgb(193, 150, 235);
+    padding:10px 30px ; 
+    border-radius: 12px;
+    
+}
+#popup-title{
+    font-size: 20px;
+    /* color : white ; */
+    margin-bottom: 2px;
+    margin-top:2px ;
+    text-align: left ;
+   
+    
+}
+#popup-description{
+    font-size: 20px;
+    /* color : white ; */
+    margin-bottom: 2px;  
+    text-align: left;         
+    margin-top:15px;
+    
+    
+}
+#ANFP textarea{
+    width:300px ; 
+    height : 150px ; 
+    font-size : 25px ; 
+    outline: none ; 
+    border-radius: 12px ;
+    border : 0  ;
+    padding:5px 10px ; 
+    margin-top: 0;
+}
+#ANFP input{
+    width:300px ; 
+    height:30px ; 
+    font-size : 25px ; 
+    outline: none;
+    border-radius: 12px ;
+    padding : 5px 10px ;
+    margin-top: 0;
+    border: 0;
+}
+#done{
+    width:40% ; 
+    
+    height : fit-content;
+    padding:5px ; 
+    background-color:rgb(47, 239, 47);
+    color : white ; 
+    font-size:20px ;
+    /* padding: 10px ; */
+    /* padding-bottom: 10px; */
+    border-radius: 12px ; 
+    /* border : 1px solid black ; */
+    border : 0 ; 
+}
+#cancel:active{
+    translate:0 2px;
+}
+#done:active{
+    translate:0 2px;
+}
+#cancel{
+    width:40% ; 
+    
+    height : fit-content;
+    padding:5px ; 
+    background-color: rgb(224, 123, 123);
+    color : white ; 
+    font-size:20px ;
+    /* padding: 10px ; */
+    /* padding-bottom: 10px; */
+    border-radius: 12px ; 
+    /* border : 1px solid black ; */
+    border :0 ; 
+}
+#popup-decision{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+    margin-bottom:10px  ;
+    /* padding:5px; */
+}
+

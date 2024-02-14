@@ -1,34 +1,209 @@
 body{
     margin :0 ; 
 }
+
+:root {
+    --main-color1:70vw;
+    --main-color2:70vh;
+    --main-color3:35vw;
+    --font-size: 16px;
+  }
+/* img{
+    width : 100% !important;
+} */
+.pdfContainer{
+    width:100vw ; 
+    height :100vh ;
+    display : flex ; 
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    /* background-color: red ; */
+    /* display:flex ; 
+    justify-content: center; */
+}
+.abc{
+    width:80vw ; 
+    height :80vh ;
+    background-color: rgb(233, 231, 231) ;
+    background-color: black ;
+    display:flex ; 
+    justify-content: center;
+    align-items: center;
+    /* background:url(../image/splash-bg.jpg) bottom left repeat-x; */
+    overflow: hidden;
+    /* opacity: 0.5; */
+}
+
+
+@keyframes anm1 {
+    0%{
+        width:80vw ;
+        height:80vh;
+    }
+    100%{
+        width:100vw;
+        height:100vh;
+    }
+}
+@keyframes anm2 {
+    0%{
+        width:100vw;
+        height:100vh;
+    }
+    100%{
+        width:80vw ;
+        height:80vh;
+
+    }
+}
+
+
+.fullBlack{
+    animation: anm1  2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+.halfBlack{
+    animation: anm2 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+
+@keyframes anm3 {
+    0%{
+        width:70vw !important ;
+        height:70vh !important;
+    }
+    100%{
+        width:90vw !important;
+        height:90vh !important;
+    }
+}
+@keyframes anm4 {
+    0%{
+        width:90vw !important;
+        height:90vh !important;
+    }
+    100%{
+        width:70vw !important;
+        height:70vh !important;
+
+    }
+}
+
+.fullWidth_nine {
+    animation: anm3  2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+.fullWidthUnroll_nine{
+    animation: anm4 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes anm5 {
+    0%{
+        width:35vw !important;
+        height:70vh !important;
+    }
+    100%{
+        width:45vw !important;
+        height:90vh !important;
+    }
+}
+@keyframes anm6 {
+    0%{
+        width:45vw !important; 
+        height:90vh !important;
+    }
+    100%{
+        width:35vw !important;
+        height:70vh !important;
+
+    }
+}
+
+.halfWidth_nine{
+    animation: anm5 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+.halfWidthUnroll_nine{
+    animation: anm6 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+
+
+.def{
+    width :  var(--main-color1) !important ; 
+    height : var(--main-color2) !important ;
+    background-color:rgb(224, 222, 222) ;
+}
+.magazine{
+    width : var(--main-color1) !important ; 
+    height :var(--main-color2) !important ;
+    background-color: black !important;
+}
+.turn-page-wrapper{
+    width : var(--main-color3) !important ; 
+    height :var(--main-color2) !important ;
+}
 .react-pdf__Page{
-    width : 800 !important;
-    height : 600 !important
+    width : var(--main-color3) !important;
+    height : var(--main-color2) !important
 }
 .react-pdf__Page__canvas{
     width : inherit !important;
     height : inherit !important
 }
-img{
-    width : 100% !important;
-}
-.pdfContainer{
-    width:100vw ; 
-    height :100vh ;
-    background-color: red ;
-    /* display:flex ; 
-    justify-content: center; */
-}
-.abc{
-    width:100vw ; 
-    height :100vh ;
-    background-color: red ;
-    display:flex ; 
-    justify-content: center;
-    align-items: center;
+.ghi{
+    background-color:rgb(224, 222, 222) ;
+    width : var(--main-color3) !important ;
+    height : var(--main-color2) !important;
 }
 .turn-page-wrapper > div{
     /* width:inherit !important ;
     height : inherit  !important; */
     /* background-color: aqua !important; */
+}
+
+
+.rightWrapPage{
+        width:20vw ; 
+        height: 100vh ; 
+        background-color:rgb(224, 222, 222) ; 
+}
+
+
+@keyframes anm7 {
+    0%{
+        background-color: black;
+        color:white ; 
+    }
+    100%{
+        background-color: white;
+        color:black ; 
+
+    }
+}
+@keyframes anm8 {
+    0%{
+        background-color: white;
+        color:black ; 
+    }
+    100%{
+        background-color: black;
+        color:white ; 
+
+    }
+}
+
+.forward{
+    animation: anm7 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+.backward{
+    animation: anm8 2s ease-in-out;
+    animation-fill-mode: forwards;
 }

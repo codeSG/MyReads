@@ -12,6 +12,7 @@ const Login = () => {
 
     const loginUser= (e)=>{
         e.preventDefault() ;
+        console.log( loginEmail,  loginPassword )
         signInWithEmailAndPassword(auth, loginEmail, loginPassword)
         .then((userCredential) => {
           // Signed up 
@@ -47,23 +48,23 @@ const Login = () => {
   return (
     <div>
 
-<p id="title">Kindle</p>
+<h1 id="title">Kindle</h1>
     <div id="bbox">
         
         
             
-            <form id="fform">
+            <form id="fform" onSubmit={loginUser}>
                 <p>Log in to Kindle</p>
                
-                <div  style={{width:"100%"}}>
+                <div style={{width:"100%"}}>
                     <label>Enter Email </label>
-                    <input  className="iinpt" type="text"/>
+                    <input  className="iinpt" type="text" onChange={(e)=> setLoginEmail(e.target.value)}/>
                 </div>
                 <div>
                     <label>Enter password  </label>
-                    <input className="iinpt" type="text"/>
+                    <input className="iinpt" type="text" onChange={(e)=> setLoginPassword(e.target.value)}/>
                 </div>
-                <button id="bbtn">LogIn</button>
+                <button id="bbtn" type="submit" >LogIn</button>
                 <p id="account">
                     <Link to="/">
                     Sign Up For Kindle
