@@ -1,13 +1,18 @@
 import React , {useState, useRef , useContext, useEffect }from 'react'
 import "./style/ClockMessage.css"
 import {storage} from "../firebase" ;
-import { ContextInfo } from '../../App';
+// import { ContextInfo } from '../../App';
 import { useSearchParams } from 'react-router-dom';
 import {ref,updateMetadata, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
-import 'boxicons';
-
-const ClockMessage = ({fileList, clockMessageRef}) => {
-
+// import 'boxicons';
+import 'boxicons'
+import StopWatch from './StopWatch';
+// import { useContext } from 'react-router-dom';
+import { ContextInfo } from '../../App';
+const ClockMessage = ({ fileList, clockMessageRef}) => {
+    // const { stopWatch , setStopWatch} = useContext(ContextInfo)
+    const [ stopWatch , setStopWatch ] = useState(false);
+    
     const {hashID , setHashID ,  metadataPath, setMetadataPath} = useContext(ContextInfo) ; 
     // alert( `hashID${hashID}` ) ; 
     // alert(`metadataPath ${metadataPath}`)
@@ -15,6 +20,7 @@ const ClockMessage = ({fileList, clockMessageRef}) => {
     const divRef = useRef(null) ;
     const [msgArr, setMsgArr] = useState([]);
    const [timer, setTimer ] = useState(0) ; 
+   const [ isPause , setIsPause] = useState( true ) ; 
     const [ comment , setComment] = useState(" Comments here...") ; 
     
   const [searchParams, setSearchParams] = useSearchParams() ;
@@ -60,7 +66,7 @@ const ClockMessage = ({fileList, clockMessageRef}) => {
     }, [])
     
     function playButton(){
-        if( timer === 0 ) return ;
+        if( timer === 0 || timer === -1 ) return ;
         
         setVisible( prev=> prev==='visible' ? "hidden":"visible")
        
@@ -110,13 +116,34 @@ const ClockMessage = ({fileList, clockMessageRef}) => {
         setComment("Comments here...")
 
     }
+    function pauseButton(){
+        if( isPause){
+            clearInterval(timeInterval ) ; 
+            setIsPause( false ) ; 
+        }else{
+            const timeId = setInterval(() => {
+                setTimer(prev => prev === 0 ? prev : prev - 1);
+            }, 1000);
+            // 
+            setTimeInterval(timeId);
+            setIsPause( true  ) ; 
+            
+
+        }
+        
+    }
+    if( timer === 0 ){
+        setTimer(-1) ; 
+        clearInterval(timeInterval ) ; 
+        setVisible("visible")
+    }
   return (
     <div  ref={clockMessageRef} id="messageRight">
-            
-    <div id="first">
-        <p id="timer">TIMER</p>
+      {/* { stopWatch ? <StopWatch/> : */}
+      <div id="first">
+       <p id="timer">TIMER</p>
         <div id="clock">
-            <input type="text" id="time" value={timer}  onChange={e => setTimer( Number(e.target.value.substring(0,2)))}  readOnly={read}>
+            <input type="text" id="time" value={timer === -1 ? 0 : timer}  onChange={e => setTimer( Number(e.target.value.substring(0,2)))}  readOnly={read}>
                
             </input>
             <p id="min">min</p>
@@ -124,15 +151,18 @@ const ClockMessage = ({fileList, clockMessageRef}) => {
             
             <box-icon onClick={()=>squareButton()} name='square' style={{ visibility: visible === "hidden" ? "visible" : "hidden" }} ></box-icon>
         <box-icon onClick={()=>playButton()} name='play-circle' style={{ visibility: visible }}></box-icon>
-        <box-icon style={{ visibility: visible === "hidden" ? "visible" : "hidden" }} name='pause-circle'></box-icon>
+        <box-icon onClick={()=>pauseButton()}style={{ visibility: visible === "hidden" ? "visible" : "hidden" }} name={ isPause ?'pause-circle':'play-circle'}></box-icon>
 
             
             </div>
         </div>
     </div>
     
+    {/* }       */}
+   
+    
     <div id="second">
-        <p id="notes">NOTES</p>
+       
             <div id="message">
                 <div id="messageDiv" style={ msgArr.length === 0 ? {padding:"0"}:{}}>
                 { 

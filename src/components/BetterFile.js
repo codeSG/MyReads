@@ -5,9 +5,7 @@ import {ref, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} f
 import {v4} from "uuid" ; 
 import { Link } from 'react-router-dom';
 import urlHelper from '../utils/urlHelper';
-import obj from '../utils/emailSet';
-import FileCard from './FileCard';
-import { useOutletContext } from 'react-router-dom';
+
 import DeletePopup from './DeletePopup';
 import Spinner from './Spinner';
 import { useSearchParams } from 'react-router-dom';

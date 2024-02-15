@@ -38,7 +38,8 @@ const appRouter = createBrowserRouter([
 ])
 function App() {
   
-  
+  const [stopWatch , setStopWatch] = useState(false) ; 
+
   const [fileList ,setFileList] = useState( []) ;
     const [originalFile , setOriginalFile] = useState([] ) ;
     const [calendarEntry, setCalendarEntry] = useState([]) ;
@@ -50,7 +51,7 @@ function App() {
      
     
 <ContextInfo.Provider value={ {fileList,setFileList,  originalFile,setOriginalFile,calendarEntry, setCalendarEntry , 
-hashID, setHashID, metadataPath, setMetadataPath}}>
+hashID, setHashID, metadataPath, setMetadataPath , stopWatch , setStopWatch}}>
           <div>
           <RouterProvider router={appRouter} />
           </div>

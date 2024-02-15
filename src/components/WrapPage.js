@@ -15,9 +15,14 @@ import {storage} from "./firebase" ;
 import ClockMessage from './features/ClockMessage.js';
 // const obj = urlHelper( 0 , 0  , 0  ) ; 
 
+import WrapHeader from './features/WrapHeader.js';
 const WrapPage = () => {
+
+
+
   const [expand , setExpand] = useState( true) ; 
   const btnRef=useRef(null) ; 
+  const pdfRef = useRef(null);
   const [animtionNumber, setAnimationNumber] =useState(0) ; 
   const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath} = useContext(ContextInfo) ;
 
@@ -95,9 +100,9 @@ console.log("originaFile" , originalFile)
       localStorage.setItem( "originalFile",JSON.stringify(fileList) )
     }
 
-    document.documentElement.style.setProperty('--main-color1', '70vw');
-    document.documentElement.style.setProperty('--main-color2', '70vh');
-    document.documentElement.style.setProperty('--main-color3', '35vw');
+    // document.documentElement.style.setProperty('--main-color1', '70vw');
+    // document.documentElement.style.setProperty('--main-color2', '70vh');
+    // document.documentElement.style.setProperty('--main-color3', '35vw');
     
   //  alert("metaDataAccess")
     // up
@@ -105,6 +110,7 @@ console.log("originaFile" , originalFile)
 
   // const [pageNumber  , setP]
   console.log( "222222" , obj ); 
+ 
     function onDocumentSuccess({numPages}){
     console.log("pdfpages" , numPages);
         setNumPages(numPages) ; 
@@ -222,122 +228,81 @@ console.log("originaFile" , originalFile)
     }
     return(
 
-
-    <div className="pdfContainer">
     
-    
-    
-    <Document   className="abc" file={pdfURL }
-        onLoadSuccess={onDocumentSuccess} 
-   >
-    <Document className="def" file={pdfURL }    >
-    <Turn options={options} className="magazine"  >
- 
-<div className="ghi" key={0 } ></div>
-{ new Array(numPages).fill(1).map( ( ele , ind)=>
-
- (    
-        
-
-                <Page  
-                    // onMouseEnter={(()=>setPageNumber( ind+ 1))}
-                  key={ind+1}
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                    customTextRenderer={false}
-                    
-                pageNumber={ind+1} />
-        
-          
-           )
- 
-)}
-<div className="ghi" key={ numPages+1}></div>
-{
-  (numPages%2 !==0 ) && <div className="ghi" key={numPages+2 } ></div>
-}
-
-</Turn>
-
    
-   </Document>
- 
-    
-    </Document>  
-    <ClockMessage clockMessageRef={clockMessageRef} fileList={fileList}/>
-           
-          {/* <Turn options={options} className="magazine">
-      {pages.map((page, index) => (
-        <div key={index} className="page">
-          <img   src={page} alt="" />
-        </div>
-      ))}
-    </Turn> */}
+      <div>
+      <WrapHeader clockMessageRef={clockMessageRef} pdfRef={pdfRef} btnRef={btnRef}/>
         
-                         
-                       
-    <button ref={btnRef} style={{"backgroundColor":"black" , "padding":"5px" , "color":"white" , "position":"absolute" , "left":"5px", "bottom":"5px", "borderRadius":"10px", "cursor":"pointer"}}
-    onClick={()=>{
-      // console.log(clockMessageRef.current.classList);
-      if( clockMessageRef.current.classList.contains("move"))
-        {
+        
+        <div ref={pdfRef} className="pdfContainer">
+        
+        
 
-           btnRef.current.classList.remove("forward");
-            btnRef.current.classList.add("backward");
-          
-          // document.documentElement.style.setProperty('--main-color1', '70vw');
-          //   document.documentElement.style.setProperty('--main-color2', '70vh');
-          //   document.documentElement.style.setProperty('--main-color3', '35vw');
-            clockMessageRef.current.classList.remove("move")
-            clockMessageRef.current.classList.add("moveBack");
-            btnRef.current.textContent="Expand";
-            // console.log(pdfDivRef.current.classList)
-            document.querySelector(".abc").classList.remove("fullBlack") ; 
-            document.querySelector(".abc").classList.add("halfBlack") ;
-            // setExpand(true);
+        <Document   className="abc" file={pdfURL }
+            onLoadSuccess={onDocumentSuccess} 
+      >
+        <Document className="def" file={pdfURL }    >
+        <Turn options={options} className="magazine"  >
+    
+    <div className="ghi" key={0 } ></div>
+    { new Array(numPages).fill(1).map( ( ele , ind)=>
+
+    (    
             
+
+                    <Page  
+                        // onMouseEnter={(()=>setPageNumber( ind+ 1))}
+                      key={ind+1}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                        customTextRenderer={false}
+                        
+                    pageNumber={ind+1} />
             
-        }else{
-            // alert("hi");
-            // element.style.setProperty('--main-color', '#00ff00');
-            clockMessageRef.current.classList.remove("moveBack")
-            clockMessageRef.current.classList.add("move");
-            btnRef.current.classList.add("forward");
-            btnRef.current.textContent="Colllapse";
-            btnRef.current.classList.remove("backward");
-            // console.log(pdfDivRef.current.classList)
-            // element.style.setProperty('--main-color', '#00ff00');
-            document.querySelector(".abc").classList.add("fullBlack") ; 
-            document.querySelector(".abc").classList.remove("halfBlack") ; 
+              
+              )
+    
+    )}
+    <div className="ghi" key={ numPages+1}></div>
+    {
+      (numPages%2 !==0 ) && <div className="ghi" key={numPages+2 } ></div>
+    }
 
-            // document.documentElement.style.setProperty('--main-color1', '90vw');
-            // document.documentElement.style.setProperty('--main-color2', '90vh');
-            // document.documentElement.style.setProperty('--main-color3', '45vw');
-            // document.querySelector(".def").style.setProperty('--main-color1', '90vw')
-            // document.querySelector(".def").style.setProperty('--main-color2', '90vh')
+    </Turn>
 
-            // document.querySelector(".magazine").style.setProperty('--main-color1', '90vw')
-            // document.querySelector(".magazine").style.setProperty('--main-color2', '90vh')
+      
+      </Document>
+    
+        
+        </Document>  
+       
+       
+        <ClockMessage  clockMessageRef={clockMessageRef} fileList={fileList}/>
+              
+              {/* <Turn options={options} className="magazine">
+          {pages.map((page, index) => (
+            <div key={index} className="page">
+              <img   src={page} alt="" />
+            </div>
+          ))}
+        </Turn> */}
+            
+                            
+                          
+        {/* <button ref={btnRef} style={{"backgroundColor":"black" , "padding":"5px" , "color":"white" , "position":"absolute" , "left":"5px", "bottom":"5px", "borderRadius":"10px", "cursor":"pointer"}}
+        onClick={()=>{
+          // console.log(clockMessageRef.current.classList);
+        
+        }}>Expand</button>   
+                 */}
 
-            // document.querySelector(".turn-page-wrapper").style.setProperty('--main-color3', '45vw')
-            // document.querySelector(".turn-page-wrapper").style.setProperty('--main-color2', '90vh')
+                          
+        </div>
+      </div>
+    
 
-            // document.querySelector(".react-pdf__Page").style.setProperty('--main-color3', '45vw')
-            // document.querySelector(".react-pdf__Page").style.setProperty('--main-color2', '90vh')
-
-
-            document.querySelector(".def").classList.add("fullWidth_nine") ;
-            document.querySelector(".magazine").classList.add("fullWidth_nine") ;
-            document.querySelector(".turn-page-wrapper").classList.add("halfWidth_nine") ; 
-            document.querySelector(".react-pdf__Page").classList.add("halfWidth_nine") ; 
-            // setExpand(false) ; 
-
-        }
-    }}>Expand</button>   
-             
-
-                      
-    </div>
+    
+    
    ) 
 
 }
