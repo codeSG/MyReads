@@ -19,8 +19,8 @@ function animate(clockMessageRef , pdfRef, btnRef){
         clockMessageRef.current.classList.add("moveBack");
         // btnRef.current.textContent="Expand";
         // console.log(pdfDivRef.current.classList)
-        document.querySelector(".abc").classList.remove("fullBlack") ; 
-        document.querySelector(".abc").classList.add("halfBlack") ;
+        // document.querySelector(".abc").classList.remove("fullBlack") ; 
+        // document.querySelector(".abc").classList.add("halfBlack") ;
         // setExpand(true);
         
         
@@ -37,8 +37,8 @@ function animate(clockMessageRef , pdfRef, btnRef){
         // element.style.setProperty('--main-color', '#00ff00');
 
 
-        document.querySelector(".abc").classList.add("fullBlack") ; 
-        document.querySelector(".abc").classList.remove("halfBlack") ; 
+        // document.querySelector(".abc").classList.add("fullBlack") ; 
+        // document.querySelector(".abc").classList.remove("halfBlack") ; 
 
       
         // document.querySelector(".def").classList.add("fullWidth_nine") ;
@@ -51,7 +51,7 @@ function animate(clockMessageRef , pdfRef, btnRef){
   }
 
 const WrapHeader = ({clockMessageRef , pdfRef, btnRef}) => {
-    const { stopWatch , setStopWatch} = useContext(ContextInfo)
+    // const { stopWatch , setStopWatch} = useContext(ContextInfo)
   return (
     <div id="wrapHeader">
 
@@ -128,7 +128,7 @@ const WrapHeader = ({clockMessageRef , pdfRef, btnRef}) => {
 
     </div>
     <div id="div4">
-        <svg  onClick={()=>{setStopWatch(false) ; alert(stopWatch)}} width="73" height="58" viewBox="0 0 73 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg   width="73" height="58" viewBox="0 0 73 58" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_31_49)">
             <rect x="4" width="64.0612" height="50" rx="20" fill="#9153CE" fill-opacity="0.25"/>
             <path d="M34.1167 19.795C34.3511 20.0057 34.6688 20.124 35 20.124C35.3313 20.124 35.649 20.0057 35.8834 19.795L37.55 18.295C37.7246 18.1377 37.8435 17.9373 37.8916 17.7192C37.9398 17.5011 37.915 17.2751 37.8205 17.0696C37.726 16.8642 37.566 16.6885 37.3606 16.5649C37.1552 16.4413 36.9138 16.3752 36.6667 16.375H33.3334C33.0863 16.3752 32.8448 16.4413 32.6395 16.5649C32.4341 16.6885 32.2741 16.8642 32.1796 17.0696C32.085 17.2751 32.0603 17.5011 32.1084 17.7192C32.1566 17.9373 32.2754 18.1377 32.45 18.295L34.1167 19.795ZM34.1167 30.205C34.3511 29.9943 34.6688 29.876 35 29.876C35.3313 29.876 35.649 29.9943 35.8834 30.205L37.55 31.705C37.7246 31.8623 37.8435 32.0627 37.8916 32.2808C37.9398 32.4989 37.915 32.7249 37.8205 32.9304C37.726 33.1358 37.566 33.3115 37.3606 33.4351C37.1552 33.5587 36.9138 33.6248 36.6667 33.625H33.3334C33.0863 33.6248 32.8448 33.5587 32.6395 33.4351C32.4341 33.3115 32.2741 33.1358 32.1796 32.9304C32.085 32.7249 32.0603 32.4989 32.1084 32.2808C32.1566 32.0627 32.2754 31.8623 32.45 31.705L34.1167 30.205Z" fill="black"/>
@@ -148,7 +148,7 @@ const WrapHeader = ({clockMessageRef , pdfRef, btnRef}) => {
             </defs>
         </svg>
 
-        <svg   onClick={()=>{setStopWatch(true) ; alert(stopWatch)}} width="73" height="58" viewBox="0 0 73 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg   width="73" height="58" viewBox="0 0 73 58" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_31_50)">
             <rect x="4" width="64.0612" height="50" rx="20" fill="white"/>
             <path d="M33.375 15.125V12.375H41.625V15.125H33.375ZM36.125 30.25H38.875V22H36.125V30.25ZM37.5 41.25C35.8042 41.25 34.2055 40.9237 32.704 40.271C31.2025 39.6183 29.8907 38.7301 28.7688 37.6063C27.6458 36.4833 26.758 35.1711 26.1054 33.6696C25.4527 32.1681 25.1259 30.5699 25.125 28.875C25.125 27.1792 25.4518 25.5805 26.1054 24.079C26.759 22.5775 27.6468 21.2657 28.7688 20.1438C29.8917 19.0208 31.2039 18.133 32.7054 17.4804C34.2069 16.8277 35.8051 16.5009 37.5 16.5C38.9208 16.5 40.2844 16.7292 41.5906 17.1875C42.8969 17.6458 44.1229 18.3104 45.2687 19.1812L47.1937 17.2563L49.1188 19.1812L47.1937 21.1062C48.0646 22.2521 48.7292 23.4781 49.1875 24.7844C49.6458 26.0906 49.875 27.4542 49.875 28.875C49.875 30.5708 49.5482 32.1695 48.8946 33.671C48.241 35.1725 47.3533 36.4843 46.2313 37.6063C45.1083 38.7292 43.7961 39.6174 42.2946 40.271C40.7931 40.9246 39.1949 41.2509 37.5 41.25ZM37.5 38.5C40.1583 38.5 42.4271 37.5604 44.3063 35.6813C46.1854 33.8021 47.125 31.5333 47.125 28.875C47.125 26.2167 46.1854 23.9479 44.3063 22.0688C42.4271 20.1896 40.1583 19.25 37.5 19.25C34.8417 19.25 32.5729 20.1896 30.6938 22.0688C28.8146 23.9479 27.875 26.2167 27.875 28.875C27.875 31.5333 28.8146 33.8021 30.6938 35.6813C32.5729 37.5604 34.8417 38.5 37.5 38.5Z" fill="black"/>

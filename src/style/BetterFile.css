@@ -137,7 +137,9 @@
     width :20%;
     /* background-color: rgb(179, 117, 237); */
    /* background-color: gray; */
-   background-color: rgb(224, 222, 222);
+   /* background-color: rgb(224, 222, 222);
+   background-color: #F1E9F9; */
+   background-color: rgba(145, 83, 206, 0.25);
 
     position : fixed ; 
     top : 0 ; 
@@ -225,14 +227,40 @@
 input[type='checkbox'] {
     display: none;
 }
-
+#yearAndMonth{
+    /* height: fit-content; */
+    /* margin-top: 0; */
+    display: flex;
+    /* background-color: red; */
+}
+#yearand{
+    text-align: left;
+    background-color: yellow;
+    margin:0;
+}
+#andmonth{
+    text-align: right;
+    background-color: aqua;
+    margin:0;
+}
+.wweekDay{
+    text-align: center;
+    width:80%;
+    height:100%;
+    font-weight: bold;
+    padding: 0;
+}
 .checkbox-custom {
-    font-size:15px;
-    width: 25px;
-    height: 25px;
+
+    font-size:8px;
+    width: 80%;
+    height:100%;
+    padding:2px;
     border-radius: 5px;
-    background-color: #e3be9b;
-    color:green;
+    /* background-color: #e3be9b; */
+    background-color: #F1E9F9;
+    color:black;
+    font-weight: bold;
     text-align: left;
     /* font-weight: bold; */
     /* cursor: pointer; */
@@ -243,17 +271,17 @@ input[type='checkbox'] {
 .checkbox-custom::before {
     content: "";
     display: block;
-    width: 10px;
-    height: 5px;
+    width: 30%;
+    height: 10%;
     /* border: 2px solid #fff; */
-    border: 2px solid black ; 
+    border: 1px solid black ; 
     /* size:20px ; */
     border-top: none;
     border-right: none;
     position: absolute;
     top: 4px;
     left: 5px;
-    transform: translate(20%, 7%) rotate(-60deg);
+    transform: translate(15%, 40%) rotate(-60deg);
     scale: 2.7;
     opacity : 0 ; 
 }
@@ -262,58 +290,73 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     opacity: 1;
     font-size:25px;
 }
-   
+#reading{
+    margin-top: 15%;
+    font-weight: bold;
+    padding-left: 10%;
+}
+
     #ddateBox{
         /* background-color: yellow ; */
-        width: fit-content;
+        width: 80%;
        
         /* margin-top:100px ;  */
-        position:relative ; 
+        /* position:relative ;  */
         height:40%;
-        margin-top:60px;
-        margin-left:60px;
+
+        margin-top:1% ;
+        margin-left: 10%;
+        
+        /* margin-left:60px; */
        /* top:5%; */
         
     }
-    .wweekDay{
-        text-align: center;
-    }
+   
     #bbookdate{
         display: grid ;
-        grid-template-columns: repeat( 7 , 30px );
-        column-gap: 8px ;
-        row-gap: 8px;
+        justify-content: center;
+        grid-template-columns: repeat( 7 , 10% );
+        /* column-gap: 8px ;
+        row-gap: 8px; */
+        column-gap:3%;
+        row-gap: 5%;
         /* width:400px  ;  */
+        /* column-gap: 4%;
+        column-gap:5%; */
         width:100%;
-        padding:20px ;
+        /* padding:20px ;
         padding-top:5px;
-        padding-bottom:5px;
+        padding-bottom:5px; */
         background-color: white;
         /* background-color: yellow ; */
-        border : 2px solid black;
-        border-radius: 12px;
-        height:80%;
+        /* border : 2px solid black; */
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        height:70%;
+        padding-bottom: 10%;
+        /* height:fit-content; */
         /* position : absolute ;
         top:50px  ; 
         left:60px ;  */
     }
     #ddateBox p{
-        text-align: left;
+        /* text-align: left; */
         
-        padding-left :20px;
+       
         font-weight: bold ;
         width : fit-content;
         font-size:15px;
         font-family: Arial, Helvetica, sans-serif;
         /* position: absolute; */
-        width  : 100%;  ;
-        margin-top:50px;
-        /* top:0px ;  */
-        /* top:30px;
-        left:-100px ; */
-        /* left:30px ; */
+        width  : 100%;  
+        padding: 2% 5%;
+        text-transform: uppercase;
+        background-color: white;
+        border-top-left-radius: 12px;
 
-        /* margin-bottom:5px ; */
+        border-top-right-radius: 12px;
+        
+       
         
     }
     #circle{
@@ -349,7 +392,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     #bookRead{
         margin-top:30px ; 
         margin-left:20px;
-        height:40%;
+        height: 40%;
     }
     #bookName{          
         font-size:20px;
@@ -368,9 +411,9 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     #bookLink{
         margin-top: 5px;
         margin-left:10px;
-        width:120%;
+        width:80%;
         height:80%;
-        background-color: black;
+        background-color: white;
         display: flex;
         flex-direction: row-reverse;
         padding:10px;
@@ -378,9 +421,9 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     }
     #bookView{
         height:100%;
-        width:50%;
+        width:100%;
         
-        background-color: rgb(224, 222, 222);
+        background-color: blue;
         /* margin:auto 5px; */
 
     }

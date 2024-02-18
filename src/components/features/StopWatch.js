@@ -1,5 +1,5 @@
 import React from 'react';
-import 'boxicons';
+// import 'boxicons';
 import "./style/ClockMessage.css";
 const StopWatch = () => {
   return (

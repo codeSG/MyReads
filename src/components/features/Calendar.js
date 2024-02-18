@@ -11,7 +11,7 @@ const Calendar = () => {
     if(!calendarEntry) return <div></div>
   return (
     <div id="dateBox">
-        <p> SCHEDULED READING </p>
+        <p> SCHEDULED READING -- </p>
         <div id="date">           
           {
             calendarEntry.map( ( ele,ind)=>{

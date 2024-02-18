@@ -32,7 +32,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
     const [ hash , setHash] = useSearchParams()  ;
       
     const [search , setSearch] = useState("") ; 
-      const tt =  hash.get("id") ;
+      // const tt =  hash.get("id") ;
+      const tt = "8eab544d671a8b9a1bc3e99f376f17b2c1fe8855084c3f1fcec34d1141290dde" ; 
       setHashID( tt ) ;
       const [black , setBlack] = useState( true ) ;  
       const [deleteName , setDeleteName ]  = useState("") ; 
@@ -140,19 +141,19 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
              console.log("bookInforMationJson",bookInforMationJson);
              let cnt = 0 ;
              for( let bookentry of bookInforMationJson.items){
-                 if( bookentry.volumeInfo.authors ){
+                 if( bookentry.volumeInfo?.authors ){
                   ans[ind].bookAuthor  = bookentry.volumeInfo.authors[0] ;
                      cnt++;
                  }
-                 if( bookentry.volumeInfo.categories ){
+                 if( bookentry.volumeInfo?.categories ){
                   ans[ind].bookGenre  = bookentry.volumeInfo.categories[0] ;
                      cnt++;
                  }
-                 if( bookentry.volumeInfo.imageLinks.thumbnail ){
+                 if( bookentry.volumeInfo?.imageLinks?.thumbnail ){
                   ans[ind].bookImageLink  =  bookentry.volumeInfo.imageLinks.thumbnail ;
                      cnt++;
                  }
-                 if( bookentry.volumeInfo.description ){
+                 if( bookentry.volumeInfo?.description ){
                   ans[ind].bookDescription = bookentry.volumeInfo.description ;
                   cnt++;
                   }
@@ -188,6 +189,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             } catch (error) {
               alert( " Error ocurred in getMatadata ") ; 
               console.error("Error fetching data:", error);
+              setBlack(false) ; 
+              setSpinner( false ) ; 
+              
             }
   
           }
@@ -252,15 +256,15 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 <div id="search">
                     <input id="searchInput" placeholder="Search"
                     onChange={  (e)=>{  searchFilter(e.target.value ) ;  }} />
-                    <i id="font" class='bx bx-search-alt-2'></i> 
+                    <i id="font" className='bx bx-search-alt-2'></i> 
     
                 </div>
             </div>
             <p id="bookLast">Books You Read Last</p>
             <div id="twoBooks">
               
-                <div class="theBook">
-                <img class="bookImage" src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="hi" />  
+                <div className="theBook">
+                <img className="bookImage" src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="hi" />  
                     <div>
                         <p>Book Name</p>
                         <p>Author Name</p>
@@ -268,7 +272,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                     </div>
                    
                 </div>
-                <div class="theBook theSecond" >
+                <div className="theBook theSecond" >
                     <img className="bookImage" src="/bookCover.jpg" / >  
                     <div>
                         <p>Book Name</p>
@@ -303,10 +307,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                           </div>
                           <div id="content">
                           <Link   className="FileLink" to={`/file/showfile/?url=${ind}`} >
-                              <p class="title">{ele.bookName}</p>
-                              <p class="description">{ele.bookAuthor}</p>
+                              <p className="title">{ele.bookName}</p>
+                              <p className="description">{ele.bookAuthor}</p>
                               <div>
-                                  <button class="genre">{ele.bookGenre}</button>
+                                  <button className="genre">{ele.bookGenre}</button>
                               </div>
                             </Link>
                           </div>

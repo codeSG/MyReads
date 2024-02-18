@@ -43,10 +43,10 @@ input[type='checkbox']:checked + .checkbox-custom::before {
    
 #dateBox{
     /* background-color: yellow ; */
-    width: fit-content;
+    width: 80%;
     
     /* margin-top:100px ;  */
-    position:relative ; 
+    
     top:25%;
     
 }

@@ -5,13 +5,14 @@ import {storage} from "../firebase" ;
 import { useSearchParams } from 'react-router-dom';
 import {ref,updateMetadata, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
 // import 'boxicons';
-import 'boxicons'
+// import 'boxicons'
 import StopWatch from './StopWatch';
 // import { useContext } from 'react-router-dom';
 import { ContextInfo } from '../../App';
 const ClockMessage = ({ fileList, clockMessageRef}) => {
     // const { stopWatch , setStopWatch} = useContext(ContextInfo)
     const [ stopWatch , setStopWatch ] = useState(false);
+   
     
     const {hashID , setHashID ,  metadataPath, setMetadataPath} = useContext(ContextInfo) ; 
     // alert( `hashID${hashID}` ) ; 
@@ -32,9 +33,7 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
 
     useEffect(()=>{
 
-        // const interval = setInterval( ()=> {
-        //     setTimer(prev => prev+2)
-        // } ,120*1000)
+        
         if( hashID ) localStorage.setItem( "hashID" , hashID ) ; 
         if( metadataPath ) localStorage.setItem( "metadataPath" , metadataPath ) ;
         
@@ -54,7 +53,8 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
                 console.log( "arrrrrrrrrrrrrr", arr) ; 
                 setMsgArr(arr) ; 
              } catch (error) {
-              alert( " Error ocurred in getMatadata ") ; 
+                console.log( error ) ; 
+            //   alert( " Error ocurred in getMatadata ") ; 
             //   console.error("Error fetching data:", error);
             }
   
@@ -186,7 +186,7 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
             </div>
             <div id="wrapper">
                 <div ref={divRef} 
-                onFocus={()=> {if(comment)  setComment("") ; } } onKeyDown={(e)=> {if(e.key === 'Enter') saveChanges()}} contentEditable={true} id="messageContent">
+                onFocus={()=> {if(comment)  setComment("") ; } } onKeyDown={(e)=> {if(e.key === 'Enter') saveChanges()}} contentEditable={true} suppressContentEditableWarning={true} id="messageContent">
                  {comment}
                 </div>
                 {/* <input placeholder="Enter your Comment"></input> */}

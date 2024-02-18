@@ -18,8 +18,10 @@ import SignUp from "./components/SignUp" ;
  const ContextInfo = createContext() ; 
 const appRouter = createBrowserRouter([
   {
+    // path :'/' , 
+    // element : <SignUp/>
     path :'/' , 
-    element : <SignUp/>
+    element : <MainPage/>
   }, 
   
   {
@@ -51,7 +53,7 @@ function App() {
      
     
 <ContextInfo.Provider value={ {fileList,setFileList,  originalFile,setOriginalFile,calendarEntry, setCalendarEntry , 
-hashID, setHashID, metadataPath, setMetadataPath , stopWatch , setStopWatch}}>
+hashID, setHashID, metadataPath, setMetadataPath }}>
           <div>
           <RouterProvider router={appRouter} />
           </div>

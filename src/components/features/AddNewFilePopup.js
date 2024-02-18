@@ -77,7 +77,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                         uploadedBookObj.bookGenre  = entry.volumeInfo.categories[0] ;
                         cnt++;
                     }
-                    if( entry.volumeInfo.imageLinks.thumbnail ){
+                    if( entry.volumeInfo?.imageLinks?.thumbnail ){
                         uploadedBookObj.bookImageLink  =  entry.volumeInfo.imageLinks.thumbnail ;
                         cnt++;
                     }
@@ -105,10 +105,11 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
         
             }               
             catch( err ){
-
+                console.error( err ) ; 
                     alert( "  error ocurred try again later ") ;
                     setSpinner(false) ; 
                     setBlack( false  )  ;  
+                   
             }
            
         } 

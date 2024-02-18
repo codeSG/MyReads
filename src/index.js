@@ -12,45 +12,40 @@ import MainPage from "./components/MainPage";
 // import PdfViewer from './components/PdfViewer';
 import WrapPage from './components/WrapPage';
 import BetterFile from './components/BetterFile';
-const appRouter = createBrowserRouter([
-  {
-    path :'/' , 
-    element : <App/>
-  }, 
+// const appRouter = createBrowserRouter([
+//   {
+//     path :'/' , 
+//     element : <App/>
+//   }, 
   
-  {
-    path : "/login" , 
-    element : <Login/>
-  },
+//   {
+//     path : "/login" , 
+//     element : <Login/>
+//   },
 
    
-  {
-    path : "/file" , 
-    // element : <BetterFile/>
-    element :  <MainPage/> , 
+//   {
+//     path : "/file" , 
+//     // element : <BetterFile/>
+//     element :  <MainPage/> , 
     
-  },{
-    path:"/file/showfile",
-    element : <WrapPage/>
-  }
+//   },{
+//     path:"/file/showfile",
+//     element : <WrapPage/>
+//   }
  
   
 
-])
+// ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 
 root.render(
-  // <React.StrictMode>
-    <App />
-    
-
-     
-    
-    
-  // </React.StrictMode>
+  <React.StrictMode>
+    <App />   
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

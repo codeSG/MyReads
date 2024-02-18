@@ -4,7 +4,7 @@ body{
 
 :root {
     --main-color1:78vw;
-    --main-color2:70vh;
+    --main-color2:75vh;
     --main-color3:39vw;
     --font-size: 16px;
   }
@@ -18,6 +18,7 @@ body{
     justify-content: space-between;
     align-items: center;
     background-color: white;
+    /* background-color: red; */
     /* background-color: black; */
     /* background-color: red ; */
     /* display:flex ; 
@@ -29,11 +30,12 @@ body{
     height :86vh ;
     /* margin-top:2vh; */
     background-color: rgba(145, 83, 206, 0.25);
+    background-color: rgba(145, 83, 206, 0.25);
     display:flex ; 
     justify-content: center;
     align-items: center;
     /* background:url(../image/splash-bg.jpg) bottom left repeat-x; */
-    overflow: hidden;
+    /* overflow: hidden; */
     /* opacity: 0.5; */
 }
 
@@ -75,22 +77,26 @@ body{
 @keyframes anmcenter {
     0%{
         margin-left: 0vw;
+        width:80vw;
 
         /* justify-content: space-between; */
     }
     100%{
         margin-left: 2vw;
+        width:96vw;
         /* height:80vh; */
     }
 }
 @keyframes anmbetween {
     0%{
+        width:96vw;
         margin-left: 2vw;
         /* height:100vh; */
     }
     100%{
         /* justify-content: space-between; */
         margin-left: 0vw;
+        width:80vw;
         /* height:80vh; */
 
     }
@@ -110,9 +116,17 @@ body{
 
 
 .def{
-    width :  var(--main-color1) !important ; 
+    /* width :  var(--main-color1) !important ;  */
+    width:var(--main-color1) !important;
     height : var(--main-color2) !important ;
-    background-color: rgba(145, 83, 206, 0.25);
+    /* background-color: rgba(145, 83, 206, 0.25); */
+    display:flex ; 
+    justify-content: center;
+    align-items: center;
+
+    /* padding-left: 1vw;
+    padding-right: 1vw; */
+    
 }
 .magazine{
     width : var(--main-color1) !important ; 
@@ -128,7 +142,7 @@ body{
 .react-pdf__Page{
     width : var(--main-color3) !important;
     height : var(--main-color2) !important;
-    margin-left:5px;
+    /* margin-left:5px; */
     background-color: rgba(145, 83, 206, 0.25) !important ;
 }
 .turn-page-wrapper div{
@@ -141,6 +155,7 @@ body{
 }
 .ghi{
     background-color: rgba(145, 83, 206, 0.25);
+    background-color: gray !important;
     width : var(--main-color3) !important ;
     height : var(--main-color2) !important;
 }
