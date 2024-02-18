@@ -12,6 +12,7 @@ import MainPage from "./components/MainPage";
 // import PdfViewer from './components/PdfViewer';
 import WrapPage from './components/WrapPage';
 import BetterFile from './components/BetterFile';
+// import "@webcomponents/custom-elements";
 // const appRouter = createBrowserRouter([
 //   {
 //     path :'/' , 

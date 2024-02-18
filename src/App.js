@@ -1,65 +1,51 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-
-
-import {RouterProvider, createBrowserRouter} from "react-router-dom"
-import ShowFile from "./components/ShowFile";
-import { createContext ,  useState} from 'react';
-import File from './components/File';
+import React, { createContext, useState } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes
+import MainPage from './components/MainPage';
 import Login from './components/Login';
- import Header from "./components/Header" ; 
-import MainPage from "./components/MainPage";
-// import PdfViewer from './components/PdfViewer';
 import WrapPage from './components/WrapPage';
-import BetterFile from './components/BetterFile';
-import SignUp from "./components/SignUp" ;
+import Header from './components/Header';
+import SignUp from './components/SignUp';
+import "./style/App.css"
 
+// Create context
+const ContextInfo = createContext();
 
- const ContextInfo = createContext() ; 
-const appRouter = createBrowserRouter([
-  {
-    // path :'/' , 
-    // element : <SignUp/>
-    path :'/' , 
-    element : <MainPage/>
-  }, 
-  
-  {
-    path : "/login" , 
-    element : <Login/>
-  },
-  {
-    path : "/file" , 
-    // element : <BetterFile/>
-    element :  <MainPage/> , 
-    
-  },{
-    path:"/file/showfile",
-    element : <WrapPage/>
-  }
-])
 function App() {
-  
-  const [stopWatch , setStopWatch] = useState(false) ; 
+    const [fileList, setFileList] = useState([]);
+    const [originalFile, setOriginalFile] = useState([]);
+    const [calendarEntry, setCalendarEntry] = useState([]);
+    const [hashID, setHashID] = useState('');
+    const [metadataPath, setMetadataPath] = useState('');
 
-  const [fileList ,setFileList] = useState( []) ;
-    const [originalFile , setOriginalFile] = useState([] ) ;
-    const [calendarEntry, setCalendarEntry] = useState([]) ;
-    const [hashID, setHashID ] = useState("") ; 
-    const [metadataPath, setMetadataPath ] = useState("") ; 
-  
-  return (
-    // <RouterProvider router={appRouter }  />
-     
-    
-<ContextInfo.Provider value={ {fileList,setFileList,  originalFile,setOriginalFile,calendarEntry, setCalendarEntry , 
-hashID, setHashID, metadataPath, setMetadataPath }}>
-          <div>
-          <RouterProvider router={appRouter} />
-          </div>
-          
-</ContextInfo.Provider>
-  );
+    return (
+        <ContextInfo.Provider
+            value={{
+                fileList,
+                setFileList,
+                originalFile,
+                setOriginalFile,
+                calendarEntry,
+                setCalendarEntry,
+                hashID,
+                setHashID,
+                metadataPath,
+                setMetadataPath,
+            }}
+        >
+            <Router>
+                <div id="App">
+                    {/* <Header /> */}
+                    <Routes> {/* Wrap Routes */}
+                        <Route path="/" element={<MainPage />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/file" element={<MainPage />} />
+                        <Route path="/file/showfile" element={<WrapPage />} />
+                    </Routes>
+                </div>
+            </Router>
+        </ContextInfo.Provider>
+    );
 }
-export {ContextInfo} ;
+
+export {ContextInfo }
 export default App;

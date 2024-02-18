@@ -1,0 +1,21 @@
+
+/* #root{
+    min-width: var( --window-inner-width) ; 
+    min-height:var( --window-inner-width) ;
+}
+html{
+    min-width:  var( --window-inner-width) ; 
+    min-height:var( --window-inner-width);
+} */
+
+*{
+    margin : 0  ;
+    padding : 0  ;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#root{
+    width:100vw ; 
+    
+}
