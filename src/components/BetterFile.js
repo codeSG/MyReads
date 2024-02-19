@@ -27,7 +27,12 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
   setSpinner}) => {
    
     const {fileList, setFileList, originalFile, setOriginalFile, calendarEntry,setCalendarEntry, 
-      hashID , setHashID} = useContext(ContextInfo) ;
+      hashID , setHashID, 
+      dataBaseCreated,
+      setDataBaseCreated,
+      request,
+      setRequest
+    } = useContext(ContextInfo) ;
     
     const [ hash , setHash] = useSearchParams()  ;
       
@@ -93,11 +98,126 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
         
            
    
-  
+        async function openDatabase(databaseName, objectStoreName) {
+          return new Promise((resolve, reject) => {
+              const request = indexedDB.open(databaseName);
+      
+              request.onerror = function(event) {
+                  reject(new Error('Error opening database: ' + event.target.errorCode));
+              };
+      
+              request.onsuccess = function(event) {
+                  resolve(event.target.result);
+              };
+      
+              // This event is triggered only the first time a database is created
+              request.onupgradeneeded = function(event) {
+                  const db = event.target.result;
+                  const objectStore = db.createObjectStore(objectStoreName, { keyPath: 'id', autoIncrement: true });
+                  objectStore.createIndex("bookName", "bookName", { unique: false });
+                console.log("Database upgrade needed");
+                  // You can create indexes if needed
+                  // objectStore.createIndex('fieldName', 'fieldName', { unique: false });
+              };
+          });
+      }
+      async function readAllData(database, objectStoreName) {
+        return new Promise((resolve, reject) => {
+            const transaction = database.transaction(objectStoreName, 'readonly');
+            const objectStore = transaction.objectStore(objectStoreName);
     
+            const data = [];
+    
+            const cursorRequest = objectStore.openCursor();
+    
+            cursorRequest.onsuccess = function(event) {
+                const cursor = event.target.result;
+    
+                if (cursor) {
+                    data.push(cursor.value);
+                    cursor.continue();
+                } else {
+                    resolve(data);
+                }
+            };
+    
+            cursorRequest.onerror = function(event) {
+                reject(new Error('Error opening cursor: ' + event.target.error));
+            };
+        });
+    }
+    
+
+
       useEffect( () => {
+        // setSpinner(false) ; 
+        // setBlack( false) ; 
         // alert(getEmail()) ; 
           
+
+        async function fetchDataFromIndexedDB() {
+          try {
+              const database = await openDatabase('BooksDatabase' , "booksinformation");
+              const data = await readAllData(database, 'booksinformation');
+
+              let bookEntries = new Array(data.length ) ; 
+
+              for( let ind in  data ){
+                  const ele = data[ind] ; 
+                const bookName = ele.bookName ; 
+
+                const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+bookName) ; 
+             console.log("bookInforMation",bookInforMation);
+             const bookInforMationJson = await bookInforMation.json() ; 
+             console.log("bookInforMationJson",bookInforMationJson);
+             let cnt = 0 ;
+             const bookObj = { ...ele } ; 
+             for( let bookentry of bookInforMationJson.items){
+                 if( bookentry.volumeInfo?.authors ){
+                  bookObj.bookAuthor  = bookentry.volumeInfo.authors[0] ;
+                     cnt++;
+                 }
+                 if( bookentry.volumeInfo?.categories ){
+                  bookObj.bookGenre  = bookentry.volumeInfo.categories[0] ;
+                     cnt++;
+                 }
+                 if( bookentry.volumeInfo?.imageLinks?.thumbnail ){
+                  bookObj.bookImageLink  =  bookentry.volumeInfo.imageLinks.thumbnail ;
+                     cnt++;
+                 }
+                //  if( bookentry.volumeInfo?.description ){
+                //   ans[ind].bookDescription = bookentry.volumeInfo.description ;
+                //   cnt++;
+                //   }
+                 if( cnt === 3 ){
+                  bookEntries[ind] = bookObj ; 
+                  break ; 
+                 }
+                
+
+             }
+            //  ans[ind].bookName = item.name.split(".pdf")[0] ; 
+
+
+              }
+
+              console.log('All data from object store:', data);
+              setFileList( bookEntries ) ; 
+              console.log("bookEntries" ,bookEntries )
+              setOriginalFile( bookEntries )  ;
+              setBlack( false )  ; 
+              setSpinner( false ) ; 
+          } catch (error) {
+              console.log( " errro occured ")
+              console.error(error);
+              setBlack( false )  ; 
+              setSpinner( false ) ;
+          }
+      }
+
+      
+       fetchDataFromIndexedDB() ;
+
           async function fun(){
   
             try {
@@ -195,7 +315,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             }
   
           }
-          fun()
+          // fun()
           // setSearch( )
           const temp = new Date() ; 
           const month = temp.getMonth() ; 
@@ -261,7 +381,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 </div>
             </div>
             <p id="bookLast">Books You Read Last</p>
-            <div id="twoBooks">
+            <div id="twoBooks" >
               
                 <div className="theBook">
                 <img className="bookImage" src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="hi" />  
@@ -306,7 +426,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                               <img style={{"width":"100%", "height":"100%"}} src={ele.bookImageLink}/>    
                           </div>
                           <div id="content">
-                          <Link   className="FileLink" to={`/file/showfile/?url=${ind}`} >
+                          <Link onClick={()=>{sessionStorage.setItem("bookIndex" ,ind )}}  className="FileLink" to={`/file/showfile`} >
                               <p className="title">{ele.bookName}</p>
                               <p className="description">{ele.bookAuthor}</p>
                               <div>

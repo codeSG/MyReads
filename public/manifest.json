@@ -7,9 +7,15 @@
 
   "permissions": [
     "tabs", 
-     "scripting"  
+     "scripting"
   ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';",
+    "script-src": ["'self'", "http://localhost:*", "http://127.0.0.1:*", "chrome-extension://unpkg.com"]
+  },
 "background": {
+
   "service_worker": "background.js"
-}
+} 
 }

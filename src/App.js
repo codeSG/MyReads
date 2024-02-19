@@ -16,6 +16,8 @@ function App() {
     const [calendarEntry, setCalendarEntry] = useState([]);
     const [hashID, setHashID] = useState('');
     const [metadataPath, setMetadataPath] = useState('');
+     const [dataBaseCreated, setDataBaseCreated] = useState(true);
+    const [request, setRequest] = useState(null);
 
     return (
         <ContextInfo.Provider
@@ -30,6 +32,10 @@ function App() {
                 setHashID,
                 metadataPath,
                 setMetadataPath,
+                dataBaseCreated,
+                setDataBaseCreated,
+                request,
+                setRequest
             }}
         >
             <Router>
