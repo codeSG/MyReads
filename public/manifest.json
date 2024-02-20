@@ -10,12 +10,7 @@
     "scripting",
     "webRequest"
   ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js"]
-    }
-  ],
+ 
   "background": {
     "service_worker": "background.js"
   }

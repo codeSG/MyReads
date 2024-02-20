@@ -5,6 +5,10 @@ import "../style/WrapPage.css"
 import ClockMessage from './features/ClockMessage.js';
 import { ContextInfo } from '../App.js';
 import urlHelper from '../utils/urlHelper';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
+
+// import {pdfjsWorker} from "../../node_modules/pdfjs-dist/build/pdf.worker.mjs"
+// import kk from "../../node_modules/pdfjs-dist/build/"
 // import filePDF from "../assets/filePDF.js"
 // import 'pdfjs-dist/build/pdf.worker'; 
 // const obj = urlHelper( 0 , 0  , 0  ) ; 
@@ -39,7 +43,8 @@ const PDFViewer = () => {
   //   'pdfjs-dist/legacy/build/pdf.worker.min.js',
   //    import.meta.url,
   //  ).toString();
-  pdfjs.GlobalWorkerOptions.workerSrc = "../assets/filePDF.js"
+ 
+  // pdfjs.GlobalWorkerOptions.workerSrc = "https://github.com/Decostar123/Kindle/blob/master/src/assets/filePDF.js"
   // pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js`;
   // console.log( `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`)
   // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -52,8 +57,10 @@ const PDFViewer = () => {
   //   'pdfjs-dist/build/pdfScript.js',
   //    import.meta.url,
   //  ).toString();
-
+  pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker  ;
    useEffect(()=>{
+
+    // pdfjs.GlobalWorkerOptions.workerSrc ="./filePdf.js"  ;
     //  pdfjs.GlobalWorkerOptions.workerSrc = "./pdfScript.js"
 
    console.log( sessionStorage.getItem("bookIndex"))
