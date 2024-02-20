@@ -45,7 +45,7 @@ const PDFViewer = () => {
   //  ).toString();
  
   // pdfjs.GlobalWorkerOptions.workerSrc = "https://github.com/Decostar123/Kindle/blob/master/src/assets/filePDF.js"
-  pdfjs.GlobalWorkerOptions.workerSrc = 'pdfView.js';
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js`;
   // console.log( `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`)
   // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
    
