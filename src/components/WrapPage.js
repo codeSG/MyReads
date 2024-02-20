@@ -5,6 +5,8 @@ import "../style/WrapPage.css"
 import ClockMessage from './features/ClockMessage.js';
 import { ContextInfo } from '../App.js';
 import urlHelper from '../utils/urlHelper';
+// import filePDF from "../assets/filePDF.js"
+// import 'pdfjs-dist/build/pdf.worker'; 
 // const obj = urlHelper( 0 , 0  , 0  ) ; 
 
 import WrapHeader from './features/WrapHeader.js';
@@ -25,24 +27,35 @@ const PDFViewer = () => {
   const pdfRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams() ;
 
-  // pdfjs.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+  // pdfjs.GlobalWorkerOptions.workerSrc = new URL('./pdfScript.js').toString();
+
+  // GlobalWorkerOptions.workerSrc = new URL(
+   
+    //   'pdfjs-dist/legacy/build/pdf.worker.min.js',
+    //    import.meta.url,
+    //  ).toString();
   // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
    
   //   'pdfjs-dist/legacy/build/pdf.worker.min.js',
   //    import.meta.url,
   //  ).toString();
-  pdfjs.GlobalWorkerOptions.workerSrc = `
-  //unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
-  
+  pdfjs.GlobalWorkerOptions.workerSrc = "../assets/filePDF.js"
+  // pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js`;
+  // console.log( `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`)
   // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
    
   //   'pdfjs-dist/legacy/build/pdf.worker.min.js',
   //    import.meta.url,
   //  ).toString();
-
+  // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+   
+  //   'pdfjs-dist/build/pdfScript.js',
+  //    import.meta.url,
+  //  ).toString();
 
    useEffect(()=>{
+    //  pdfjs.GlobalWorkerOptions.workerSrc = "./pdfScript.js"
+
    console.log( sessionStorage.getItem("bookIndex"))
    
    }  ,[])

@@ -1,21 +1,22 @@
 {
   "manifest_version": 3,
   "name": "KindleRead",
-  "description": "Allows you to upload and read book + many other options",
+  "description": "Allows you to upload and read books + many other options",
   "version": "1.0",
-  "action": {},
-
+  "action": {}
+ ,
   "permissions": [
-    "tabs", 
-     "scripting"
+    "tabs",
+    "scripting",
+    "webRequest"
   ],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self';",
-    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';",
-    "script-src": ["'self'", "http://localhost:*", "http://127.0.0.1:*", "chrome-extension://unpkg.com"]
-  },
-"background": {
-
-  "service_worker": "background.js"
-} 
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
