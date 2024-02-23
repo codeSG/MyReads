@@ -19,11 +19,25 @@ body{
     align-items: center;
     background-color: white;
     /* background-color: red; */
+    /* background-color: red; */
     /* background-color: black; */
     /* background-color: red ; */
     /* display:flex ; 
     justify-content: center; */
 }
+.custom-iframe{
+    width:80vw;
+    height:80vh;
+    border: none;
+    position: fixed;
+
+    background: #000;
+
+    border:none;
+   
+    /* transform: scale(0.8);  */
+}
+
 .abc{
     border-radius: 12px;
     width:80vw ; 

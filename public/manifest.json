@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  
   "name": "KindleRead",
   "description": "Allows you to upload and read books + many other options",
   "version": "1.0",
@@ -14,4 +15,6 @@
   "background": {
     "service_worker": "background.js"
   }
+ 
+  
 }

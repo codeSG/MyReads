@@ -64,7 +64,7 @@ const WrapHeader = ({clockMessageRef , pdfRef, btnRef}) => {
             
     </div>
     <div id="div2">
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut consequatur beatae doloremque qui porro odit laborum non, eos dolore illo voluptate reiciendis ratione earum velit cum eius odio repudiandae aliquam vero commodi provident minima! Nulla labore, ipsa velit est consectetur et cupiditate consequatur, perferendis sapiente quas magni cum accusamus non, recusandae repellendus? Ipsum repudiandae ex sunt tempora deserunt iusto quidem aliquid, nemo recusandae quas, libero dolor dolorem pariatur adipisci esse praesentium voluptatum a fugit ducimus sint maxime ratione ea! Beatae, dolorem eveniet sunt optio alias amet veritatis tempora repellat doloribus quisquam expedita iusto veniam sequi quasi? Ullam magni debitis hic.</p>
+        <p>Lorem ipsum,</p>
         <span>...</span>
     </div>
     <div id="div3">

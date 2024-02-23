@@ -5,7 +5,9 @@ import {storage} from "../firebase" ;
 import { useSearchParams } from 'react-router-dom';
 import {ref,updateMetadata, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
 // import 'boxicons';
-// import 'boxicons'
+import 'boxicons'
+// import 'boxicons/css/boxicons.min.css';
+
 import StopWatch from './StopWatch';
 // import { useContext } from 'react-router-dom';
 import { ContextInfo } from '../../App';
@@ -66,8 +68,9 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
     }, [])
     
     function playButton(){
-        if( timer === 0 || timer === -1 ) return ;
         
+        if( timer === 0 || timer === -1 ) return ;
+        setRead(true) ; 
         setVisible( prev=> prev==='visible' ? "hidden":"visible")
        
             const timeId = setInterval(() => {
@@ -117,6 +120,7 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
 
     }
     function pauseButton(){
+        // setRead(false) ; 
         if( isPause){
             clearInterval(timeInterval ) ; 
             setIsPause( false ) ; 
@@ -134,8 +138,23 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
     }
     if( timer === 0 ){
         setTimer(-1) ; 
+        setRead(false)
         clearInterval(timeInterval ) ; 
         setVisible("visible")
+    }
+
+    function getProperTime(){
+        if( !read ){
+            return timer/60;
+        }
+        // let time = timer
+        let a = Math.floor(timer/60) ; 
+        a = a<=9 ? "0" + a : a ; 
+        let b = timer%60 ; 
+        b = b <= 9 ? "0"+b : b ; 
+        let c = a + ":" + b ; 
+        return c ; 
+
     }
   return (
     <div  ref={clockMessageRef} id="messageRight">
@@ -143,14 +162,14 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
       <div id="first">
        <p id="timer">TIMER</p>
         <div id="clock">
-            <input type="text" id="time" value={timer === -1 ? 0 : timer}  onChange={e => setTimer( Number(e.target.value.substring(0,2)))}  readOnly={read}>
+            <input type="text" id="time" value={timer === -1 ? 0 : getProperTime()}  onChange={e => setTimer( Number(e.target.value.substring(0,2)) * 60 )}  readOnly={read}>
                
             </input>
             <p id="min">min</p>
             <div id="icons" >
             
             <box-icon onClick={()=>squareButton()} name='square' style={{ visibility: visible === "hidden" ? "visible" : "hidden" }} ></box-icon>
-        <box-icon onClick={()=>playButton()} name='play-circle' style={{ visibility: visible }}></box-icon>
+             <box-icon onClick={()=>playButton()} name='play-circle' style={{ visibility: visible }}></box-icon>
         <box-icon onClick={()=>pauseButton()}style={{ visibility: visible === "hidden" ? "visible" : "hidden" }} name={ isPause ?'pause-circle':'play-circle'}></box-icon>
 
             
