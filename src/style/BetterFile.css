@@ -9,56 +9,98 @@
     /* ba */
 }
 
-#book-container{
-    display : flex ; 
-    /* justify-content: space-evenly; */
-    flex-wrap : wrap ; 
-    /* gap:40px ;  */
-    align-items: center;
-    /* justify-content: center; */
-    margin-top: 0 ; 
-    width:100%;
-    gap:70px;
-    
-}
+
 #bookBox{
     /* width:100vw; */
     height : 100vh;
     display: flex;
     width:100%;
     flex-direction: row-reverse;
+    position:relative
     /* overflow-x: hidden; */
     /* flex-direction: column; */
 }
- #image{
-    width : 100% ; 
-    height : 180px ; 
-    margin-right : 10px ; 
-    /* border-radius: 12px; */
 
+#book-container{
+
+    display : flex ; 
+    /* justify-content: space-evenly; */
+    /* flex-wrap : wrap ;  */
+    /* gap:40px ;  */
+    /* align-items: center; */
+    
+    /* justify-content: center; */
+    
+    width:100%;
+    /* gap:70px; */
+    margin-top:5vh;
+    /* background-color: red ; */
+    display : grid ;
+    grid-template-columns: repeat( 5 , 18%) ;
+    row-gap: 5vh;
+    justify-content: space-around;
+    
 }
 #textBook{
+    padding-top:2vh;
+    padding-bottom: 4vh;
+    border-radius:12px ;
     display: flex;
     /* justify-content: space-evenly; */
     flex-direction: column;
-    width : 12% ; 
+    align-items: center;
+    width : 100% ; 
     height:fit-content ; 
-    overflow: hidden;
+    /* overflow: hidden; */
+    background: linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), #EEDDFF;
+    box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
     /* margin:40px; */
 
     /* margin:auto ;  */
     /* margin:auto  ; */
 
 }
-#content div{
+#image{
+    width : 60% ; 
+    height : 180px ; 
+    margin-right : 10px ; 
+    /* border-radius: 12px; */
+
+}
+
+.bookoptions{
+    display:flex; 
+    justify-content: space-around;
+}
+.bookoptions img{
+    width:30px ; 
+height:30px;
+}
+.bookoptions a{
+    width:35%;
+}
+.bookoptions button{
+    
+    background: rgba(145, 83, 206, 0.56);
+border-radius: 10px;
+width:100%;
+border:0;
+outline:0;
+/* padding:5px 0; */
+font-weight: bold;
+height:90%;
+/* height:50%; */
+}
+
+/* #content div{
     margin-top: 10px;
     display:flex ; 
     justify-content: center;
-}
+} */
 #content{
-    
+    width:100%;
     /* height : 210px ;  */
-    overflow :hidden ;
+   
 }
 
 .description{
@@ -95,9 +137,10 @@
     /* word-spacing: 5px;  */
     word-wrap: break-word;
     font-weight: 600;
-    max-height:45px ; 
+    height:45px ; 
+    width:100%;
     overflow : hidden; 
-    margin-left:10px ; 
+    padding-left:10px ; 
     color:rgb(65, 65, 65)
 }
 #search{
@@ -107,32 +150,36 @@
     /* background-color: red; */
     height:fit-content ;
     display:flex ; 
-    justify-content: center;
+    justify-content: space-between;
     /* border-bottom:2px solid gray   ; */
     /* padding-left: 10px ;  */
     background-color: white;
-    border-top-left-radius: 150px;
-    border-bottom-left-radius:150px;
-    border-top-right-radius: 150px;
-    border-bottom-right-radius: 150px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius:10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width:50%;
+    margin-right: 3%;
+    /* padding-right: 10%; */
+    
     /* width:100% ;  */
 }
 #searchInput{
-    height : 35px;
-    width :250px ;
+    height : 5vh;
+    width :95% ;
     font-size: 20px ;
     border:0 ; 
     outline : 0 ; 
     background-color: white;
     /* background-color: red; */
-    border-top-left-radius: 150px;
-    border-bottom-left-radius: 150px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     padding:10px;
 }
 #font{
     font-size: 20px ;
-    margin:auto ;
-    width:30px ; 
+    margin:auto;
+    width:5%; 
 }
 #bookleft{
     width :20%;
@@ -148,14 +195,46 @@
     height:100%;
     z-index: 3;
 }
-#addBook{
+#uploading{
     width:100%;
     display:flex;
     justify-content: space-between;
     padding: 10px 50px;
     padding-right: 100px;
-    margin-top:50px;
+    margin-top:2vh;
+    /* margin-top:50px; */
 } 
+#uploadingLeft{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:15%;
+
+}
+#uploadingLeft svg{
+    width:40px ; 
+    height:40px;
+}
+#uploadingLeft label{
+    /* height : 100%; */
+    /* font-weight: bold; */
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 29px;
+
+
+    
+}
+#addBook{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:4vh;
+}
 #addBook p{
     font-weight: bold;
 }
@@ -168,17 +247,41 @@
     text-align: left;
     font-size : 15px;
 }
+#topBar{
+    display:flex ; 
+    
+    /* background-color: red; */
+    
+
+}
+#topBar img{
+width : 40px ; 
+height : 30px ; 
+/* padding-right: 10px; */
+}
+#topBar label{
+    padding-left: 20px;
+    width : 200px ; 
+    height:30px;
+    font-size: 30px;
+    font-weight: 600;
+     
+    }
 #right{
      /* background-color: #f0f2f5; */
-     background-color: #f2f3f5;
-
+     /* background-color: #f2f3f5; */
+     background: #F1E9F9;
+    min-height: 100vh;
      width:80% ; 
      height : fit-content;
      display: flex;
      flex-direction: column;
      align-items: center ;
      margin-right:0;
-     padding-left:100px;
+     padding-left:1%;
+     position:absolute ; 
+     right : 0 ; 
+     padding-bottom:4vh;
      /* position: absolute;
      top:0 ; 
      right : 0 ;  */
@@ -228,18 +331,15 @@
 input[type='checkbox'] {
     display: none;
 }
-#yearAndMonth{
-    /* height: fit-content; */
-    /* margin-top: 0; */
-    display: flex;
-    /* background-color: red; */
-}
+
 #yearand{
+    border-top-left-radius: 12px ;
     text-align: left;
     background-color: yellow;
     margin:0;
 }
 #andmonth{
+    border-top-right-radius: 12px;
     text-align: right;
     background-color: aqua;
     margin:0;
@@ -292,7 +392,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     font-size:25px;
 }
 #reading{
-    margin-top: 15%;
+    margin-top: 25%;
     font-weight: bold;
     padding-left: 10%;
 }
@@ -303,16 +403,25 @@ input[type='checkbox']:checked + .checkbox-custom::before {
        
         /* margin-top:100px ;  */
         /* position:relative ;  */
-        height:40%;
+        height:30%;
 
         margin-top:1% ;
         margin-left: 10%;
+        /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+        border-radius:12px;
         
         /* margin-left:60px; */
        /* top:5%; */
         
     }
-   
+    #yearAndMonth{
+        /* height: fit-content; */
+        /* margin-top: 0; */
+        display: flex;
+        height:10%;
+        /* background-color: red; */
+    }
     #bbookdate{
         display: grid ;
         justify-content: center;
@@ -333,7 +442,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* border : 2px solid black; */
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
-        height:70%;
+        height:90%;
         padding-bottom: 10%;
         /* height:fit-content; */
         /* position : absolute ;
@@ -353,9 +462,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         padding: 2% 5%;
         text-transform: uppercase;
         background-color: white;
-        border-top-left-radius: 12px;
-
-        border-top-right-radius: 12px;
+        
         
        
         
@@ -369,26 +476,42 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         
     }
     #name{
-        margin-left:20px;
-        margin-top:20px;
+        width:85%;
+        margin-left:5%;
+        margin-top:3%;
         display : flex ;
         /* align-items: center; */
         justify-content: space-between;
         gap:10px;
+        background-color: white;
+        border-radius: 12px;
+        /* padding:5px; */
+
+
         
     }
-    #back{
-        font-size:15px;
+    #greeting{
+        /* font-size:15px; */
+        font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 29px;
     }
     #userName{
         /* width:60%; */
-        font-size:20px;
-        font-weight: bold;
+        font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 29px;
         /* margin-top:5px; */
         /* text-wrap: wrap; */
     }
     #welcome{
         width:80%;
+        display: flex ;
+        flex-direction: column;
     }
     #bookRead{
         margin-top:30px ; 
@@ -398,14 +521,14 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     #bookName{          
         font-size:20px;
         font-weight: bold;
-        height:20px;
+        height:8%;
         overflow:hidden;
     }
     #author{
         
         font-size:20px;
         font-weight: bold;
-        height:20px;
+        height:8%;
         overflow:hidden;
 
     }
@@ -421,20 +544,40 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* padding: 0cap; */
     }
     #bookView{
-        height:100%;
+        margin-top:4%;
+        height:80%;
         width:100%;
+        display : flex ; 
+        justify-content: center;
         
-        background-color: blue;
+        /* background-color: blue; */
         /* margin:auto 5px; */
 
+    }
+    #bookView div{
+        width:60%;
+        padding:10px ; 
+        background-color: white ;
+        border-radius: 12px;
+        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+        
+    }
+    #bookView img{
+        width:100%;
+        height:100%;
     }
     #read{
         margin-top: 10px;
         margin-left:10px;
-        padding: 5px;
-        color:white ; 
-        background-color: black;
+        
+        padding:15px 5px 5px;
+        color:black ; 
+        background: rgba(145, 83, 206, 0.56);
         width: fit-content;
+        width:90%;
+        height:fit-content;
+        font-weight: bold;
+
     }
     #heading{
         /* margin-top:50px; */
@@ -448,13 +591,17 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         font-weight:bolder ;
         font-size:20px;
     }
-    #twoBooks{
+    #threeBooks{
+        margin-top:5vh;
         width:100%;
+        height:30vh;
+        /* background-color: red; */
         
         display: flex;
         justify-content: space-between;
         
     }
+   
     .theBook{
         margin-top:80px;
         width:48%;
@@ -496,4 +643,106 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         width: 100%;
         font-weight: 700;
     }
+
+
+   
+
+    .frequent{
+        width:30%;
+        height: 100%;
+        background-color: aqua;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background: linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), #EEDDFF;
+        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+        border-radius: 20px;
+    }
+    .frequent img{
+        width : 40%  ;
+        height : 90%;
+    }
+    .descriptionBook{
+        width : 40%  ;
+        height : 90%;
+        background-color: white;
+        border-radius: 12px;
+        display : flex ; 
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .frequent label{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        width:87%;
+        height:50%;
+        margin-top: 10%;
+        overflow: hidden;
+
+    }
+    .progress{
+        margin-top:25%;
+        height : 2% ; 
+        /* background-color: rgb(199, 199, 100); */
+        width : 90%;
+        border-radius: 15px;
+        border:0;
+        /* background-color: black; */
+        position:relative ; 
+    }
+    .progress legend{
+        position:absolute;
+        right:0;
+        top:-3px;
+        font-size: 10px;
+    }
+    .progress1{
+        position: absolute; 
+        top:0; 
+        left:0; 
+        width:80%;
+        /* height:2%; */
+        height:100%;
+        background-color:rgb(192, 192, 88) ;
+        border-radius: 15px;
+    }
+    .progress2{
+        border-radius: 15px;
+         position: absolute; 
+        top:0; 
+        left:0; 
+    }
+
+    .options{
+        width:100%;
+        margin-top:5%;
+    }
+.options img{
+width:30px ; 
+height:30px;
+}
+
+.options button{
+    
+    background: rgba(145, 83, 206, 0.56);
+border-radius: 10px;
+width:50%;
+border:0;
+outline:0;
+/* padding:5px 0; */
+font-weight: bold;
+height:90%;
+/* height:50%; */
+}
+#threeCircle{
+    /* margin-top:5%; */
+    /* margin-top:2vh; */
+    height:2vh;
+    width:10%;
+    background-color: aqua;
+}
 

@@ -17,20 +17,69 @@ const PDFViewer = () => {
 
   const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath} = useContext(ContextInfo) ;
   // const pdfRef = useRef(null);
-  const pdfArrayBuffer = fileList[Number(sessionStorage.getItem("bookIndex"))].data ; 
-  const pageNumber = 2 ;
+  console.log( "the filelist is ", fileList  )
+  // const pdfArrayBuffer = fileList[Number(sessionStorage.getItem("bookIndex"))].data ; 
+  // const pageNumber = 2 ;
   useEffect(() => {
+
+
     if ( pdfRef.current) {
-      const blob = new Blob([fileList[Number(sessionStorage.getItem("bookIndex"))].data], { type: 'application/pdf' });
-      const objectUrl = URL.createObjectURL(blob);
-      pdfRef.current.src = objectUrl;
-      const pageNumber = 2 ; 
-      const urlWithPageNumber = `${objectUrl}#page=${pageNumber}`;
+
+      // pageSelector
       
-      pdfRef.current.src = urlWithPageNumber;
-      return () => URL.revokeObjectURL(objectUrl); // Clean up the URL when the component unmounts
+      const { PDFViewerApplication } = pdfRef.current;
+
+
+      const openDBRequest = indexedDB.open("BooksDatabase", 1);
+
+        openDBRequest.onsuccess = function(event) {
+            const db = event.target.result;
+
+            const transaction = db.transaction("booksinformation", "readonly");
+            const objectStore = transaction.objectStore("booksinformation");
+
+            const key = Number(sessionStorage.getItem("bookIndex")) + 1 ;
+            const getRequest = objectStore.get(key);
+
+            getRequest.onsuccess = function(event) {
+                const record = event.target.result;
+                // if (record) {
+                //     setRecord(record);
+                // } else {
+                //     console.log("Record not found");
+                // }
+                console.log( "the detalis of the recird are ...." , record.currentPage, record.data) ; 
+           
+           
+           
+           
+                const blob = new Blob(  [record.data] , { type: 'application/pdf' });
+                const objectUrl = URL.createObjectURL(blob);
+                pdfRef.current.src = objectUrl;
+                const pageNumber = record.currentPage === -1 ? 1 : record.currentPage ; 
+                const urlWithPageNumber = `${objectUrl}#page=${pageNumber}`;
+                
+                pdfRef.current.src = urlWithPageNumber;
+                console.log("pageeSelecoter " , pdfRef.current )  ; 
+                console.log("the ifme is this " , pdfRef.current.contentWindow  ) ; 
+           
+              };
+
+            getRequest.onerror = function(event) {
+                console.error("Error retrieving record:", event.target.error);
+            };
+        };
+
+        openDBRequest.onerror = function(event) {
+            console.error("Error opening database:", event.target.error);
+        };
+        
+       
+
+       
+
     }
-  }, [fileList[Number(sessionStorage.getItem("bookIndex"))].data]);
+  }, [] );
 
   return (
     <div>

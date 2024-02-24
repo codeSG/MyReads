@@ -14,7 +14,10 @@ import Calendar from "../components/features/Calendar"
 import AddNewFilePopup from './features/AddNewFilePopup';
 
 import {ContextInfo}  from "../App"
+import openBook from "../image/openBook.png"
 
+import dustbins from "../image/dustbins.png"
+import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
 // import React from 'react'
 import "../style/BetterFile.css"
 // import 'boxicons';
@@ -159,9 +162,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           try {
               const database = await openDatabase('BooksDatabase' , "booksinformation");
               const data = await readAllData(database, 'booksinformation');
-
+              console.log( " all the data from the daatabse " , data )  ; 
               let bookEntries = new Array(data.length ) ; 
-
+            console.log( bookEntries[0]) ; 
               for( let ind in  data ){
                   const ele = data[ind] ; 
                 const bookName = ele.bookName ; 
@@ -191,17 +194,36 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 //   }
                  if( cnt === 3 ){
                   bookEntries[ind] = bookObj ; 
+
+                  console.log( " the book Obj for index " , ind , "is " , bookObj) ; 
                   break ; 
                  }
                 
 
              }
+
+             if( !bookObj.bookAuthor){
+              bookObj.Author = "Anonyomus"  ; 
+             }
+             
+             if( !bookObj.bookGenre){
+              bookObj.bookGenre = "Anoyomus"  ; 
+             }
+             
+             if( !bookObj.bookImageLink){
+              bookObj.bookImageLink = bookImageSubstitue  ; 
+             }
+
+             if( cnt !== 3 ){
+              bookEntries[ind] = bookObj ;
+             }
             //  ans[ind].bookName = item.name.split(".pdf")[0] ; 
 
 
-              }
+          }
 
               console.log('All data from object store:', data);
+              console.log(" the book entry is " , bookEntries) ; 
               setFileList( bookEntries ) ; 
               console.log("bookEntries" ,bookEntries )
               setOriginalFile( bookEntries )  ;
@@ -372,7 +394,11 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       />
       <div id="right">
             <div id="heading">
-                <p>Kindle</p>
+              <div id="topBar">
+                <img src={openBook} />
+                <label>My Reads</label>
+              </div>
+                
                 <div id="search">
                     <input id="searchInput" placeholder="Search"
                     onChange={  (e)=>{  searchFilter(e.target.value ) ;  }} />
@@ -380,29 +406,49 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
     
                 </div>
             </div>
-            <p id="bookLast">Books You Read Last</p>
-            <div id="twoBooks" >
+           
+            <div id="threeBooks" >
               
-                <div className="theBook">
-                <img className="bookImage" src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="hi" />  
-                    <div>
-                        <p>Book Name</p>
-                        <p>Author Name</p>
+              
+              <div className="frequent" id="frequentBook1">
+                  <img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
+                  <div className="descriptionBook" >
+                    <label>
+                      kkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkk kkkkkkkk
 
+                    </label>
+                    <div className="progress">
+                      <div className='progress1'></div>
+                      <div className='progress2'></div>
+                      <legend>25%</legend>
                     </div>
-                   
-                </div>
-                <div className="theBook theSecond" >
-                    <img className="bookImage" src="/bookCover.jpg" / >  
-                    <div>
-                        <p>Book Name</p>
-                        <p>Author Name</p>
+                    <div className="options">
+                      <button>Read</button>
+                      <img src={dustbins}></img>
+                    </div>
+                  </div>
+               </div>
 
-                    </div>
-                   
-                </div>
+
+               <div className="frequent" id="frequentBook1">
+                  <img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
+                  <div className="descriptionBook"></div>
+               </div>
+
+
+               <div className="frequent" id="frequentBook1">
+                  <img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
+                  <div className="descriptionBook"></div>
+               </div>
+               
+               
+              
+            
+
+               
                 
             </div>
+           
             <AddNewFilePopup setUploadBook={setUploadBook} setBlack={setBlack} 
             fileUpload={fileUpload} setFileUpload={setFileUpload}  setSpinner={setSpinner}
             hashID={hashID} setHashID={setHashID} />
@@ -426,13 +472,26 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                               <img style={{"width":"100%", "height":"100%"}} src={ele.bookImageLink}/>    
                           </div>
                           <div id="content">
-                          <Link onClick={()=>{sessionStorage.setItem("bookIndex" ,ind )}}  className="FileLink" to={`/file/showfile`} >
-                              <p className="title">{ele.bookName}</p>
-                              <p className="description">{ele.bookAuthor}</p>
-                              <div>
-                                  <button className="genre">{ele.bookGenre}</button>
+                          <p className="title">{ele.bookName}</p>
+                          
+                                <div className="bookoptions">
+                                
+                                  
+                                  <Link onClick={()=>{sessionStorage.setItem("bookIndex" ,ind )}}  className="FileLink" to={`/file/showfile`} >
+                                  <button>Read</button>
+                                  
+                                  </Link>
+                                 
+                                
+                                  
+                                  <img src={dustbins} />
                               </div>
-                            </Link>
+                          
+                              
+
+                          
+                          
+                         
                           </div>
                       </div>
                       )
