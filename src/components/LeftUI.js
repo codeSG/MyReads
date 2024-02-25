@@ -3,6 +3,8 @@ import "../style/BetterFile.css"
 import AddFile from './features/AddFile'
  import {ContextInfo}  from "../App"
 import Calendar from './features/Calendar'
+import { Link } from 'react-router-dom';
+import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
 
 
 const temp = new Date() ; 
@@ -20,7 +22,27 @@ currentDate.setDate(1);
 
 let firstDayOfWeek = currentDate.getDay();
 const LeftUI = () => {
-    const {calendarEntry , setCalendarEntry } = useContext(ContextInfo)
+    const {calendarEntry , setCalendarEntry, bookRecentlyViewed, setBookRecentlyViewed, originalFile, setOriginalFile } = useContext(ContextInfo)
+    function getImageLink(bookID){
+        if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
+  
+        let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+        return arr[0].bookImageLink ; 
+      }
+      function getBookName(bookID){
+        if( !bookID || bookID === -1 ) return "" ; 
+  
+        let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+        return arr[0].bookAuthor ;
+      }
+      function getBookPath(bookID){
+        if( !bookID || bookID === -1 ) return "" ; 
+  
+        return "/file/showfile" ; 
+  
+  
+      }
+
    if( !calendarEntry || calendarEntry.length===0) return <div></div>
     return (
         <div id="bookleft">
@@ -43,12 +65,17 @@ const LeftUI = () => {
                 
                     <div id="bookView">
                         <div>
-<img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
+<img src={getImageLink(bookRecentlyViewed[0])}/>
                         </div>
                         
                     </div>
                 
-                <p id="read">{"Continue Reading>>"} </p>
+                
+                <Link to ={getBookPath(bookRecentlyViewed[0])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[0]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[0]) }}>
+                            <p id="read"> 
+                          {"Continue Reading >>"}
+                          </p>
+                      </Link> 
             </div>
             <p id="reading">READING TRACKER</p>
            <div id="ddateBox">

@@ -7,15 +7,18 @@ import { ContextInfo } from '../App.js';
 import WrapHeader from './features/WrapHeader.js';
 import "../style/WrapPage.css"
 import ClockMessage from './features/ClockMessage.js';
-
+import {readBook} from "../utils/updateBookRecentlyViewed.js"
 const PDFViewer = () => {
+
+
 
   const clockMessageRef= useRef(null);
   const btnRef=useRef(null) ; 
   const pdfRef = useRef(null);
 
 
-  const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath} = useContext(ContextInfo) ;
+  const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath, 
+    bookRecentlyViewed, setBookRecentlyViewed  } = useContext(ContextInfo) ;
   // const pdfRef = useRef(null);
   console.log( "the filelist is ", fileList  )
   // const pdfArrayBuffer = fileList[Number(sessionStorage.getItem("bookIndex"))].data ; 
@@ -38,7 +41,7 @@ const PDFViewer = () => {
             const transaction = db.transaction("booksinformation", "readonly");
             const objectStore = transaction.objectStore("booksinformation");
 
-            const key = Number(sessionStorage.getItem("bookIndex")) + 1 ;
+            const key = Number(sessionStorage.getItem("bookKey"))  ;
             const getRequest = objectStore.get(key);
 
             getRequest.onsuccess = function(event) {
@@ -50,7 +53,11 @@ const PDFViewer = () => {
                 // }
                 console.log( "the detalis of the recird are ...." , record.currentPage, record.data) ; 
            
-           
+                const bookID = record.id ; 
+
+                console.log( " the id of the nook is " , bookID )
+
+                setBookRecentlyViewed(readBook(bookID) )
            
            
                 const blob = new Blob(  [record.data] , { type: 'application/pdf' });

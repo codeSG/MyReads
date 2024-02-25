@@ -72,6 +72,12 @@
     display:flex; 
     justify-content: space-around;
 }
+.bookoptions a{
+
+}
+.bookoptions button{
+
+}
 .bookoptions img{
     width:30px ; 
 height:30px;
@@ -315,6 +321,12 @@ height : 30px ;
     gap : 10px ; 
     color : white ;
 
+}
+.options a{
+
+}
+.options button{
+    
 }
 #option{
     margin-top: 50px ;
@@ -579,6 +591,10 @@ line-height: 29px;
         font-weight: bold;
 
     }
+    #read a{
+        color : black ; 
+        text-decoration: none;
+    }
     #heading{
         /* margin-top:50px; */
         width: 100%;
@@ -726,11 +742,14 @@ width:30px ;
 height:30px;
 }
 
+.options a{
+    width:35%;
+}
 .options button{
-    
+    padding : 5px ; 
     background: rgba(145, 83, 206, 0.56);
 border-radius: 10px;
-width:50%;
+width:100%;
 border:0;
 outline:0;
 /* padding:5px 0; */

@@ -29,14 +29,37 @@ import LeftUI from './LeftUI';
 const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName , 
   setSpinner}) => {
    
+
+   
     const {fileList, setFileList, originalFile, setOriginalFile, calendarEntry,setCalendarEntry, 
       hashID , setHashID, 
       dataBaseCreated,
       setDataBaseCreated,
       request,
-      setRequest
+      setRequest, 
+      bookRecentlyViewed, setBookRecentlyViewed
     } = useContext(ContextInfo) ;
     
+    function getImageLink(bookID){
+      if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      return arr[0].bookImageLink ; 
+    }
+    function getBookName(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      return arr[0].bookAuthor ;
+    }
+    function getBookPath(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      return "/file/showfile" ; 
+
+
+    }
+
     const [ hash , setHash] = useSearchParams()  ;
       
     const [search , setSearch] = useState("") ; 
@@ -411,10 +434,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               
               
               <div className="frequent" id="frequentBook1">
-                  <img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
+                  <img src={getImageLink(bookRecentlyViewed[1])} />
                   <div className="descriptionBook" >
                     <label>
-                      kkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkk kkkkkkkkkkkkkkkkkkk kkkkkkkk
+                     { getBookName(bookRecentlyViewed[1])}
 
                     </label>
                     <div className="progress">
@@ -423,22 +446,60 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                       <legend>25%</legend>
                     </div>
                     <div className="options">
-                      <button>Read</button>
+                      <Link to ={getBookPath(bookRecentlyViewed[1])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[1]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
+                          <button>Read</button>
+                      </Link>
+                      
                       <img src={dustbins}></img>
                     </div>
                   </div>
                </div>
 
 
-               <div className="frequent" id="frequentBook1">
-                  <img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
-                  <div className="descriptionBook"></div>
+               <div className="frequent" id="frequentBook2">
+                  <img src={getImageLink(bookRecentlyViewed[2])} />
+                  <div className="descriptionBook" >
+                    <label>
+                     { getBookName(bookRecentlyViewed[2])}
+
+                    </label>
+                    <div className="progress">
+                      <div className='progress1'></div>
+                      <div className='progress2'></div>
+                      <legend>25%</legend>
+                    </div>
+                    <div className="options">
+                      <Link to ={getBookPath(bookRecentlyViewed[2])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[2]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
+                          <button>Read</button>
+                      </Link>
+                      
+                      <img src={dustbins}></img>
+                    </div>
+                  </div>
                </div>
 
 
+
                <div className="frequent" id="frequentBook1">
-                  <img src="https://books.google.com/books/content?id=t_E5zwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"/>
-                  <div className="descriptionBook"></div>
+                  <img src={getImageLink(bookRecentlyViewed[3])} />
+                  <div className="descriptionBook" >
+                    <label>
+                     { getBookName(bookRecentlyViewed[3])}
+
+                    </label>
+                    <div className="progress">
+                      <div className='progress1'></div>
+                      <div className='progress2'></div>
+                      <legend>25%</legend>
+                    </div>
+                    <div className="options">
+                      <Link to ={getBookPath(bookRecentlyViewed[3])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[3]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
+                          <button>Read</button>
+                      </Link>
+                      
+                      <img src={dustbins}></img>
+                    </div>
+                  </div>
                </div>
                
                
@@ -477,7 +538,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                                 <div className="bookoptions">
                                 
                                   
-                                  <Link onClick={()=>{sessionStorage.setItem("bookIndex" ,ind )}}  className="FileLink" to={`/file/showfile`} >
+                                  <Link onClick={()=>{sessionStorage.setItem("bookKey" ,ele.id )}}  className="FileLink" to={`/file/showfile`} >
                                   <button>Read</button>
                                   
                                   </Link>

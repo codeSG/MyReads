@@ -18,7 +18,7 @@ function App() {
     const [metadataPath, setMetadataPath] = useState('');
      const [dataBaseCreated, setDataBaseCreated] = useState(true);
     const [request, setRequest] = useState(null);
-
+    const [ bookRecentlyViewed, setBookRecentlyViewed] = useState([])
     return (
         <ContextInfo.Provider
             value={{
@@ -35,7 +35,9 @@ function App() {
                 dataBaseCreated,
                 setDataBaseCreated,
                 request,
-                setRequest
+                setRequest, 
+                bookRecentlyViewed, 
+                setBookRecentlyViewed
             }}
         >
             <Router>
