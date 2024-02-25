@@ -48,7 +48,6 @@
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "react-app-polyfill": "^3.0.0",
-    "react-dev-utils": "^12.0.1",
     "react-dom": "^18.2.0",
     "react-pageflip": "^2.0.3",
     "react-pdf": "^7.7.0",
@@ -97,7 +96,8 @@
   },
   "devDependencies": {
     "html-webpack-inject-plugin": "^5.3.1",
-    "react-app-rewired": "^2.2.1"
+    "react-app-rewired": "^2.2.1",
+    "react-dev-utils": "^12.0.1"
   },
   "jest": {
     "roots": [
