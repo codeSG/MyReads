@@ -8,9 +8,12 @@ import WrapHeader from './features/WrapHeader.js';
 import "../style/WrapPage.css"
 import ClockMessage from './features/ClockMessage.js';
 import {readBook} from "../utils/updateBookRecentlyViewed.js"
+import { Link, useLocation } from 'react-router-dom';
+
+import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js"
 const PDFViewer = () => {
 
-
+  const location = useLocation(); 
 
   const clockMessageRef= useRef(null);
   const btnRef=useRef(null) ; 
@@ -24,11 +27,24 @@ const PDFViewer = () => {
   // const pdfArrayBuffer = fileList[Number(sessionStorage.getItem("bookIndex"))].data ; 
   // const pageNumber = 2 ;
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
 
+    const param1 = Number(searchParams.get('bookID')) ;
+    sessionStorage.setItem("bookKey" , param1) ; 
+console.log(" the id of the ebook  i s" , param1)
 
     if ( pdfRef.current) {
 
       // pageSelector
+
+      let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
+      if( calendarArr){
+        const date = new Date();
+        let day = date.getDate();
+        calendarArr[day-1] = true ; 
+        localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
+        setCalendarEntry([...calendarArr])
+      }
       
       const { PDFViewerApplication } = pdfRef.current;
 

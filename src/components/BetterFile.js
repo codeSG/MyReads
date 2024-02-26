@@ -22,6 +22,7 @@ import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
 import "../style/BetterFile.css"
 // import 'boxicons';
 import LeftUI from './LeftUI';
+import { setFrequentBooks } from '../utils/updateBookRecentlyViewed';
 
 
 
@@ -44,18 +45,29 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
 
       let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return bookImageSubstitue;
       return arr[0].bookImageLink ; 
+    }
+    function getBookAuthor(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return ""
+      return arr[0].bookAuthor ;
     }
     function getBookName(bookID){
       if( !bookID || bookID === -1 ) return "" ; 
 
       let arr = originalFile.filter( ele => ele.id === bookID ) ; 
-      return arr[0].bookAuthor ;
+      if( arr.length === 0 ) return ""
+      return arr[0].bookName ;
     }
     function getBookPath(bookID){
-      if( !bookID || bookID === -1 ) return "" ; 
+      // alert(bookID )
+      if( !bookID || bookID === -1 ) return "/" ; 
+      // if( arr.length === 0 ) return ""
 
-      return "/file/showfile" ; 
+      return `/file/showfile?bookID=${bookID}` ; 
 
 
     }
@@ -71,6 +83,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       const [ deleteInd , setDeletInd ] = useState(-1) ; 
       const [uploadBook , setUploadBook] = useState( false  ); 
       const [deletePath  , setDeletePath] = useState(-1) ; 
+      const [ deleteBookID , setDeleteBookID ] = useState(-1)
       const listRef = ref( storage , `${tt}/`) ;
       console.log( "git list ref " , listRef) ;   
       async function deleteFile(path) {
@@ -252,6 +265,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               setOriginalFile( bookEntries )  ;
               setBlack( false )  ; 
               setSpinner( false ) ; 
+
+              setBookRecentlyViewed( setFrequentBooks()) ; 
+
+              // setBook
           } catch (error) {
               console.log( " errro occured ")
               console.error(error);
@@ -263,103 +280,105 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       
        fetchDataFromIndexedDB() ;
 
-          async function fun(){
+          // async function fun(){
   
-            try {
-              const res = await listAll(listRef);
-              let ans = new Array(res.items.length );
+          //   try {
+          //     const res = await listAll(listRef);
+          //     let ans = new Array(res.items.length );
           
-              for (let ind = 0; ind < res.items.length; ind++) {
-                const item = res.items[ind];
-                console.log("------" ,  item );
-                const bookName = item.name.split(".pdf")[0]
-                // alert(item.name.split(".pdf")[0] );
-                console.log(item._location.path_);
+          //     for (let ind = 0; ind < res.items.length; ind++) {
+          //       const item = res.items[ind];
+          //       console.log("------" ,  item );
+          //       const bookName = item.name.split(".pdf")[0]
+          //       // alert(item.name.split(".pdf")[0] );
+          //       console.log(item._location.path_);
           
-                const url = await getDownloadURL(item);
+          //       const url = await getDownloadURL(item);
 
           
-                const temp = "" + ind;
-                console.log("the temp is ", temp);
-                urlHelper(temp, url, 1);
-                if( ind === 0 ){
-                  console.log( "ind===0") ; 
-                  console.log( item.name  ) ; 
-                }
-                const ppp= item._location.path_ ; 
-                const metaRef = ref(storage, ppp );
-                const metaData= await  getMetadata(metaRef) ;
-                const des =  metaData.customMetadata.description ; 
-                const ttl = metaData.customMetadata.title ;
-                const cP = Number(metaData.customMetadata.currentPage) ; 
-                const tP = Number(metaData.customMetadata.totalPage);
-                console.log( ind, "metadata" , des,ttl ) ; 
+          //       const temp = "" + ind;
+          //       console.log("the temp is ", temp);
+          //       urlHelper(temp, url, 1);
+          //       if( ind === 0 ){
+          //         console.log( "ind===0") ; 
+          //         console.log( item.name  ) ; 
+          //       }
+          //       const ppp= item._location.path_ ; 
+          //       const metaRef = ref(storage, ppp );
+          //       const metaData= await  getMetadata(metaRef) ;
+          //       const des =  metaData.customMetadata.description ; 
+          //       const ttl = metaData.customMetadata.title ;
+          //       const cP = Number(metaData.customMetadata.currentPage) ; 
+          //       const tP = Number(metaData.customMetadata.totalPage);
+          //       console.log( ind, "metadata" , des,ttl ) ; 
 
-                ans[ind] = { "url": url, "path": item._location.path_ , 
-              "name" : item.name , "description":des ,
-             "title":ttl , "currentPage" : cP , "totalPage" : tP  } ;
-
-
-             const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+bookName) ; 
-             console.log("bookInforMation",bookInforMation);
-             const bookInforMationJson = await bookInforMation.json() ; 
-             console.log("bookInforMationJson",bookInforMationJson);
-             let cnt = 0 ;
-             for( let bookentry of bookInforMationJson.items){
-                 if( bookentry.volumeInfo?.authors ){
-                  ans[ind].bookAuthor  = bookentry.volumeInfo.authors[0] ;
-                     cnt++;
-                 }
-                 if( bookentry.volumeInfo?.categories ){
-                  ans[ind].bookGenre  = bookentry.volumeInfo.categories[0] ;
-                     cnt++;
-                 }
-                 if( bookentry.volumeInfo?.imageLinks?.thumbnail ){
-                  ans[ind].bookImageLink  =  bookentry.volumeInfo.imageLinks.thumbnail ;
-                     cnt++;
-                 }
-                 if( bookentry.volumeInfo?.description ){
-                  ans[ind].bookDescription = bookentry.volumeInfo.description ;
-                  cnt++;
-                  }
-                 if( cnt === 4 ) break ; 
-
-             }
-             ans[ind].bookName = item.name.split(".pdf")[0] ; 
+          //       ans[ind] = { "url": url, "path": item._location.path_ , 
+          //     "name" : item.name , "description":des ,
+          //    "title":ttl , "currentPage" : cP , "totalPage" : tP  } ;
 
 
+          //    const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+bookName) ; 
+          //    console.log("bookInforMation",bookInforMation);
+          //    const bookInforMationJson = await bookInforMation.json() ; 
+          //    console.log("bookInforMationJson",bookInforMationJson);
+          //    let cnt = 0 ;
+          //    for( let bookentry of bookInforMationJson.items){
+          //        if( bookentry.volumeInfo?.authors ){
+          //         ans[ind].bookAuthor  = bookentry.volumeInfo.authors[0] ;
+          //            cnt++;
+          //        }
+          //        if( bookentry.volumeInfo?.categories ){
+          //         ans[ind].bookGenre  = bookentry.volumeInfo.categories[0] ;
+          //            cnt++;
+          //        }
+          //        if( bookentry.volumeInfo?.imageLinks?.thumbnail ){
+          //         ans[ind].bookImageLink  =  bookentry.volumeInfo.imageLinks.thumbnail ;
+          //            cnt++;
+          //        }
+          //        if( bookentry.volumeInfo?.description ){
+          //         ans[ind].bookDescription = bookentry.volumeInfo.description ;
+          //         cnt++;
+          //         }
+          //        if( cnt === 4 ) break ; 
+
+          //    }
+          //    ans[ind].bookName = item.name.split(".pdf")[0] ; 
 
 
-                console.log(fileList, "22222");
+
+
+          //       console.log(fileList, "22222");
                 
-              }          
-              console.log("3333333");
-              console.log(ans);
-              setFileList(ans);
-              setOriginalFile( ans  ) ; 
-              setSpinner(false) ; 
-              setBlack(false);
-              if(window.localStorage.getItem('search')) {
-                setSearch( window.localStorage.getItem('search') ) ; 
-                const filterArr = ans.filter( ele =>{
-                  let aword = ele.title.toLowerCase() ; 
-                  let bword  = window.localStorage.getItem('search').toLowerCase() ; 
-                  return aword.includes( bword ) ;
-                })
-                console.log("useEffect" , filterArr,  window.localStorage.getItem('search') )
-                setFileList( filterArr ) ; 
-                // searchFilter( window.localStorage.getItem('search'))
-              }
-              console.log("fileList----", fileList);
-            } catch (error) {
-              alert( " Error ocurred in getMatadata ") ; 
-              console.error("Error fetching data:", error);
-              setBlack(false) ; 
-              setSpinner( false ) ; 
+          //     }          
+          //     console.log("3333333");
+          //     console.log(ans);
+          //     setFileList(ans);
+          //     setOriginalFile( ans  ) ; 
+          //     setSpinner(false) ; 
+          //     setBlack(false);
+
+          //     if( localStorage)
+          //     if(window.localStorage.getItem('search')) {
+          //       setSearch( window.localStorage.getItem('search') ) ; 
+          //       const filterArr = ans.filter( ele =>{
+          //         let aword = ele.title.toLowerCase() ; 
+          //         let bword  = window.localStorage.getItem('search').toLowerCase() ; 
+          //         return aword.includes( bword ) ;
+          //       })
+          //       console.log("useEffect" , filterArr,  window.localStorage.getItem('search') )
+          //       setFileList( filterArr ) ; 
+          //       // searchFilter( window.localStorage.getItem('search'))
+          //     }
+          //     console.log("fileList----", fileList);
+          //   } catch (error) {
+          //     alert( " Error ocurred in getMatadata ") ; 
+          //     console.error("Error fetching data:", error);
+          //     setBlack(false) ; 
+          //     setSpinner( false ) ; 
               
-            }
+          //   }
   
-          }
+          // }
           // fun()
           // setSearch( )
           const temp = new Date() ; 
@@ -373,7 +392,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             calendarArr = JSON.parse(localStorage.getItem("calendarArray") );
             console.log("localstorage" , calendarArr) ;
             setCalendarEntry( calendarArr )  ; 
-            alert("changsvakue 1");
+            // alert("changsvakue 1");
 
           }else if( calendarArr.length !== numberOfDays ){
             const pp = new Array(numberOfDays).fill(false) ; 
@@ -382,7 +401,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             calendarArr = JSON.parse(localStorage.getItem("calendarArray") );
             console.log("localstorage" , calendarArr) ;
             setCalendarEntry( calendarArr )  ; 
-            alert("changsvakue 2");
+            // alert("changsvakue 2");
           }else if(calendarEntry.length===0){
 
             setCalendarEntry(calendarArr)
@@ -437,7 +456,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                   <img src={getImageLink(bookRecentlyViewed[1])} />
                   <div className="descriptionBook" >
                     <label>
-                     { getBookName(bookRecentlyViewed[1])}
+                     { getBookAuthor(bookRecentlyViewed[1])}
 
                     </label>
                     <div className="progress">
@@ -446,11 +465,18 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                       <legend>25%</legend>
                     </div>
                     <div className="options">
-                      <Link to ={getBookPath(bookRecentlyViewed[1])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[1]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
+                      <Link to ={getBookPath(bookRecentlyViewed[1])} >
                           <button>Read</button>
                       </Link>
                       
-                      <img src={dustbins}></img>
+                      <img src={dustbins}
+                      onClick={ ()=>{
+                        setDeleteBookID( bookRecentlyViewed[1]) ; 
+                        setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                        // alert( ele.id) ; 
+                        setBlack( true ); 
+                      }}
+                      ></img>
                     </div>
                   </div>
                </div>
@@ -460,7 +486,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                   <img src={getImageLink(bookRecentlyViewed[2])} />
                   <div className="descriptionBook" >
                     <label>
-                     { getBookName(bookRecentlyViewed[2])}
+                     { getBookAuthor(bookRecentlyViewed[2])}
 
                     </label>
                     <div className="progress">
@@ -473,7 +499,14 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                           <button>Read</button>
                       </Link>
                       
-                      <img src={dustbins}></img>
+                      <img src={dustbins}   
+                      onClick={ ()=>{
+                        setDeleteBookID( bookRecentlyViewed[2]) ; 
+                        setDeleteName(  getBookName(bookRecentlyViewed[1]) );
+                        // alert( ele.id) ; 
+                        setBlack( true ); 
+                      }}
+                      ></img>
                     </div>
                   </div>
                </div>
@@ -484,7 +517,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                   <img src={getImageLink(bookRecentlyViewed[3])} />
                   <div className="descriptionBook" >
                     <label>
-                     { getBookName(bookRecentlyViewed[3])}
+                     { getBookAuthor(bookRecentlyViewed[3])}
 
                     </label>
                     <div className="progress">
@@ -493,11 +526,20 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                       <legend>25%</legend>
                     </div>
                     <div className="options">
-                      <Link to ={getBookPath(bookRecentlyViewed[3])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[3]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
+                      <Link to ={getBookPath(bookRecentlyViewed[3])} >
                           <button>Read</button>
                       </Link>
                       
-                      <img src={dustbins}></img>
+                      <img src={dustbins}
+                      
+                      onClick={ ()=>{
+                        setDeleteBookID( bookRecentlyViewed[3]) ; 
+                        setDeleteName( getBookName(bookRecentlyViewed[3]) );
+                        // alert( ele.id) ; 
+                        setBlack( true ); 
+                      }}
+                      
+                      ></img>
                     </div>
                   </div>
                </div>
@@ -535,17 +577,22 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                           <div id="content">
                           <p className="title">{ele.bookName}</p>
                           
-                                <div className="bookoptions">
+                                <div className="bookoptions"     >
                                 
                                   
-                                  <Link onClick={()=>{sessionStorage.setItem("bookKey" ,ele.id )}}  className="FileLink" to={`/file/showfile`} >
+                                  <Link   className="FileLink" to={`/file/showfile?bookID=${ele.id}`} >
                                   <button>Read</button>
                                   
                                   </Link>
                                  
                                 
                                   
-                                  <img src={dustbins} />
+                                  <img src={dustbins} onClick={ ()=>{
+                                    setDeleteBookID( ele.id) ; 
+                                    setDeleteName( ele.bookName );
+                                    // alert( ele.id) ; 
+                                    setBlack( true ); 
+                                  }} />
                               </div>
                           
                               
@@ -585,9 +632,11 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           }
           {
             
-            ( deletePath !== -1 &&  deletePath !== 0 ) && <DeletePopup deleteName={deleteName} setBlack={setBlack}
+            ( deleteBookID !== -1 ) && <DeletePopup  setBlack={setBlack}
               setDeletInd={setDeletInd}  deleteFile={deleteFile}
-              deletePath={ deletePath} setDeletePath={setDeletePath}
+              deletePath={ deletePath} setDeletePath={setDeletePath}  deleteBookID={deleteBookID} 
+              setDeleteBookID = {setDeleteBookID} deleteName={deleteName} setDeleteName={setDeleteName}
+              
             />
             
           

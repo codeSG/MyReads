@@ -100,16 +100,37 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
 
                 const store = db.transaction("booksinformation", 'readwrite').objectStore("booksinformation");
 
-	        store.put( {...fileObject}  );
-
-            store.transaction.oncomplete = () => {
-                console.log(  " all things are uploaded ") ;
-                setFileList(prev=>[...prev , {...fileObject}])  ;
-                setOriginalFile( prev=>[...prev ,{...fileObject}] ) ; 
+                const putRequest = store.put(fileObject); 
+                putRequest.onsuccess = function (event) {
+                    // Get the key ID of the newly inserted record
+                    const keyID = event.target.result;
+                    console.log("Key ID of the uploaded record:", keyID);
+                    const objectUploaded = {...fileObject} ; 
+                    objectUploaded.id  = keyID ;
+                   
+                     setFileList(prev=>[...prev , {...objectUploaded}])  ;
+                setOriginalFile( prev=>[...prev ,{...objectUploaded}] ) ; 
                 setBlack( false ) ; 
                 setSpinner( false  ) ;  
                  setFileUpload( null ) ; 
-            };
+                // setBlack( false ) ; 
+                // setSpinner( false  ) ;  
+                //  setFileUpload( null ) ; 
+        
+                    // Update state or perform other actions with the key ID
+                    // For example, you can store it in state or use it for further processing
+                };
+
+	        // store.put( {...fileObject}  );
+
+            // store.transaction.oncomplete = () => {
+            //     // console.log(  " all things are uploaded ") ;
+            //     // setFileList(prev=>[...prev , {...fileObject}])  ;
+            //     // setOriginalFile( prev=>[...prev ,{...fileObject}] ) ; 
+            //     setBlack( false ) ; 
+            //     setSpinner( false  ) ;  
+            //      setFileUpload( null ) ; 
+            // };
                 
 
                 };

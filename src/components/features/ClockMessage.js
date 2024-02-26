@@ -46,14 +46,14 @@ const ClockMessage = ({ fileList, clockMessageRef}) => {
         async function fun(){
             
             try {
-                const metaRef = ref( storage ,fileList[bookIndex].path ) ;
-                const metaData= await  getMetadata(metaRef) ;
-                const obj = metaData.customMetadata ;
-                console.log( "metaata.custommetadata" , metaData.customMetadata,  obj ) 
-                const arr = JSON.parse(metaData.customMetadata.messageBody) ;
-                // alert(arr) ; 
-                console.log( "arrrrrrrrrrrrrr", arr) ; 
-                setMsgArr(arr) ; 
+                // const metaRef = ref( storage ,fileList[bookIndex].path ) ;
+                // const metaData= await  getMetadata(metaRef) ;
+                // const obj = metaData.customMetadata ;
+                // console.log( "metaata.custommetadata" , metaData.customMetadata,  obj ) 
+                // const arr = JSON.parse(metaData.customMetadata.messageBody) ;
+                // // alert(arr) ; 
+                // console.log( "arrrrrrrrrrrrrr", arr) ; 
+                // setMsgArr(arr) ; 
              } catch (error) {
                 console.log( error ) ; 
             //   alert( " Error ocurred in getMatadata ") ; 

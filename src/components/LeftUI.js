@@ -27,18 +27,21 @@ const LeftUI = () => {
         if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
   
         let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+        if( arr.length === 0 ) return bookImageSubstitue ; 
         return arr[0].bookImageLink ; 
       }
       function getBookName(bookID){
         if( !bookID || bookID === -1 ) return "" ; 
   
         let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+        if( arr.length === 0 ) return "" ; 
         return arr[0].bookAuthor ;
       }
       function getBookPath(bookID){
-        if( !bookID || bookID === -1 ) return "" ; 
+        if( !bookID || bookID === -1 ) return "/" ; 
   
-        return "/file/showfile" ; 
+        // alert(bookID)
+        return `/file/showfile?bookID=${bookID}` ; 
   
   
       }
