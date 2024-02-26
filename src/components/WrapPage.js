@@ -9,6 +9,7 @@ import "../style/WrapPage.css"
 import ClockMessage from './features/ClockMessage.js';
 import {readBook} from "../utils/updateBookRecentlyViewed.js"
 import { Link, useLocation } from 'react-router-dom';
+// import './iframeResizer.min.js';
 
 import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js"
 const PDFViewer = () => {
@@ -16,6 +17,7 @@ const PDFViewer = () => {
   const location = useLocation(); 
 
   const clockMessageRef= useRef(null);
+  const pdfContainer  = useState(null)
   const btnRef=useRef(null) ; 
   const pdfRef = useRef(null);
 
@@ -36,6 +38,7 @@ console.log(" the id of the ebook  i s" , param1)
     if ( pdfRef.current) {
 
       // pageSelector
+      // window.iFrameResize({ log: true }, pdfRef.current);
 
       let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
       if( calendarArr){
@@ -75,7 +78,7 @@ console.log(" the id of the ebook  i s" , param1)
 
                 setBookRecentlyViewed(readBook(bookID) )
            
-           
+              
                 const blob = new Blob(  [record.data] , { type: 'application/pdf' });
                 const objectUrl = URL.createObjectURL(blob);
                 pdfRef.current.src = objectUrl;
@@ -84,7 +87,12 @@ console.log(" the id of the ebook  i s" , param1)
                 
                 pdfRef.current.src = urlWithPageNumber;
                 console.log("pageeSelecoter " , pdfRef.current )  ; 
-                console.log("the ifme is this " , pdfRef.current.contentWindow  ) ; 
+                console.log("the ifme is this " , pdfRef.current.contentWindow  ) ;
+                // const iframeDocument =   pdfRef.current.contentWindow.document ;
+                // console.log( iframeDocument);
+                // pdfRef.current.width = pdfRef.current.contentWindow.document.body.scrollWidth ; 
+                // iframeDocument.body.style.backgroundColor = "red"
+                // console.lof
            
               };
 
@@ -106,27 +114,29 @@ console.log(" the id of the ebook  i s" , param1)
 
   return (
     <div>
-<WrapHeader clockMessageRef={clockMessageRef} pdfRef={pdfRef} btnRef={btnRef}/>
-<div className='pdfContainer'>
+{/* <WrapHeader clockMessageRef={clockMessageRef} pdfRef={pdfRef} btnRef={btnRef}/> */}
+<ClockMessage  clockMessageRef={clockMessageRef} pdfContainer={pdfContainer} fileList={[]}/>
+<div className='pdfContainer' ref={pdfContainer}>
 <iframe 
 className="custom-iframe" 
       title="PDF Viewer"
       ref={pdfRef}
-      width="100%"
-      height="100%"
-      // height="600px"
-      frameBorder="0"
-      allowfullscreen
+      allowtransparency="true" 
+      style={{"backgroundColor": "red" }}
+     
+      frameborder="0"
       
-    />
-    <ClockMessage  clockMessageRef={clockMessageRef} fileList={[]}/>
+    ></iframe>
+
 </div>
- 
+
+
 </div>
 
 
     
   );
 }
+
 
 export default PDFViewer;

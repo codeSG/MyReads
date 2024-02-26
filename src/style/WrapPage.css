@@ -12,12 +12,17 @@ body{
     width : 100% !important;
 } */
 .pdfContainer{
-    width:100vw ; 
-    height : 90vh ; ;
-    display : flex ; 
+    width:96vw ; 
+    height : 100vh ; ;
+    /* display : flex ; 
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
     background-color: white;
+    position: absolute; 
+    right :0 ; 
+    display: flex; 
+    justify-content: center;
+    background-color: #EEDDFF;
     /* background-color: red; */
     /* background-color: red; */
     /* background-color: black; */
@@ -26,14 +31,20 @@ body{
     justify-content: center; */
 }
 .custom-iframe{
-    width:80vw;
-    height:80vh;
+    /* width: inherit;
+    height:inherit; */
+    /* min-width: fit-content; */
+    height:inherit;
+    width:inherit;
     border: none;
     position: fixed;
 
-    background: #000;
+     background-color: #EEDDFF;
+     /* background-color: blue; */
+     /* background-color: red; */
 
-    border:none;
+
+    /* border:1px solid black; */
    
     /* transform: scale(0.8);  */
 }
@@ -270,4 +281,74 @@ svg{
 }
 #back{
     height:40px;
+}
+
+
+
+
+@keyframes rightClockMoving {
+    0%{
+        /* opacity:1 ;  */
+        /* display:block; */
+        translate: -20vw ; 
+    }
+    100%{
+        /* opacity:0 ;  */
+        translate: 0 ;
+        /* display:none; */
+    }
+}
+
+.movedClockRight{
+    animation : rightClockMoving 2s ease-in-out ;
+    animation-fill-mode: forwards;
+    
+}
+
+
+
+
+
+@keyframes leftPdfMoving {
+    0%{
+        /* opacity:1 ;  */
+        /* display:block; */
+        /* translate: 0 ;  */
+        width : 80vw ; 
+    }
+    100%{
+        /* opacity:0 ;  */
+        /* translate: -4vw ; */
+        /* display:none; */
+        width : 96vw;
+    }
+}
+
+.movedPdfLeft{
+    animation : leftPdfMoving 2s ease-in-out ;
+    animation-fill-mode: forwards;
+    
+}
+
+
+
+@keyframes rightPdfMoving {
+    0%{
+        /* opacity:1 ;  */
+        /* display:block; */
+        /* translate: -4vw ;  */
+        width:96vw;
+    }
+    100%{
+        /* opacity:0 ;  */
+        /* translate: 0 ; */
+        width:80vw;
+        /* display:none; */
+    }
+}
+
+.movedPdfRight{
+    animation : rightPdfMoving 2s ease-in-out ;
+    animation-fill-mode: forwards;
+    
 }
