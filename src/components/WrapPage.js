@@ -4,7 +4,7 @@ import "../style/WrapPage.css"
 import { useContext } from 'react';
 // import ClockMessage from './features/ClockMessage.js';
 import { ContextInfo } from '../App.js';
-import WrapHeader from './features/WrapHeader.js';
+// import WrapHeader from './features/WrapHeader.js';
 import "../style/WrapPage.css"
 import ClockMessage from './features/ClockMessage.js';
 import {readBook} from "../utils/updateBookRecentlyViewed.js"
@@ -28,6 +28,51 @@ const PDFViewer = () => {
   console.log( "the filelist is ", fileList  )
   // const pdfArrayBuffer = fileList[Number(sessionStorage.getItem("bookIndex"))].data ; 
   // const pageNumber = 2 ;
+
+  //  console.log('Scroll yyyyyyyyyyyy position:', pdfRef?.current?.contentWindow?.scrollY);
+  // console.log('Scroll Y position:', scrollY)
+
+
+  const onloadToIframe =  ()=>{
+  
+    const iframeWindow = pdfRef.current.contentWindow;
+        
+    // Get the scroll position
+    const scrollX = iframeWindow.scrollX || iframeWindow.pageXOffset;
+    const scrollY = iframeWindow.scrollY || iframeWindow.pageYOffset;
+  
+  
+    console.log('Scroll X position:', scrollX);
+    console.log('Scroll Y position:', scrollY);
+  //   pdfRef.current.contentWindow.body.addEventListener('scroll',function() {
+  //     console.log("getting scrooled " )
+    
+  // }  )  ;
+  console.log("2222222222222222" , pdfRef.current.document ) 
+  console.log( "4444444444444" , pdfRef.current.contentWindow)
+  
+  console.log( pdfRef.current.contentWindow.onload)
+  pdfRef.current.contentWindow.onscroll = ()=>{
+    alert(" getting scrooled ")
+  }
+  pdfRef.current.onload = function() {
+    const pageNumber = 2; // Set the desired page number
+    const pdfViewer = pdfRef.current.contentWindow.PDFViewerApplication.pdfViewer;
+    // pdfViewer.currentPageNumber = pageNumber;
+
+    console.log(  pdfViewer.currentPageNumber) ; 
+};
+  // if ( pdfRef.current.contentDocument ) {
+  //   const currentPageNum= pdfRef.current.contentDocument.getElementById('pageNumber').value;
+  //   alert(currentPageNum);
+  // }
+  
+
+
+
+  }
+
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
 
@@ -37,24 +82,7 @@ console.log(" the id of the ebook  i s" , param1) ;
 
 
 
-pdfRef.current.onload = function() {
-  // Access the iframe's window object
-  const iframeWindow = pdfRef.current.contentWindow;
 
-  // Get the scroll position
-  const scrollX = iframeWindow.scrollX || iframeWindow.pageXOffset;
-  const scrollY = iframeWindow.scrollY || iframeWindow.pageYOffset;
-
-
-  console.log('Scroll X position:', scrollX);
-  console.log('Scroll Y position:', scrollY);
-  pdfRef.current.addEventListener('scroll',function() {
-    console.log("getting scrooled " )
-  
-}  )  ;
-
-
-}
 
 
 
@@ -108,11 +136,14 @@ pdfRef.current.onload = function() {
                 const objectUrl = URL.createObjectURL(blob);
                 pdfRef.current.src = objectUrl;
                 const pageNumber = record.currentPage === -1 ? 1 : record.currentPage ; 
-                const urlWithPageNumber = `${objectUrl}#page=${pageNumber}`;
+                const urlWithPageNumber = `${objectUrl}#page=${2}`;
                 
                 pdfRef.current.src = urlWithPageNumber;
                 console.log("pageeSelecoter " , pdfRef.current )  ; 
                 console.log("the ifme is this " , pdfRef.current.contentWindow  ) ;
+                pdfRef.current.contentWindow.onscroll = ()=>{
+                  console.log("hhhhhhhhhhhhiiiiiiiiii")
+                }
               
                 // const iframeDocument =   pdfRef.current.contentWindow.document ;
                 // console.log( iframeDocument);
@@ -131,9 +162,8 @@ pdfRef.current.onload = function() {
         openDBRequest.onerror = function(event) {
             console.error("Error opening database:", event.target.error);
         };
-        
-       
-
+        // pdfRef.current.contentWindow.onscroll=function(){ alert("hi")  }
+      
        
 
     }
@@ -149,10 +179,10 @@ className="custom-iframe"
       title="PDF Viewer"
       ref={pdfRef}
       allowtransparency="true" 
-      style={{"backgroundColor": "red" }}
+     
      
       frameborder="0"
-      
+    
     ></iframe>
 
 </div>

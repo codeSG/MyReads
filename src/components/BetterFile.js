@@ -21,6 +21,8 @@ import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
 // import React from 'react'
 import "../style/BetterFile.css"
 // import 'boxicons';
+import { Play } from 'lucide-react';
+
 import LeftUI from './LeftUI';
 import { setFrequentBooks } from '../utils/updateBookRecentlyViewed';
 

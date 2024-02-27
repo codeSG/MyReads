@@ -27,25 +27,33 @@ const LeftUI = () => {
         if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
   
         let arr = originalFile.filter( ele => ele.id === bookID ) ; 
-        if( arr.length === 0 ) return bookImageSubstitue ; 
+        if( arr.length === 0 ) return bookImageSubstitue;
         return arr[0].bookImageLink ; 
+      }
+      function getBookAuthor(bookID){
+        if( !bookID || bookID === -1 ) return "" ; 
+  
+        let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+        if( arr.length === 0 ) return ""
+        return arr[0].bookAuthor ;
       }
       function getBookName(bookID){
         if( !bookID || bookID === -1 ) return "" ; 
   
         let arr = originalFile.filter( ele => ele.id === bookID ) ; 
-        if( arr.length === 0 ) return "" ; 
-        return arr[0].bookAuthor ;
+        if( arr.length === 0 ) return ""
+        return arr[0].bookName ;
       }
       function getBookPath(bookID){
+        // alert(bookID )
         if( !bookID || bookID === -1 ) return "/" ; 
+        // if( arr.length === 0 ) return ""
   
-        // alert(bookID)
         return `/file/showfile?bookID=${bookID}` ; 
   
   
       }
-
+  
    if( !calendarEntry || calendarEntry.length===0) return <div></div>
     return (
         <div id="bookleft">
@@ -63,8 +71,8 @@ const LeftUI = () => {
           
            </div>
            <div id="bookRead">
-                <p id="bookName">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto illum totam sit omnis saepe dolores quae quo deleniti, doloribus modi. Reprehenderit cumque molestiae debitis corporis vel vero adipisci modi doloremque!.</p>
-                <p id="author">- Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias officiis atque laboriosam dolorem rerum fugiat soluta esse quo totam id.</p>
+                <p id="bookName">{getBookName(bookRecentlyViewed[0])}</p>
+                <p id="author">- {getBookAuthor(bookRecentlyViewed[0])}</p>
                 
                     <div id="bookView">
                         <div>
