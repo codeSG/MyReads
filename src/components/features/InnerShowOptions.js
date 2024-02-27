@@ -2,6 +2,7 @@ import React , { useState, useEffect }from 'react';
 // import 'boxicons';
 import "./style/ClockMessage.css";
 
+import { Link } from 'react-router-dom';
 
 const InnerShowOptions = ({moveLeft , setShowStopWatch ,showStopWatch}) => {
     
@@ -10,14 +11,15 @@ const InnerShowOptions = ({moveLeft , setShowStopWatch ,showStopWatch}) => {
 
 return(
     <div id="innershowOptions">
-    {/* <Link to="/"> */}
-    <div className="innersvgIcon" onClick={()=>window.location.href="/"} >
+    <Link to="/">
+    
+    <div className="innersvgIcon innerLink">
      <svg  viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M1.91974 9.8706L0.959868 11.0934L0 9.8706L0.959868 8.6478L1.91974 9.8706ZM25 23.7071C25 24.1658 24.857 24.6057 24.6024 24.9301C24.3477 25.2544 24.0024 25.4366 23.6423 25.4366C23.2823 25.4366 22.9369 25.2544 22.6823 24.9301C22.4277 24.6057 22.2847 24.1658 22.2847 23.7071H25ZM7.74818 19.7412L0.959868 11.0934L2.8796 8.6478L9.66792 17.2956L7.74818 19.7412ZM0.959868 8.6478L7.74818 0L9.66792 2.4456L2.8796 11.0934L0.959868 8.6478ZM1.91974 8.14104H15.4964V11.6002H1.91974V8.14104ZM25 20.248V23.7071H22.2847V20.248H25ZM15.4964 8.14104C18.0169 8.14104 20.4342 9.41658 22.2164 11.6871C23.9987 13.9576 25 17.037 25 20.248H22.2847C22.2847 17.9544 21.5695 15.7548 20.2964 14.133C19.0234 12.5113 17.2967 11.6002 15.4964 11.6002V8.14104Z" fill="black"/>
     </svg>
 
     </div>
-    {/* </Link> */}
+    </Link>
     
     <div className="innersvgIcon" style={{ backgroundColor:showStopWatch? "white":"rgba(145, 83, 206, 0.25)" }} onClick={()=> setShowStopWatch(false)}>
     <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">

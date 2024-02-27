@@ -264,6 +264,11 @@ left: 4%;
     /* background-color: red; */
 }
 
+#showOptions a{
+        width:70%;
+    height:5%;
+}
+
 .svgIcon{
     width:70%;
     height:5%;
@@ -275,6 +280,12 @@ left: 4%;
     align-items: center;
     background-color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.link {
+width:100%;
+
+height:100%;
 }
 
 
@@ -292,6 +303,9 @@ left: 4%;
     justify-content: space-evenly;
     width:100%;
 }
+#innershowOptions a{
+    width:15%;
+}
 
 .innersvgIcon{
     width:15%;
@@ -301,6 +315,10 @@ left: 4%;
     border-radius: 12px;
     background-color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.innerLink{
+    width:100%;
+    height:100%;
 }
 
 .innersvgIcon svg{
