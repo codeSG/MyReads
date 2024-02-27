@@ -237,18 +237,19 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                 
                 
 
-                const reader = new FileReader();
-                const fileInfo = fileUpload;
-                if (fileInfo) {
-                    reader.readAsBinaryString(fileUpload);
-                    reader.onloadend = () => {
-                        const count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
-                        console.log('Number of Pages:', count);
+                // const reader = new FileReader();
+                // const fileInfo = fileUpload;
+                // if (fileInfo) {
+                //     reader.readAsBinaryString(fileUpload);
+                //     reader.onloadend = () => {
+                //         const count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+                //         console.log('Number of Pages:', count);
 
-                        uploadedBookObj.totalPage = count ; 
-                        storeFileInIndexedDB( uploadedBookObj )
-                    }
-                }
+                //         uploadedBookObj.totalPage = count ; 
+                        
+                //     }
+                // }
+                storeFileInIndexedDB( uploadedBookObj )
                 
                 
                

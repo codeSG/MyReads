@@ -33,7 +33,32 @@ const PDFViewer = () => {
 
     const param1 = Number(searchParams.get('bookID')) ;
     sessionStorage.setItem("bookKey" , param1) ; 
-console.log(" the id of the ebook  i s" , param1)
+console.log(" the id of the ebook  i s" , param1) ; 
+
+
+
+pdfRef.current.onload = function() {
+  // Access the iframe's window object
+  const iframeWindow = pdfRef.current.contentWindow;
+
+  // Get the scroll position
+  const scrollX = iframeWindow.scrollX || iframeWindow.pageXOffset;
+  const scrollY = iframeWindow.scrollY || iframeWindow.pageYOffset;
+
+
+  console.log('Scroll X position:', scrollX);
+  console.log('Scroll Y position:', scrollY);
+  pdfRef.current.addEventListener('scroll',function() {
+    console.log("getting scrooled " )
+  
+}  )  ;
+
+
+}
+
+
+
+
 
     if ( pdfRef.current) {
 
@@ -88,11 +113,13 @@ console.log(" the id of the ebook  i s" , param1)
                 pdfRef.current.src = urlWithPageNumber;
                 console.log("pageeSelecoter " , pdfRef.current )  ; 
                 console.log("the ifme is this " , pdfRef.current.contentWindow  ) ;
+              
                 // const iframeDocument =   pdfRef.current.contentWindow.document ;
                 // console.log( iframeDocument);
                 // pdfRef.current.width = pdfRef.current.contentWindow.document.body.scrollWidth ; 
                 // iframeDocument.body.style.backgroundColor = "red"
                 // console.lof
+                // alert(pdfRef.current.contentDocument.getElementById('pageNumber').value);
            
               };
 
