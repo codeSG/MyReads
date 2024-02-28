@@ -259,6 +259,7 @@ left: 4%;
     align-items: center;
     gap:2%;
     background-color: rgba(145, 83, 206, 0.25);
+    /* background-color: bisque; */
     /* margin-top:2%; */
 
     /* background-color: red; */
@@ -436,35 +437,41 @@ input::-webkit-outer-spin-button,
 
 
 
-        #messageContent{
-   
-
-            height:10vh;
-            background: rgba(145, 83, 206, 0.25);
-            caret-color:  black; 
-            color :black;
-            /* padding: 5px; */
-            border-radius: 12px;
-            border :0;
-            outline:0;
-            text-wrap: wrap;
-            width:100%;
-            padding-top:1%;
-            padding-left:4%;
-        
-            color : black;
-            font-family: 'Inter';
-        font-style: normal;
-        font-weight: bold;
-        font-size: 15px;
-        
-        
-            /* position: relative;
-            bottom: 0; */
-            
-        }
+     
 
         .darkShadow{
     background-color: rgba(145, 83, 206, 0.25);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+
+#messageContent{
+   
+
+           
+    background: rgba(145, 83, 206, 0.25);
+    caret-color:  black; 
+    color :black;
+    /* padding: 5px; */
+    border-radius: 12px;
+    border :0;
+    outline:0;
+    text-wrap: wrap;
+    width:100% !important;
+    height : 100% !important;
+    padding-top:1%;
+    padding-left:4%;
+
+    color : black;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: bold;
+font-size: 15px;
+resize : none ; 
+
+
+    /* position: relative;
+    bottom: 0; */
+    
 }

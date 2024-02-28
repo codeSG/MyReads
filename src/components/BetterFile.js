@@ -85,7 +85,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       const [ deleteInd , setDeletInd ] = useState(-1) ; 
       const [uploadBook , setUploadBook] = useState( false  ); 
       const [deletePath  , setDeletePath] = useState(-1) ; 
-      const [ deleteBookID , setDeleteBookID ] = useState(-1)
+      const [ deleteBookID , setDeleteBookID ] = useState(-1) ; 
+      // const 
       const listRef = ref( storage , `${tt}/`) ;
       console.log( "git list ref " , listRef) ;   
       async function deleteFile(path) {

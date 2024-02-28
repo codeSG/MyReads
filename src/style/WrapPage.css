@@ -13,22 +13,43 @@ body{
 } */
 .pdfContainer{
     width:96vw ; 
-    height : 100vh ; ;
+    height : 100vh ;
     /* display : flex ; 
     justify-content: space-between;
     align-items: center; */
     background-color: white;
     position: absolute; 
+    /* z-index:10; */
     right :0 ; 
     display: flex; 
     justify-content: center;
-    background-color: #EEDDFF;
+    align-items: center;
+    /* background-color: #EEDDFF; */
+    background-color: rgb(231, 233, 233);
+    /* background-color: red ; */
     /* background-color: red; */
     /* background-color: red; */
     /* background-color: black; */
     /* background-color: red ; */
     /* display:flex ; 
     justify-content: center; */
+}
+
+#movePrev svg{
+    width:50%;
+}
+
+#canvasDiv{
+width:50%;
+height: 98vh;
+padding:0 ; 
+margin:0 ; 
+border:0 ; 
+}
+.fullCanvas{
+    width:100%;
+    height: 100%;
+    /* border:1px solid black; */
 }
 .custom-iframe{
     /* width: inherit;
@@ -351,4 +372,77 @@ svg{
     animation : rightPdfMoving 2s ease-in-out ;
     animation-fill-mode: forwards;
     
+}
+
+
+
+#leftSideBar{
+    position: absolute;
+    width:5vw; 
+    height:100vh;
+    left:0;
+    display:flex ; 
+    /* justify-content: center; */
+    align-items: center;
+    /* width:50px; */
+    /* background-color: aqua; */
+}
+#movePrev{
+    /* position: absolute;
+    left:0 ; 
+    top:40%; */
+    /* background-color: rgb(156, 153, 153);
+    color:white; */
+    
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border: 0;
+    outline: 0;
+    border:1px solid black;
+    border-left:0;
+    height:15%;
+    width:60%;
+    font-size: 15px;
+    display: none ;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+
+
+#rightSideBar{
+    position: absolute;
+    width:5vw; 
+    height:100vh;
+    right:0;
+    display:flex ; 
+    flex-direction: row-reverse;
+    /* justify-content: center; */
+    align-items: center;
+    /* width:50px; */
+    /* background-color: aqua; */
+}
+#moveNext{
+    /* position: absolute;
+    left:0 ; 
+    top:40%; */
+    /* background-color: rgb(156, 153, 153);
+    color:white; */
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border: 0;
+    outline: 0;
+    border:1px solid black;
+    /* border-left:0; */
+    border-right: 0;
+    height:15%;
+    width:60%;
+    font-size: 15px;
+    display: none ;
+    justify-content: center;
+    align-items: center;
+
 }

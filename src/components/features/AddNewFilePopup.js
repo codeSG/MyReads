@@ -191,7 +191,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                 // console.log( " METADATA" , metaData ) ;
                   setSpinner(true) ; 
                 setBlack( true  )  ; 
-                const uploadedBookObj = {  currentPage : -1 , totalPage : -1   } ; 
+                const uploadedBookObj = {  currentPage : 1 , totalPage : 0 , notes : []    } ; 
                 const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+fileUpload.name) ; 
                 console.log("bookInforMation",bookInforMation);
                 const bookInforMationJson = await bookInforMation.json() ; 
