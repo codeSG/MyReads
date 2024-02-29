@@ -394,9 +394,11 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     font-size:25px;
 }
 #reading{
-    margin-top: 25%;
+    /* margin-top: 25%; */
     font-weight: bold;
     padding-left: 10%;
+    position:absolute ;
+    bottom:32%; 
 }
 
     #ddateBox{
@@ -412,6 +414,8 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
         box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
         border-radius:12px;
+        position:absolute ; 
+        bottom: 2%;
         
         /* margin-left:60px; */
        /* top:5%; */
@@ -516,8 +520,8 @@ line-height: 29px;
         flex-direction: column;
     }
     #bookRead{
-        margin-top:30px ; 
-        margin-left:20px;
+        margin-top: 10% ; 
+        margin-left:10%;
         height: 40%;
     }
     #bookName{          
@@ -569,8 +573,8 @@ line-height: 29px;
         height:100%;
     }
     #read{
-        margin-top: 10px;
-        margin-left:10px;
+        margin-top: 5%;
+        margin-left:5%;
         
         padding:15px 5px 5px;
         color:black ; 

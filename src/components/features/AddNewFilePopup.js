@@ -163,6 +163,14 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                 console.log("111111111111111 in the Header ");
                 console.log( fileUpload) ;
                 if( fileUpload === null ) return ; 
+                if( fileUpload.type !== "application/pdf" || !fileUpload.type ){
+                    alert("Only PDF files allowed !!") ; 
+                    setFileUpload( null ) ; 
+                    // setSpinner( false ) ; 
+                    // setBlack( false ) ;
+                    return ; 
+    
+                }
                 setUploadBook( false ) ;
                 console.log("2222222222222222 fileuplaod is not null ");
                 // alert(fileUpload.name)
@@ -191,6 +199,8 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                 // console.log( " METADATA" , metaData ) ;
                   setSpinner(true) ; 
                 setBlack( true  )  ; 
+                console.log("the file uploaded objedt ----- " , fileUpload ) ; 
+
                 const uploadedBookObj = {  currentPage : 1 , totalPage : 0 , notes : []    } ; 
                 const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+fileUpload.name) ; 
                 console.log("bookInforMation",bookInforMation);
@@ -277,8 +287,10 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
            
         } 
         useEffect(()=>{
-            console.log( "fileUpload", fileUpload );
+            console.log( "fileUpload is can be found here e", fileUpload );
+
             // console.log( fileUpload ) ; 
+           
             uploadFile() ; 
         }, 
         [fileUpload]);

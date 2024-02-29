@@ -605,6 +605,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                                  
                                 
                                   
+                                  
                                   <img src={dustbins} onClick={ ()=>{
                                     setDeleteBookID( ele.id) ; 
                                     setDeleteName( ele.bookName );
