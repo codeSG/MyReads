@@ -3,8 +3,9 @@ import React , { useState, useEffect }from 'react';
 import {Link} from "react-router-dom"
 import "./style/ClockMessage.css";
 
+import { Columns2  , RectangleVertical } from 'lucide-react' ; 
 
-const ShowOptions = ({showOptions,moveRight,showStopWatch}) => {
+const ShowOptions = ({showOptions,moveRight,showStopWatch, setSinglePageMode ,singlePageMode,  pageMovement}) => {
     
 
 
@@ -51,6 +52,15 @@ return(
     <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0V20H9.563L12.281 22.72L13.001 23.406L13.721 22.719L16.437 20H26V0H0ZM2 2H24V18H15.594L15.281 18.28L13 20.563L10.72 18.283L10.406 18.001H2V2ZM6 5V7H20V5H6ZM6 9V11H20V9H6ZM6 13V15H16V13H6Z" fill="black"/>
 </svg>
+    </div>
+    <div className="svgIcon darkShadow"  style={{ backgroundColor: singlePageMode ?"rgba(145, 83, 206, 0.25)" : "white"}} onClick={()=>
+        {setSinglePageMode(true) ; }  } >
+        <RectangleVertical/>
+    </div>
+    <div className="svgIcon darkShadow"  style={{ backgroundColor: !singlePageMode ?"rgba(145, 83, 206, 0.25)" : "white"}}
+     onClick={()=>
+        {setSinglePageMode(false) ;  }  } >
+   <Columns2/>
     </div>
     
 

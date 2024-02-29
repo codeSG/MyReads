@@ -6,13 +6,68 @@ import "./style/ClockMessage.css";
 import {Play} from "lucide-react"
 import {PauseCircle } from "lucide-react"
 import {Square } from "lucide-react"
+import { MessageSquareX } from "lucide-react"
 
 
-const MessageBody = ({divRef}) => {
+const MessageBody = ({pageMovement}) => {
     const [msgArr, setMsgArr] = useState([] );
-    function saveNotes( page , message ){
+    function saveNotes( page , message, messageID ){
 
         // alert("2222222222222") ; 
+        const openDBRequest = indexedDB.open("BooksDatabase", 1);
+      
+        
+        console.log( " trying yo dsnr mant ehnf here in this ") ; 
+      openDBRequest.onsuccess = function(event) {
+          const db = event.target.result;
+      
+          const transaction = db.transaction("booksinformation", "readwrite");
+          const objectStore = transaction.objectStore("booksinformation");
+      
+          const key = Number(sessionStorage.getItem("bookKey"));
+      
+          const getRequest = objectStore.get(key);
+      
+          getRequest.onsuccess = function(event) {
+              const record = event.target.result;
+      
+              // Modify the total page count
+            //   record.currentPage = pageNo; // Assuming totalPages is the new total page count
+      
+            //   record.totalPage = totalPageOfBook ; 
+              // Update the record in the object store
+console.log( " saved thenotes ")
+            //  const recordArr =  record.notes ; 
+             record.notes.push({page , message, messageID } ) ; 
+            //  record.notes = recordArr
+            //   record.currentPage = pageNo; // Assuming totalPages is the new total page count
+
+            //   record.totalPage = totalPageOfBook ;
+console.log("333333333333333333333" , msgArr)
+            //   alert("333333333333333")
+              const updateRequest = objectStore.put(record);
+      
+              updateRequest.onsuccess = function(event) {
+                  console.log("Total pages updated successfully");
+                //   alert("44444444444444444")
+              };
+      
+              updateRequest.onerror = function(event) {
+                  console.error("Error updating total pages:", event.target.error);
+              };
+          };
+      
+          getRequest.onerror = function(event) {
+              console.error("Error retrieving record:", event.target.error);
+          };
+      };
+      
+      
+      }
+
+      function deleteNotes(messageID){
+
+
         const openDBRequest = indexedDB.open("BooksDatabase", 1);
       
         // const pageNo = Number( sessionStorage.getItem("currentPage")) ; 
@@ -39,8 +94,11 @@ const MessageBody = ({divRef}) => {
               // Update the record in the object store
 console.log( " saved thenotes ")
              const recordArr =  record.notes ; 
-             recordArr.push({page , message } ) ; 
-             record.notes = recordArr
+            //  record.notes.push({page , message, messageID } ) ; 
+            const tempRecordArr = recordArr.filter( ele => ele.messageID !== messageID ) ; 
+
+             record.notes = [  ...tempRecordArr ]
+
             //   record.currentPage = pageNo; // Assuming totalPages is the new total page count
 
             //   record.totalPage = totalPageOfBook ;
@@ -64,20 +122,38 @@ console.log("333333333333333333333" , msgArr)
       };
       
       
+ 
+
+
+
+
+
+
+
       }
+
 
     // const [ msgVal , setMsgVal] = useState("") ; 
     const textAreaRef = useRef(null) ; 
     
-     function saveChanges(){
+     function saveMessage(){
         const page = Number( sessionStorage.getItem("currentPage")) ; 
         const message = textAreaRef.current.value ; 
+        const messageID = Date.now() ; 
 
-        setMsgArr( prev=> [ ...prev , { page : page , message : message }]) ; 
+        setMsgArr( prev=> [ ...prev , { page : page , message : message , messageID : messageID }]) ; 
         textAreaRef.current.value = "" ;
-        saveNotes( page , message ) ;  
+        saveNotes( page , message , messageID ) ;  
         // setMsgVal( "")
         // alert("Enter pressed")
+    }
+    function deleteMessage( messageID ){
+        // alert( messageID ) ; 
+
+        setMsgArr( prev => prev.filter( ele => ele.messageID !== messageID )) 
+        deleteNotes( messageID ) ; 
+
+
     }
 
 
@@ -141,6 +217,8 @@ console.log("333333333333333333333" , msgArr)
   
     } , [] )
 
+    
+
 return(
  <div id="second">
        
@@ -150,13 +228,14 @@ return(
                msgArr.map( (ele,ind)=>{
                    return( 
                        <div className="messagesBody">
-                       <p className="pageNumber">
+                       <p className="pageNumber" onClick={()=>pageMovement(Number(ele.page))}>
                           {`page ${ele.page}`}
                        </p>
                          <p className="pageBody" >
                           {ele.message}
                        </p>
 
+                       <MessageSquareX width="15px" height="15px" className="deleteIcon"  onClick={()=> deleteMessage(ele.messageID)}/>
                        </div>
                    )
                })
@@ -166,7 +245,7 @@ return(
           
        </div>
        <div id="wrapper">
-           <textarea ref={textAreaRef} placeholder='Write Notes' id="messageContent"    onKeyDown={(e)=> {if(e.key === 'Enter') saveChanges()}}
+           <textarea ref={textAreaRef} placeholder='Write Notes' id="messageContent"    onKeyDown={(e)=> {if(e.key === 'Enter') saveMessage()}}
            />
             
            {/* <input placeholder="Enter your Comment"></input> */}

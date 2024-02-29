@@ -68,12 +68,26 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       // alert(bookID )
       if( !bookID || bookID === -1 ) return "/" ; 
       // if( arr.length === 0 ) return ""
+      
 
       return `/file/showfile?bookID=${bookID}` ; 
 
 
     }
 
+    function getPercentageCompleted(bookID ){
+      if( !bookID || bookID === -1 ) return 0 ;
+      
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return 0 ;
+      const a  = arr[0].currentPage ; 
+      const b = arr[0].totalPage ; 
+      if( a <=0 || b <=0  ) return 0 ; 
+      
+      const c = Math.ceil(  ( a/b)*100  ) ; 
+      return c ;
+
+    }
     const [ hash , setHash] = useSearchParams()  ;
       
     const [search , setSearch] = useState("") ; 
@@ -196,6 +210,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
         // setBlack( false) ; 
         // alert(getEmail()) ; 
           
+        sessionStorage.setItem("objectUrl" ,  ""  ) ; 
 
         async function fetchDataFromIndexedDB() {
           try {
@@ -463,9 +478,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
                     </label>
                     <div className="progress">
-                      <div className='progress1'></div>
+                      <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[1]    )}%`}}></div>
                       <div className='progress2'></div>
-                      <legend>25%</legend>
+                      <label>{`${getPercentageCompleted(  bookRecentlyViewed[1] )}%`}</label>
                     </div>
                     <div className="options">
                       <Link to ={getBookPath(bookRecentlyViewed[1])} >
@@ -477,7 +492,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                         setDeleteBookID( bookRecentlyViewed[1]) ; 
                         setDeleteName( getBookName(bookRecentlyViewed[1]) );
                         // alert( ele.id) ; 
-                        setBlack( true ); 
+                        // setBlack( true ); 
                       }}
                       ></img>
                     </div>
@@ -493,9 +508,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
                     </label>
                     <div className="progress">
-                      <div className='progress1'></div>
+                      <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[2]    )}%`}}></div>
                       <div className='progress2'></div>
-                      <legend>25%</legend>
+                      <label>{`${getPercentageCompleted(  bookRecentlyViewed[2] )}%`}</label>
                     </div>
                     <div className="options">
                       <Link to ={getBookPath(bookRecentlyViewed[2])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[2]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
@@ -505,9 +520,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                       <img src={dustbins}   
                       onClick={ ()=>{
                         setDeleteBookID( bookRecentlyViewed[2]) ; 
-                        setDeleteName(  getBookName(bookRecentlyViewed[1]) );
+                        setDeleteName(  getBookName(bookRecentlyViewed[2]) );
                         // alert( ele.id) ; 
-                        setBlack( true ); 
+                        // setBlack( true ); 
                       }}
                       ></img>
                     </div>
@@ -524,9 +539,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
                     </label>
                     <div className="progress">
-                      <div className='progress1'></div>
+                      <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[3]    )}%`}}></div>
                       <div className='progress2'></div>
-                      <legend>25%</legend>
+                      <label>{`${getPercentageCompleted(  bookRecentlyViewed[3] )}%`}</label>
                     </div>
                     <div className="options">
                       <Link to ={getBookPath(bookRecentlyViewed[3])} >
@@ -539,7 +554,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                         setDeleteBookID( bookRecentlyViewed[3]) ; 
                         setDeleteName( getBookName(bookRecentlyViewed[3]) );
                         // alert( ele.id) ; 
-                        setBlack( true ); 
+                        // setBlack( true ); 
                       }}
                       
                       ></img>
@@ -594,7 +609,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                                     setDeleteBookID( ele.id) ; 
                                     setDeleteName( ele.bookName );
                                     // alert( ele.id) ; 
-                                    setBlack( true ); 
+                                    // setBlack( true ); 
                                   }} />
                               </div>
                           
@@ -644,6 +659,18 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             
           
           }
+           {
+            
+            ( deleteBookID !== -1 ) &&  <div 
+                style={{backgroundColor:"black", position:"fixed", 
+                top:"0", left:"0", right:"0",bottom:"0",
+                opacity:"0.6" , zIndex:"4" , width:"100%" , height:"100%"}}>
+
+            </div>
+            
+          
+          }
+
           {
              uploadBook && <AddNewFilePopup     
              setUploadBook={setUploadBook} setBlack={setBlack}

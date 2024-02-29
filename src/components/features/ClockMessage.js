@@ -15,7 +15,7 @@ import ShowOptions from './ShowOptions';
 import InnerShowOptions from './InnerShowOptions';
 // import { useContext } from 'react-router-dom';
 import { ContextInfo } from '../../App';
-const ClockMessage = ({ fileList, clockMessageRef, pdfContainer}) => {
+const ClockMessage = ({ fileList, clockMessageRef, pdfContainer, setSinglePageMode, singlePageMode, pageMovement}) => {
     // const { stopWatch , setStopWatch} = useContext(ContextInfo)
     // const [ stopWatch , setStopWatch ] = useState(false);
    
@@ -126,7 +126,8 @@ function moveRight(){
     
   return (
     <div id="clockContainer">
-       <ShowOptions  moveRight={moveRight} showOptions={showOptions} showStopWatch={showStopWatch} />
+       <ShowOptions  moveRight={moveRight} showOptions={showOptions} showStopWatch={showStopWatch}
+       setSinglePageMode={setSinglePageMode} pageMovement={pageMovement} singlePageMode={singlePageMode} />
 
 
 
@@ -134,7 +135,7 @@ function moveRight(){
        <InnerShowOptions moveLeft={moveLeft} setShowStopWatch={setShowStopWatch} showStopWatch={showStopWatch} />
       {showStopWatch ?   <StopWatch/>  :   <Timer  />}
        
-        <MessageBody/>
+        <MessageBody pageMovement={pageMovement}/>
 
     
     
