@@ -2,7 +2,8 @@ import React , {useContext} from 'react'
 import "../style/DeletePopup.css";
 import {ContextInfo} from "../App";
 import {deleteBook} from "../utils/updateBookRecentlyViewed"
-const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDeletePath,deleteFile , deleteBookID,setDeleteBookID}) => {
+const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDeletePath,deleteFile , deleteBookID,setDeleteBookID , 
+}) => {
   
   const {fileList, setFileList, originalFile, setOriginalFile,   bookRecentlyViewed, 
     setBookRecentlyViewed} = useContext(ContextInfo) ; 
@@ -32,9 +33,7 @@ const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDelete
 
 
       console.log('File deleted successfully');
-      setOriginalFile( prevArr => prevArr.filter( (ele) => ele.id !== deleteID))
-      setFileList( prevArr => prevArr.filter( (ele) => ele.id !== deleteID)) ; 
-      setBookRecentlyViewed(deleteBook(deleteID) )
+      
     } catch (error) {
       console.error('Error deleting file:', error);
     }
@@ -59,7 +58,19 @@ const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDelete
               deleteFileFromIndexedDB(deleteBookID).then(()=>{
                 setDeleteBookID(-1) ; 
                 setDeleteName("") ;
-                setBlack( false ) ; 
+                setBlack( false ) ;  
+
+
+
+                setOriginalFile( prevArr => prevArr.filter( (ele) => ele.id !== deleteBookID))
+                setFileList( prevArr => prevArr.filter( (ele) => ele.id !== deleteBookID)) ;
+                const delArr =  deleteBook(deleteBookID) ; 
+
+                console.log( " ADD NEW FILE POPUP JS " , delArr  )
+                setBookRecentlyViewed( [...delArr] )
+
+
+                // setOriginalFile( prev => [...prev])
               })
               
              

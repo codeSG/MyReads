@@ -20,8 +20,11 @@ import dustbins from "../image/dustbins.png"
 import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
 // import React from 'react'
 import "../style/BetterFile.css"
+import CanvasComponent from './CanvasComponent';
+import FrequentCanvasComponent from "./FrequentCanvasComponent.js"
 // import 'boxicons';
-import { Play } from 'lucide-react';
+import { Play , Trash2} from 'lucide-react';
+// import {Trash2 }
 
 import LeftUI from './LeftUI';
 import { setFrequentBooks } from '../utils/updateBookRecentlyViewed';
@@ -57,6 +60,13 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       if( arr.length === 0 ) return ""
       return arr[0].bookAuthor ;
     }
+    function getBookCategory(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return ""
+      return arr[0].categories ;
+    }
     function getBookName(bookID){
       if( !bookID || bookID === -1 ) return "" ; 
 
@@ -88,6 +98,114 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       return c ;
 
     }
+
+    function getFirstPage( bookID ){
+
+      if( !bookID || bookID === -1 ) {
+        const img = document.createElement("img") ;
+        img.classList.add("canvasImage") ;
+        img.src = bookImageSubstitue ; 
+        return img ; 
+      }
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) {
+        const img = document.createElement("img") ; 
+        img.src = bookImageSubstitue ; 
+        img.classList.add("canvasImage") ;
+        return img ; 
+      }
+
+
+
+      const canvas = document.createElement('canvas');
+      
+      canvas.classList.add("canvasImage") ;
+
+      const blob = new Blob(  [arr[0].data] , { type: 'application/pdf' });
+      const objectUrl = URL.createObjectURL(blob);
+
+      pageMovement(  objectUrl, canvas  )
+
+      return canvas ; 
+
+
+
+    }
+
+    async function pageMovement(  objectUrl,  canvas){
+      const pdfJS = await import('pdfjs-dist/build/pdf'); 
+      pdfJS.GlobalWorkerOptions.workerSrc =
+        window.location.origin + '/pdf.worker.min.mjs';
+
+
+        pdfJS.getDocument({ url: objectUrl }).promise
+        .then((doc) => {
+            // Check if pdfDoc exists and destroy it
+            loadNewDocument(doc , canvas );
+        })
+        .catch((error) => {
+            console.error('Error loading PDF document:', error);
+        });
+
+    }
+
+
+
+
+    async function loadNewDocument(doc, canvas ) {
+
+      const pageNo = 1 ; 
+      // alert( pageNo )
+        // pdfDoc.current = doc;
+      
+        // const pageNo = Number( sessionStorage.getItem("currentPage") ) ; 
+      
+      
+      // const totalPage = pdfDoc.current.numPages;
+      // sessionStorage.setItem("totalPage" , totalPage ) ; 
+      
+      // Log the total number of pages
+      // console.log('Total number of pages:', totalPage);
+      // setTotalPages(totalPage ) 
+      // console.log( " is it null " , pdfDoc.current ) ;
+      
+      
+      
+      
+      // Prepare canvas using PDF page dimensions.
+      const page = await doc.getPage(pageNo);      
+      
+      const viewport = page.getViewport({ scale: 1.5 });
+
+            // const canvas = canvasRef.current;
+
+          const canvasContext = canvas.getContext('2d');
+      
+          // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
+      
+          // canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+          canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+          // canvasContext.beginPath();
+      
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+      
+          // Render PDF page into canvas context.
+          const renderContext = { canvasContext, viewport };
+          const renderTask =  page.render(renderContext);
+      
+
+    }
+
+
+
+
+
+
+
+
+
+
     const [ hash , setHash] = useSearchParams()  ;
       
     const [search , setSearch] = useState("") ; 
@@ -221,7 +339,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             console.log( bookEntries[0]) ; 
               for( let ind in  data ){
                   const ele = data[ind] ; 
-                const bookName = ele.bookName ; 
+                let bookName = ele.bookName ; 
+                bookName = bookName.replace(/.pdf/g, "") ;
+
+                console.log( " the bookName to be searched for i his " , bookName )
 
                 const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+bookName) ; 
              console.log("bookInforMation",bookInforMation);
@@ -239,7 +360,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                      cnt++;
                  }
                  if( bookentry.volumeInfo?.imageLinks?.thumbnail ){
-                  bookObj.bookImageLink  =  bookentry.volumeInfo.imageLinks.thumbnail ;
+                  // bookObj.bookImageLink  =  bookentry.volumeInfo.imageLinks.thumbnail ;
+                  bookObj.categories = bookentry.volumeInfo.categories;
                      cnt++;
                  }
                 //  if( bookentry.volumeInfo?.description ){
@@ -264,8 +386,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               bookObj.bookGenre = "Anoyomus"  ; 
              }
              
-             if( !bookObj.bookImageLink){
-              bookObj.bookImageLink = bookImageSubstitue  ; 
+             if( !bookObj.categories){
+              bookObj.categories = []  ; 
              }
 
              if( cnt !== 3 ){
@@ -285,6 +407,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               setSpinner( false ) ; 
 
               setBookRecentlyViewed( setFrequentBooks()) ; 
+
+              console.log( "  1111111111book reecntly viewed are her e..." , bookRecentlyViewed ) ; 
+              console.log( " 22222222222book reecntly viewed are her e..." , setFrequentBooks() ) ; 
+
 
               // setBook
           } catch (error) {
@@ -405,7 +531,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           let numberOfDays = new Date(year, month+1, 0).getDate();
           let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
           if( calendarArr === null ){
-            const pp = new Array(numberOfDays).fill(false) ; 
+            const readStatus = { readToday : false , pagesRead :{} , timeSpent : 0  } ; 
+            const pp = new Array(numberOfDays).fill({ ...readStatus }) ; 
+
             localStorage.setItem("calendarArray" , JSON.stringify(pp)) ; 
             calendarArr = JSON.parse(localStorage.getItem("calendarArray") );
             console.log("localstorage" , calendarArr) ;
@@ -413,7 +541,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             // alert("changsvakue 1");
 
           }else if( calendarArr.length !== numberOfDays ){
-            const pp = new Array(numberOfDays).fill(false) ; 
+            const readStatus = { readToday : false , pagesRead :{} , timeSpent : 0  } ; 
+            const pp = new Array(numberOfDays).fill({...readStatus}) ; 
             
             localStorage.setItem("calendarArray" , JSON.stringify(pp)) ; 
             calendarArr = JSON.parse(localStorage.getItem("calendarArray") );
@@ -471,12 +600,43 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               
               
               <div className="frequent" id="frequentBook1">
-                  <img src={getImageLink(bookRecentlyViewed[1])} />
+                  {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
+                  { (!bookRecentlyViewed[1] || bookRecentlyViewed[1] ===-1|| originalFile.length===0)?
+                  <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
+                  
+                    <Link to= {getBookPath(bookRecentlyViewed[1])}  className='recentViewCanvas'  >
+                    
+                    <FrequentCanvasComponent  bookID={bookRecentlyViewed[1]}  
+                  bookImageSubstitue={bookImageSubstitue} 
+                  bookClass={"recentCanvas"}
+                  />
+                    </Link>
+                  
+                  
+                  
+                  
+                  }
+                  
                   <div className="descriptionBook" >
-                    <label>
-                     { getBookAuthor(bookRecentlyViewed[1])}
+                    <label className="getBookName">
+                    { getBookName(bookRecentlyViewed[1])}
+                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                    
 
                     </label>
+                    <label className="getBookAuthor">
+                     { getBookAuthor(bookRecentlyViewed[1])}
+                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                   
+
+
+                    </label>
+
+                     {/* <button></button> */}
+                     
+                     {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
+                     <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[1])[0]}</button>
+                    
                     <div className="progress">
                       <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[1]    )}%`}}></div>
                       <div className='progress2'></div>
@@ -487,44 +647,91 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                           <button>Read</button>
                       </Link>
                       
-                      <img src={dustbins}
+                      
+                      {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
+                     <Trash2   className="trash"   onClick={ ()=>{
+                        setDeleteBookID( bookRecentlyViewed[1]) ; 
+                        setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                        // alert( ele.id) ; 
+                        // setBlack( true ); 
+                      }}/>
+                      {/* <img src={dustbins}
                       onClick={ ()=>{
                         setDeleteBookID( bookRecentlyViewed[1]) ; 
                         setDeleteName( getBookName(bookRecentlyViewed[1]) );
                         // alert( ele.id) ; 
                         // setBlack( true ); 
                       }}
-                      ></img>
+                      /> */}
                     </div>
                   </div>
                </div>
 
 
-               <div className="frequent" id="frequentBook2">
-                  <img src={getImageLink(bookRecentlyViewed[2])} />
+               <div className="frequent" id="frequentBook1">
+                  {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
+                  { (!bookRecentlyViewed[2] || bookRecentlyViewed[2] ===-1|| originalFile.length===0)?
+                  <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
+                  
+                    <Link to= {getBookPath(bookRecentlyViewed[2])}  className='recentViewCanvas'  >
+                    
+                    <FrequentCanvasComponent  bookID={bookRecentlyViewed[2]}  
+                  bookImageSubstitue={bookImageSubstitue} 
+                  bookClass={"recentCanvas"}
+                  />
+                    </Link>
+                  
+                  
+                  
+                  
+                  }
+                  
                   <div className="descriptionBook" >
-                    <label>
-                     { getBookAuthor(bookRecentlyViewed[2])}
+                    <label className="getBookName">
+                    { getBookName(bookRecentlyViewed[2])}
+                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                    
 
                     </label>
+                    <label className="getBookAuthor">
+                     { getBookAuthor(bookRecentlyViewed[2])}
+                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                   
+
+
+                    </label>
+
+                     {/* <button></button> */}
+                     
+                     {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
+                     <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button>
+                    
                     <div className="progress">
                       <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[2]    )}%`}}></div>
                       <div className='progress2'></div>
                       <label>{`${getPercentageCompleted(  bookRecentlyViewed[2] )}%`}</label>
                     </div>
                     <div className="options">
-                      <Link to ={getBookPath(bookRecentlyViewed[2])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[2]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[1]) }}>
+                      <Link to ={getBookPath(bookRecentlyViewed[2])} >
                           <button>Read</button>
                       </Link>
                       
-                      <img src={dustbins}   
-                      onClick={ ()=>{
+                      
+                      {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
+                     <Trash2   className="trash"   onClick={ ()=>{
                         setDeleteBookID( bookRecentlyViewed[2]) ; 
-                        setDeleteName(  getBookName(bookRecentlyViewed[2]) );
+                        setDeleteName( getBookName(bookRecentlyViewed[2]) );
+                        // alert( ele.id) ; 
+                        // setBlack( true ); 
+                      }}/>
+                      {/* <img src={dustbins}
+                      onClick={ ()=>{
+                        setDeleteBookID( bookRecentlyViewed[1]) ; 
+                        setDeleteName( getBookName(bookRecentlyViewed[1]) );
                         // alert( ele.id) ; 
                         // setBlack( true ); 
                       }}
-                      ></img>
+                      /> */}
                     </div>
                   </div>
                </div>
@@ -532,12 +739,43 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
 
                <div className="frequent" id="frequentBook1">
-                  <img src={getImageLink(bookRecentlyViewed[3])} />
+                  {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
+                  { (!bookRecentlyViewed[3] || bookRecentlyViewed[3] ===-1|| originalFile.length===0)?
+                  <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
+                  
+                    <Link to= {getBookPath(bookRecentlyViewed[3])}  className='recentViewCanvas'  >
+                    
+                    <FrequentCanvasComponent  bookID={bookRecentlyViewed[3]}  
+                  bookImageSubstitue={bookImageSubstitue} 
+                  bookClass={"recentCanvas"}
+                  />
+                    </Link>
+                  
+                  
+                  
+                  
+                  }
+                  
                   <div className="descriptionBook" >
-                    <label>
-                     { getBookAuthor(bookRecentlyViewed[3])}
+                    <label className="getBookName">
+                    { getBookName(bookRecentlyViewed[3])}
+                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                    
 
                     </label>
+                    <label className="getBookAuthor">
+                     { getBookAuthor(bookRecentlyViewed[3])}
+                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                   
+
+
+                    </label>
+
+                     {/* <button></button> */}
+                     
+                     {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
+                     <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button>
+                    
                     <div className="progress">
                       <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[3]    )}%`}}></div>
                       <div className='progress2'></div>
@@ -548,16 +786,22 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                           <button>Read</button>
                       </Link>
                       
-                      <img src={dustbins}
                       
-                      onClick={ ()=>{
+                      {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
+                     <Trash2   className="trash"   onClick={ ()=>{
                         setDeleteBookID( bookRecentlyViewed[3]) ; 
                         setDeleteName( getBookName(bookRecentlyViewed[3]) );
                         // alert( ele.id) ; 
                         // setBlack( true ); 
+                      }}/>
+                      {/* <img src={dustbins}
+                      onClick={ ()=>{
+                        setDeleteBookID( bookRecentlyViewed[1]) ; 
+                        setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                        // alert( ele.id) ; 
+                        // setBlack( true ); 
                       }}
-                      
-                      ></img>
+                      /> */}
                     </div>
                   </div>
                </div>
@@ -589,8 +833,19 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                         <div id="textBook">
 
                            <div id="image"> 
-                             
-                              <img style={{"width":"100%", "height":"100%"}} src={ele.bookImageLink}/>    
+                                                              
+                              {/* <img className="canvasImage"  src={ele.bookImageLink}/>    . */}
+
+                              <Link to={`/file/showfile?bookID=${ele.id}`}>
+                                    <CanvasComponent  bookID={ele.id}  originalFile={originalFile}
+                            bookImageSubstitue={bookImageSubstitue}
+                            bookClass={"canvasImage"} />
+                              </Link>
+                              {/* <CanvasComponent  bookID={ele.id}  originalFile={originalFile}
+                      bookImageSubstitue={bookImageSubstitue}
+                      bookClass={"canvasImage"} /> */}
+
+                              
                           </div>
                           <div id="content">
                           <p className="title">{ele.bookName}</p>
@@ -605,13 +860,22 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                                  
                                 
                                   
-                                  
-                                  <img src={dustbins} onClick={ ()=>{
+                                 
+                                  {/* <img src={dustbins} onClick={ ()=>{
                                     setDeleteBookID( ele.id) ; 
                                     setDeleteName( ele.bookName );
                                     // alert( ele.id) ; 
                                     // setBlack( true ); 
-                                  }} />
+                                  }} /> */}
+
+                        <Trash2   className="trash"   onClick={ ()=>{
+                          setDeleteBookID( ele.id) ; 
+                          setDeleteName( ele.bookName );
+                        // alert( ele.id) ; 
+                        // setBlack( true ); 
+                      }}/>
+
+
                               </div>
                           
                               
@@ -655,6 +919,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               setDeletInd={setDeletInd}  deleteFile={deleteFile}
               deletePath={ deletePath} setDeletePath={setDeletePath}  deleteBookID={deleteBookID} 
               setDeleteBookID = {setDeleteBookID} deleteName={deleteName} setDeleteName={setDeleteName}
+              
               
             />
             

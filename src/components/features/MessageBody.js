@@ -4,7 +4,7 @@ import "./style/ClockMessage.css";
 // import "./style/ClockMessage.css"
 
 import {Play} from "lucide-react"
-import {PauseCircle } from "lucide-react"
+import {PauseCircle , Send, SendHorizontal } from "lucide-react"
 import {Square } from "lucide-react"
 import { MessageSquareX } from "lucide-react"
 
@@ -143,6 +143,7 @@ console.log("333333333333333333333" , msgArr)
 
         setMsgArr( prev=> [ ...prev , { page : page , message : message , messageID : messageID }]) ; 
         textAreaRef.current.value = "" ;
+        // textAreaRef.current.rese
         saveNotes( page , message , messageID ) ;  
         // setMsgVal( "")
         // alert("Enter pressed")
@@ -245,8 +246,10 @@ return(
           
        </div>
        <div id="wrapper">
-           <textarea ref={textAreaRef} placeholder='Write Notes' id="messageContent"    onKeyDown={(e)=> {if(e.key === 'Enter') saveMessage()}}
+           <textarea ref={textAreaRef} placeholder='Write Notes' id="messageContent"     
            />
+           {/* <Send className="sendMessage"/> */}
+           <SendHorizontal  className="sendMessage" onClick={ ()=>saveMessage()  } />
             
            {/* <input placeholder="Enter your Comment"></input> */}
        </div>

@@ -7,7 +7,7 @@ import {Play} from "lucide-react"
 import {PauseCircle } from "lucide-react";
 
 
-const StopWatch = () => {
+const StopWatch = ({showStopWatch}) => {
 
   const [timer, setTimer ] = useState(0) ; 
   const[ timeInterval , setTimeInterval ] = useState(null) ; 
@@ -48,7 +48,7 @@ const StopWatch = () => {
 
   const [ isPause , setIsPause] = useState( false) ; 
   return(
-    <div className="first">
+    <div className="first" style={{display: showStopWatch ? 'block' : 'none'}}>
        <p className="timer">STOPWATCH</p>
         <div id="clock">
             <input type="text" className="time" value={ getProperTime()}   readOnly={true}   />

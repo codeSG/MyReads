@@ -10,7 +10,7 @@ const MainPage = () => {
     const [ fileName, setFileName] = useState("") ; 
     
   return (
-    <div id='mainPageDiv' style={ { "minWidth":"100vw" , "minHeight":"100vh"}} >
+    <div id='mainPageDiv'  >
         {/* <Header fileUpload={fileUpload} 
         setFileUpload={setFileUpload} fileList={fileList} setFileList={setFileList}
         setSpinner={setSpinner} hashID={hashID} setHashID={setHashID}/> */}

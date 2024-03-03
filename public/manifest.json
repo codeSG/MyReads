@@ -5,8 +5,7 @@
   "description": "Allows you to upload and read books + many other options",
   "version": "1.0",
   "action": {
-    "default_icon": 
-    {
+    "default_icon":   {
       "16": "bookLogo.jpg",
       "48": "bookLogo.jpg",
       "128": "bookLogo.jpg"

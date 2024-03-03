@@ -68,6 +68,11 @@
 
 }
 
+.canvasImage{
+    width:100%;
+    height: 100%;
+}
+
 .bookoptions{
     margin-top: 5px;
     display:flex; 
@@ -77,7 +82,7 @@
 
 }
 .bookoptions button{
-
+  cursor: pointer;
 }
 .bookoptions img{
     width:30px ; 
@@ -219,17 +224,24 @@ height:90%;
 
 }
 #uploadingLeft svg{
-    width:40px ; 
-    height:40px;
+    /* width:40px ; 
+    height:40px; */
+    width: 50px;
+height: 42px;
 }
 #uploadingLeft label{
     /* height : 100%; */
     /* font-weight: bold; */
-    font-family: 'Inter';
+   
+width:fit-content;
+font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
 font-size: 24px;
 line-height: 29px;
+height: 52px;
+display: flex;
+align-items: center;
 
 
     
@@ -245,14 +257,44 @@ line-height: 29px;
 #addBook p{
     font-weight: bold;
 }
-#addBook button{
-    width:150px;
-    color: white;
-    background-color: black;
-    padding: 5px;
-    font-weight: bold;
-    text-align: left;
-    font-size : 15px;
+#done{
+    /* width:150px; */
+ 
+   
+    color : black ;
+    border : 0 ; 
+    width:22%;
+    height:8vh ; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 29px;
+
+background: rgba(145, 83, 206, 0.56);
+border-radius: 10px;
+}
+
+.categoryOptions{
+    width:35%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.categoryOptions button{
+    background: rgba(145, 83, 206, 0.56);
+    color: black;
+    border: 0;
+    padding:10px ; 
+    border-radius: 10px;
+    font-weight: 600;
+    width:22%;
+    cursor: pointer;
+
 }
 #topBar{
     display:flex ; 
@@ -277,7 +319,8 @@ height : 30px ;
 #right{
      /* background-color: #f0f2f5; */
      /* background-color: #f2f3f5; */
-     background: #F1E9F9;
+     /* background: #F1E9F9; */
+     background: #FFFFFF;
     min-height: 100vh;
      width:80% ; 
      height : fit-content;
@@ -568,9 +611,10 @@ line-height: 29px;
         box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
         
     }
-    #bookView img{
+    .firstViewCanvas{
         width:100%;
         height:100%;
+        border:1px solid black;
     }
     #read{
         margin-top: 5%;
@@ -668,24 +712,75 @@ line-height: 29px;
         box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
         border-radius: 20px;
     }
-    .frequent img{
+    .recentViewCanvas{
         width : 40%  ;
-        height : 90%;
+        height : 85%;
+    }
+    .recentCanvas{
+        width:100%;
+        height:100%;
     }
     .descriptionBook{
         width : 40%  ;
-        height : 90%;
+        height : 85%;
         /* background-color: red; */
         border-radius: 12px;
         display : flex ; 
         flex-direction: column;
+        background-color: #FFFFFF;
+        position: relative;
         /* align-items: center; */
     }
-    .descriptionBook label{
+    .getBookName{
+        margin-top: 5%;
         margin-left: 5%;
+        font-size: 20px;
+        max-height:40%;
+        width:90%;
+        font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+/* line-height: 24px; */
+text-align: center;
+
+color: #000000;
+overflow: hidden;
+    }
+    .getBookAuthor{
+        width:90%;
+        margin-left: 5%;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+/* line-height: 18px; */
+text-align: center;
+max-height:20%;
+
+color: #524F4F;
+overflow: hidden;
+
     }
 
-    .frequent label{
+.getBookCategory{
+    height: 10%;
+    width: fit-content;
+    max-width:80%;
+
+   
+    overflow: hidden;
+    background: #EEDDFF;
+border-radius: 10px;
+border : 0 ; 
+outline:0;
+padding:5px;
+/* padding-bottom:2px; */
+font-size: 10px;
+margin-left: 10%;
+margin-top:2%;
+}
+    /* .frequent label{
         font-family: 'Inter';
         font-style: normal;
         font-weight: 600;
@@ -696,7 +791,7 @@ line-height: 29px;
         margin-top: 10%;
         overflow: hidden;
 
-    }
+    } */
     
 /* 
     .options{
@@ -712,14 +807,24 @@ line-height: 29px;
         color : white ;
         /* width:100%;
         margin-top:5%; */
+        height:10%;
         width:100%;
+       
+        position: absolute;
+        bottom:5%;
     
-        margin-top: 5%;
+        /* margin-top: 5%; */
     }
 
-.options img{
+/* .options img{
 width:30px ; 
 height:30px;
+} */
+.trash{
+    width:25px ; 
+height: 23px;
+color : black ; 
+cursor : pointer ; 
 }
 
 .options a{
@@ -735,6 +840,7 @@ outline:0;
 /* padding:5px 0; */
 font-weight: bold;
 height:90%;
+cursor: pointer;
 /* height:50%; */
 }
 #threeCircle{
@@ -746,16 +852,19 @@ height:90%;
 }
 
 .progress{
-    margin-top:25%;
+    /* margin-top:25%; */
     height : 2% ; 
     /* background-color: rgb(199, 199, 100); */
-    width : 80%;
+    width : 75%;
     border-radius: 15px;
     border:0;
     /* background-color: black; */
     position:relative ; 
     margin-left: 5%;
     display : flex ; 
+    /* margin-top:5%; */
+    position: absolute;
+    bottom:20%;
 }
 
 .progress1{
@@ -780,15 +889,63 @@ height:90%;
 }
 .progress label{
     position:absolute;
-    right:-20%;
+    left:100%;
     /* top:20px; */
     /* top:-100% ;  */
     /* top:-100% ;  */
     /* bottom:0 ;  */
-    bottom:-10%;
-    top:-550%;
+    /* font-size:10px; */
+    /* bottom:-10%; */
+    /* top:-550%; */
+    top:-100%;
     font-size: 10px;
     width:fit-content ; 
+    
     height:fit-content ; 
 }
 
+.tooltip {
+    position: relative;
+   
+   
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    /* width:200px; */
+    background-color: black;
+    background: linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), #EEDDFF;
+    color: #fff;
+    color : black ; 
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    /* margin-left: -60px; */
+    margin-left: 10px;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .tooltiptext{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tooltiptext label{
+    width:fit-content ; 
+    font-size: 10px;
+  }
+
+  .checkbox-custom:hover{
+    background: rgba(145, 83, 206, 0.56);
+    border: 1px solid #000000;
+  }

@@ -55,7 +55,20 @@ align-items: center;
     padding-top:20px; */
     margin-left: 10%;
     border-radius: 12px;
+    display : none ;
     
+}
+.timerFirst{
+    width:80% ; 
+    height  :18% ; 
+    /* border : 2px solid black; */
+    background-color: rgb(228, 228, 228);
+    /* padding:10px;
+    padding-top:20px; */
+    margin-left: 10%;
+    border-radius: 12px;
+    display: none ; 
+
 }
 #second{
     border-radius: 12px;
@@ -155,33 +168,7 @@ top: 4%;
 left: 4%;
 /* transform: translateY(-100%); */
 }
-#wrapper{
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    padding:10px ; 
-    position: absolute;
-    bottom: 0px;
-    right:0px;
-    width:100%;
-    min-height:10vh;
-    height:20%;
-    z-index: 5 ;
-    /* background-color: aqua; */
-    background-color:white;
 
-    display: flex;
-    flex-direction: column-reverse;
-   
-}
-
-.messagesBody{
-    background: rgba(203, 186, 220, 0.25);
-    padding: 10px;
-    width:95%;
-    margin-bottom:4px;
-    border-radius: 12px;
-    position: relative;
-}
 .deleteIcon{
     position : absolute ; 
     z-index:5 ; 
@@ -199,9 +186,16 @@ left: 4%;
 }
 .pageBody{
     
-    padding:10px;
-    padding-left: 25px;
+    /* padding:10px;
+    padding-left: 25px; */
     font-weight: bold;
+    padding:10px ; 
+    width:100%;
+    /* overflow-x: auto ; */
+    text-wrap: wrap;
+    word-wrap: break-word; 
+  overflow-wrap: break-word
+    /* width */
     /* margin-bottom: 2px; */
 }
 #notes{
@@ -256,6 +250,9 @@ left: 4%;
 
     
 }
+#icons svg{
+    cursor : pointer ; 
+}
 /* #icons svg{
     background-color: red ; 
     color : white ;
@@ -293,6 +290,7 @@ left: 4%;
     align-items: center;
     background-color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 .link {
@@ -328,6 +326,7 @@ height:100%;
     border-radius: 12px;
     background-color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 .innerLink{
     width:100%;
@@ -457,6 +456,48 @@ input::-webkit-outer-spin-button,
 }
 
 
+
+
+
+
+
+#wrapper{
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding:10px ; 
+    position: absolute;
+    bottom: 0px;
+    right:0px;
+    width:100%;
+    min-height:10vh;
+    height:20%;
+    z-index: 5 ;
+    /* background-color: aqua; */
+    background-color:white;
+
+    display: flex;
+    flex-direction: column-reverse;
+   
+}
+.sendMessage{
+    position:absolute ; 
+    z-index:20;
+    right:5%;
+    /* bottom:-5%; */
+    cursor: pointer;
+    width:20px ; 
+    height : 20px ; 
+
+}
+
+.messagesBody{
+    background: rgba(203, 186, 220, 0.25);
+    padding: 10px;
+    width:95%;
+    margin-bottom:4px;
+    border-radius: 12px;
+    position: relative;
+}
 
 #messageContent{
    

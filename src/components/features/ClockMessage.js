@@ -35,6 +35,9 @@ const ClockMessage = ({ fileList, clockMessageRef, pdfContainer, setSinglePageMo
   const [msgArr, setMsgArr] = useState([]);
 
   const[  showStopWatch , setShowStopWatch] = useState( false ) ; 
+
+  const [ stopWatchTick , setStopWatchTick] = useState( 0 ) ; 
+  const [ timeTick , setTimeTick] = useState( 0 ) ; 
     
   async function saveChanges(){
       const msg = divRef.current.textContent ; 
@@ -133,15 +136,23 @@ function moveRight(){
 
         <div  ref={clockMessageRef} id="messageRight">
        <InnerShowOptions moveLeft={moveLeft} setShowStopWatch={setShowStopWatch} showStopWatch={showStopWatch} />
-      {showStopWatch ?   <StopWatch/>  :   <Timer  />}
+      {/* {
+      
+      showStopWatch ?   <StopWatch  />  :   
+      <Timer moveRight={moveRight} />
+      
+      
+      
+      } */}
+       <StopWatch showStopWatch={showStopWatch} />
        
+       <Timer moveRight={moveRight}  showStopWatch={showStopWatch}/>
+
+
+
+
         <MessageBody pageMovement={pageMovement}/>
-
-    
-    
 </div>
-
-
     </div>
     
   )

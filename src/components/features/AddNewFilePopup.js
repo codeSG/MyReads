@@ -19,6 +19,22 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
         const [metaDataTitle, setMetaDataTitle] = useState("")  ; 
         const [metaDataDescription , setMetaDataDescription] = useState("") ;
 
+        function categoryFilter(category){
+            const arr = originalFile.filter( ele => {
+                let got = false; 
+                for (let catg of ele.categories) {
+                    if (catg.toLowerCase().includes(category.toLowerCase())) {
+                        got = true; 
+                        break; 
+                    }
+                }
+                return got; 
+            });
+            setFileList( arr ) ;
+            
+        }
+        
+
         const getFileFromInput = ()=>{
 
 
@@ -314,6 +330,12 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                         <label>Library</label>
 
                     </div>
+                    <div className="categoryOptions">
+                        <button onClick={()=> categoryFilter("")  }>ALL</button>
+                        <button onClick={()=> categoryFilter("MYSTERY")  }   >MYSTERY</button>
+                        <button onClick={()=> categoryFilter("HISTORY")  } >HISTORY</button>
+                        <button onClick={()=> categoryFilter("COMIC")  } >COMIC</button>
+                    </div>
                     <button id="done" 
                     onClick={()=>{
                        
@@ -323,7 +345,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
                         }}
                     
                      >
-                    {"+ ADD BOOK"}
+                    {"+ Add Books"}
                     <input onChange={(e)=>{   
                         //   setSpinner(true) ; 
                      e.preventDefault() ;  setFileUpload(e.target.files[0]) ;

@@ -5,7 +5,8 @@ import AddFile from './features/AddFile'
 import Calendar from './features/Calendar'
 import { Link } from 'react-router-dom';
 import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
-
+import CanvasComponent from './CanvasComponent'
+import FrequentCanvasComponent from './FrequentCanvasComponent' ; 
 
 const temp = new Date() ; 
 const month = temp.getMonth() ; 
@@ -75,8 +76,15 @@ const LeftUI = () => {
                 <p id="author">- {getBookAuthor(bookRecentlyViewed[0])}</p>
                 
                     <div id="bookView">
-                        <div>
-<img src={getImageLink(bookRecentlyViewed[0])}/>
+                        <div className>
+                        { (!bookRecentlyViewed[0] || bookRecentlyViewed[0] ===-1|| originalFile.length===0)?
+                  <img src={bookImageSubstitue}  className='firstViewCanvas'/> :   
+                  <FrequentCanvasComponent  bookID={bookRecentlyViewed[0]}  
+                  bookImageSubstitue={bookImageSubstitue} 
+                  bookClass={"firstViewCanvas"}
+                  />}
+                            {/* <CanvasComponent />
+<img src={getImageLink(bookRecentlyViewed[0])} className="firstViewCanvas"/> */}
                         </div>
                         
                     </div>
@@ -110,12 +118,19 @@ const LeftUI = () => {
                     {
                         new Array(numberOfDays).fill(1).map((ele, ind)=>{
                             return < >
-                                <input key={ind}type="checkbox" checked={ calendarEntry[ind]}>
+                                <input key={ind}type="checkbox" checked={ calendarEntry[ind].readToday  }>
 
                                 </input>
-                                <label key={-ind -1} className="checkbox-custom">
+                                <label key={-ind -1} className="checkbox-custom tooltip">
                                     {ind+1}
+                                    <span className="tooltiptext">
+                                        <label> Pages Read : {Object.keys(calendarEntry[ind].pagesRead).length  } </label>
+                                        <label> Toal Minutes : {calendarEntry[ind].timeSpent}  </label>
+                                       
+                                         
+                                    </span>
                                 </label>
+                               
                             </>
                         })
                     }

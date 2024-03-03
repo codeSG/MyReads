@@ -8,7 +8,7 @@ import {PauseCircle } from "lucide-react"
 import {Square } from "lucide-react"
 
 
-const Timer = ({moveRight}) => {
+const Timer = ({moveRight , showStopWatch}) => {
 
     const [timer, setTimer ] = useState(0) ; 
    const [ isPause , setIsPause] = useState( true ) ; 
@@ -104,7 +104,9 @@ const Timer = ({moveRight}) => {
 
 
 
-    return (<div className="first">
+    return (
+    
+    <div className="timerFirst"  style={{display: !showStopWatch ? 'block' : 'none'}}>
     <p className="timer">TIMER</p>
      <div id="clock">
          <input type="text" className="time" value={timer === -1 ? 0 : getProperTime()}  onChange={e => { getProperTimeFormat(e.target.value)   } }  readOnly={read}   />

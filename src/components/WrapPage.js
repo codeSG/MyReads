@@ -43,6 +43,8 @@ export default function WrapPage() {
 
   const [singlePageMode , setSinglePageMode] = useState( true   ) ; 
 
+  // const [ readingTimeOut, setReadingTimeOut] = useState( 0 ) ; 
+
   const pdfDoc = useRef(null)  ; 
 // const [totalPages, setTotalPages] = useState(0) ; 
 
@@ -118,6 +120,34 @@ console.log( " is it null " , pdfDoc.current ) ;
 
 
 // Prepare canvas using PDF page dimensions.
+
+const readingTimeOut = JSON.parse( localStorage.getItem("readingTimeOut"))
+if( readingTimeOut ){
+  clearTimeout( readingTimeOut ) ; 
+  console.log(" the time inteval isbing cleard here ", readingTimeOut)
+}
+console.log(" the time inteval isbing    NOT cleard here " ,readingTimeOut )
+
+const readTimeOut = setTimeout( ()=>{
+  let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
+  if( calendarArr){
+    const date = new Date();
+    let day = date.getDate();
+    const key = Number(sessionStorage.getItem("bookKey"));
+    const pageString = `${key}-${pageNo}` ; 
+    calendarArr[day-1].pagesRead[pageString] = true ;
+    calendarArr[day-1].readToday = true ; 
+    // calendarArr[day-1].timeSpent =   ( calendarArr[day-1].timeSpent + 1 ) % 1000  ; 
+    localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
+    setCalendarEntry([...calendarArr])
+  }
+
+} , 1000*60 ) ; 
+
+console.log(  "the readTimeOut" , readTimeOut ) ; 
+// setReadingTimeOut( readTimeOut ) ; 
+localStorage.setItem("readingTimeOut" , JSON.stringify( readTimeOut ))
+// alert( readingTimeOut )
 if( singlePageMode ){
 
   // alert(singlePageMode)
@@ -143,6 +173,8 @@ const viewport = page.getViewport({ scale: 1.5 });
 
     const temp = pageNo + " / " + totalPage ; 
     completedPageLabelRef.current.innerText = temp ; 
+
+
 
 
   
@@ -208,20 +240,6 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
 }
 
-
-
-
-
-
-
-// this.total_pages = pdfDoc.numPages;
-
-// Clear the canvas
-// const canvas = document.getElementById('myCanvas'); // Assuming your canvas has an ID 'myCanvas'
-// const context = canvas.getContext('2d');
-// context.clearRect(0, 0, canvas.width, canvas.height);
-
-// Your code to handle the new document and render it on the canvas
 }
 
 
@@ -302,14 +320,46 @@ console.log(  pageNo +1 !==  totalPage ) ;
       
     } , [singlePageMode] )
 	useEffect(() => {
-    let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
-    if( calendarArr){
-      const date = new Date();
-      let day = date.getDate();
-      calendarArr[day-1] = true ; 
-      localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
-      setCalendarEntry([...calendarArr])
-    }
+
+
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowRight") {
+        // Right arrow key was pressed
+        // Add your logic here
+        // console.log("Right arrow key pressed");
+        moveToNextPage() ; 
+      }
+
+      if (event.key === "ArrowLeft") {
+        // Left arrow key was pressed
+        // Add your logic here
+        moveToPreviousPage() ; 
+        // console.log("Left arrow key pressed");
+      }
+    };
+
+    const handleScroll = (event) => {
+      // Check the deltaY property of the event to determine scroll direction
+      if (event.deltaY > 0) {
+        // Scrolling down
+        console.log("Mouse scrolled down");
+        moveToNextPage() ; 
+      } else if (event.deltaY < 0) {
+        // Scrolling up
+        console.log("Mouse scrolled up");
+        moveToPreviousPage() ; 
+      }
+    };
+
+
+    // let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
+    // if( calendarArr){
+    //   const date = new Date();
+    //   let day = date.getDate();
+    //   calendarArr[day-1].readToday = true ; 
+    //   localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
+    //   setCalendarEntry([...calendarArr])
+    // }
 
   
 
@@ -389,8 +439,36 @@ console.log(  pageNo +1 !==  totalPage ) ;
         };
 
 
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        // window.addEventListener("wheel", handleScroll);
+
+        const readingInterval = setInterval(() => {
+          
+          let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
+          if( calendarArr){
+            const date = new Date();
+            let day = date.getDate();
+            calendarArr[day-1].timeSpent =   ( calendarArr[day-1].timeSpent + 1 ) % 1000  ; 
+            localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
+            setCalendarEntry([...calendarArr])
+          }
+
+
+
+        }, 1000*60 );
         return ()=>{
+
           updateCurrentPageOfBook() ; 
+          document.removeEventListener("keydown", handleKeyDown);
+          clearInterval( readingInterval );
+          const readingTimeOut = JSON.parse( localStorage.getItem("readingTimeOut"))
+          clearTimeout( readingTimeOut ) 
+          // window.removeEventListener("wheel", handleScroll);
+
+
+
         }
 
 		
@@ -478,7 +556,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
   <div id="canvasDiv" ref={canvasDivRef} >
   <canvas className="fullCanvas" ref={canvasRef}  />
   {/* <canvas className="fullCanvas" ref={canvasRef}  /> */}
-  </div>  : 
+  </div>  
 
 
   <div id="twoCanvasDiv" ref={twoCanvasDiv} >
