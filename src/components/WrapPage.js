@@ -41,7 +41,8 @@ export default function WrapPage() {
 
   const [objectURL , setObjectURL] = useState("") ;
 
-  const [singlePageMode , setSinglePageMode] = useState( true   ) ; 
+  const [singlePageMode , setSinglePageMode] = useState( true   ) ;
+ 
 
   // const [ readingTimeOut, setReadingTimeOut] = useState( 0 ) ; 
 
