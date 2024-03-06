@@ -20,6 +20,10 @@ const AddNewFilePopup = ( { setUploadBook, setBlack,
         const [metaDataDescription , setMetaDataDescription] = useState("") ;
 
         function categoryFilter(category){
+            if( !category){
+                setFileList( originalFile ) ; 
+                return;
+            }
             const arr = originalFile.filter( ele => {
                 let got = false; 
                 for (let catg of ele.categories) {

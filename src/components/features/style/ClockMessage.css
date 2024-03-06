@@ -304,7 +304,9 @@ height:100%;
     width:100%;
     height:100%;
 }
-
+.svgIcon:hover{
+    transform: scale(1.1);
+}
 #innermessageRight{
     display:flex ; 
 }
@@ -317,7 +319,9 @@ height:100%;
 #innershowOptions a{
     width:15%;
 }
-
+.innersvgIcon:hover{
+    transform: scale(1.1);
+}
 .innersvgIcon{
     width:15%;
     display: flex;
@@ -528,3 +532,89 @@ resize : none ;
     bottom: 0; */
     
 }
+
+
+.ttooltip {
+    position: relative;
+    /* display: inline-block; */
+    /* border-bottom: 1px dotted black; */
+  }
+  
+  .ttooltip .ttooltiptext {
+    visibility: hidden;
+    /* visibility: visible; */
+    text-wrap: nowrap;
+    /* width: 120px; */
+    /* padding:20px ;  */
+    width : fit-content ; 
+    /* color: white; */
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px ;
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    left: 140%;
+    height: fit-content;
+    background-color: white;
+    background-color: black;
+
+    color : black;
+    color : white ; 
+   
+  }
+  
+  .ttooltip .ttooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black  transparent transparent;
+  }
+ 
+  .ttooltip:hover .ttooltiptext {
+    visibility: visible;
+  }
+  
+
+
+
+  .bottomtooltip {
+    position: relative;
+    
+  }
+  
+  .bottomtooltip .bottomtooltiptext {
+    visibility: hidden;
+    /* visibility: visible; */
+    width: 110px ;
+    /* width: fit-content; */
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding:  5px ;
+    position: absolute;
+    z-index: 5;
+    top: 125%;
+    left: -70%;
+    /* margin-left: -60px; */
+  }
+  
+  .bottomtooltip .bottomtooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+  }
+
+  .bottomtooltip:hover .bottomtooltiptext {
+    visibility: visible;
+  }
