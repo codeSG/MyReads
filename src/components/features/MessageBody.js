@@ -9,7 +9,10 @@ import {Square } from "lucide-react"
 import { MessageSquareX } from "lucide-react"
 
 
-const MessageBody = ({pageMovement}) => {
+const MessageBody = ({pageMovement, scrollMode , setScrollMode , setIframePageNumber}) => {
+
+
+    const [ currentPageNumber , setCurrectPageNumber] = useState( "" )  
     const [msgArr, setMsgArr] = useState([] );
     function saveNotes( page , message, messageID ){
 
@@ -120,14 +123,6 @@ console.log("333333333333333333333" , msgArr)
               console.error("Error retrieving record:", event.target.error);
           };
       };
-      
-      
- 
-
-
-
-
-
 
 
       }
@@ -137,7 +132,13 @@ console.log("333333333333333333333" , msgArr)
     const textAreaRef = useRef(null) ; 
     
      function saveMessage(){
-        const page = Number( sessionStorage.getItem("currentPage")) ; 
+
+        // if( scrollMode){
+
+        // }else{
+            
+        // }
+        const page = scrollMode ? currentPageNumber : Number( sessionStorage.getItem("currentPage")) ; 
         const message = textAreaRef.current.value ; 
         const messageID = Date.now() ; 
 
@@ -145,6 +146,7 @@ console.log("333333333333333333333" , msgArr)
         textAreaRef.current.value = "" ;
         // textAreaRef.current.rese
         saveNotes( page , message , messageID ) ;  
+        setCurrectPageNumber("")
         // setMsgVal( "")
         // alert("Enter pressed")
     }
@@ -246,7 +248,19 @@ return(
           
        </div>
        <div id="wrapper">
-           <textarea ref={textAreaRef} placeholder='Write Notes' id="messageContent"     
+
+            {
+                scrollMode && 
+                
+                <input type="number" id="iframePageNumber" placeholder='Page Number' onChange={(e)=>setCurrectPageNumber(Number(e.target.value ))}
+                value={currentPageNumber}
+               />
+            }
+          
+           
+           <textarea ref={textAreaRef} style={ scrollMode ? { height: "70%" , borderRadius:"0"  , 
+           borderBottomLeftRadius:"12px" , borderBottomRightRadius:"12px"  } :{}}placeholder='Write Notes' id="messageContent"     
+           
            />
            {/* <Send className="sendMessage"/> */}
            <SendHorizontal  className="sendMessage" onClick={ ()=>saveMessage()  } />

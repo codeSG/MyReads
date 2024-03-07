@@ -37,12 +37,18 @@ export default function WrapPage() {
   // const totalLabelRef = useRef(null) ; 
 
   const completedPageRef = useRef(null)
+  const iframeRef  =useRef(null)
 
 
   const [objectURL , setObjectURL] = useState("") ;
 
   const [singlePageMode , setSinglePageMode] = useState( true   ) ;
- 
+
+  const [scrollMode , setScrollMode] = useState( false ) ; 
+
+  const [_iframeURL , setIframeURL] = useState("") ; 
+
+  const [iframePageNumber , setIframePageNumber] = useState(1 ) ; 
 
   // const [ readingTimeOut, setReadingTimeOut] = useState( 0 ) ; 
 
@@ -250,7 +256,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
       // alert( pageNo)
       
-
+      setIframePageNumber( pageNo ) ; 
       const objUrl =  sessionStorage.getItem( "objectUrl"  ) ; 
       if( !objUrl) return ;
       const pdfURL = objUrl ;  
@@ -302,7 +308,11 @@ console.log(  pageNo +1 !==  totalPage ) ;
     // }
     
 
+ 
+
+
     useEffect(()=>{
+      // alert( " watching single Pa")
       if( singlePageMode && canvasRef.current )    {
         twoCanvasDiv.current.style.display = "none" ;
         canvasDivRef.current.style.display= "flex" ;  
@@ -311,7 +321,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
 
       }
-      if( !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
+      else if( !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
         twoCanvasDiv.current.style.display = "flex" ;
         canvasDivRef.current.style.display= "none" ; 
         pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
@@ -320,7 +330,212 @@ console.log(  pageNo +1 !==  totalPage ) ;
    
       
     } , [singlePageMode] )
-	useEffect(() => {
+	
+
+
+
+
+
+
+
+
+useEffect( ()=>{
+
+
+  if( iframeRef.current && scrollMode ){
+
+
+    const searchParams = new URLSearchParams(location.search);
+  
+    const param1 = Number(searchParams.get('bookID')) ;
+    sessionStorage.setItem("bookKey" , param1) ; 
+  
+  
+  
+    const openDBRequest = indexedDB.open("BooksDatabase", 1);
+  
+        openDBRequest.onsuccess = function(event) {
+  
+        
+            const db = event.target.result;
+  
+            const transaction = db.transaction("booksinformation", "readonly");
+            const objectStore = transaction.objectStore("booksinformation");
+  
+            const key = Number(sessionStorage.getItem("bookKey"))  ;
+  
+            console.log( " the key is " , key )
+            const getRequest = objectStore.get(key);
+  
+            getRequest.onsuccess =   async function(event) {
+                const record = event.target.result;
+                // if (record) {
+                //     setRecord(record);
+                // } else {
+                //     console.log("Record not found");
+                // }
+  
+                console.log( " the record is " , record ) ; 
+                console.log( "the detalis of the recird are ...." , record.currentPage,record.totalPage,  record.data) ; 
+           
+                const bookID = record.id ; 
+  
+                console.log( " the id of the nook is " , bookID )
+             // SETING HERE THE FACT THAT THE RECEBT BOOK ID IS BEING VISTED 
+                setBookRecentlyViewed(readBook(bookID) )
+           
+              
+                const blob = new Blob(  [record.data] , { type: 'application/pdf' });
+                const objectUrl = URL.createObjectURL(blob);
+  
+                setIframeURL(objectUrl) ; 
+  
+                // setObjectURL(objectUrl) ; 
+                console.log( " the obecjt url is this " , objectUrl ) ;
+  
+                // sessionStorage.setItem("currentPage" , record.currentPage ) ; 
+                sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
+                sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
+  
+                const iframe = iframeRef.current;
+  
+                iframe.src = objectUrl + `#page=${iframePageNumber}`;
+              };
+  
+            getRequest.onerror = function(event) {
+                console.error("Error retrieving record:", event.target.error);
+            };
+        };
+  
+  
+        function handleScroll(){
+          alert( " getting scrolled !! ")
+        }
+  
+        iframeRef.current.addEventListener('scroll', handleScroll);
+  
+  
+  
+  
+  
+  
+  }
+
+
+
+
+} , [iframePageNumber])
+
+
+
+  useEffect(()=>{ 
+
+// alert(  `the scrollMode is ${scrollMode}` )
+if( iframeRef.current && scrollMode ){
+
+
+
+  const searchParams = new URLSearchParams(location.search);
+
+  const param1 = Number(searchParams.get('bookID')) ;
+  sessionStorage.setItem("bookKey" , param1) ; 
+
+
+
+  const openDBRequest = indexedDB.open("BooksDatabase", 1);
+
+      openDBRequest.onsuccess = function(event) {
+
+      
+          const db = event.target.result;
+
+          const transaction = db.transaction("booksinformation", "readonly");
+          const objectStore = transaction.objectStore("booksinformation");
+
+          const key = Number(sessionStorage.getItem("bookKey"))  ;
+
+          console.log( " the key is " , key )
+          const getRequest = objectStore.get(key);
+
+          getRequest.onsuccess =   async function(event) {
+              const record = event.target.result;
+              // if (record) {
+              //     setRecord(record);
+              // } else {
+              //     console.log("Record not found");
+              // }
+
+              console.log( " the record is " , record ) ; 
+              console.log( "the detalis of the recird are ...." , record.currentPage,record.totalPage,  record.data) ; 
+         
+              const bookID = record.id ; 
+
+              console.log( " the id of the nook is " , bookID )
+           // SETING HERE THE FACT THAT THE RECEBT BOOK ID IS BEING VISTED 
+              setBookRecentlyViewed(readBook(bookID) )
+         
+            
+              const blob = new Blob(  [record.data] , { type: 'application/pdf' });
+              const objectUrl = URL.createObjectURL(blob);
+
+              setIframeURL(objectUrl) ; 
+
+              // setObjectURL(objectUrl) ; 
+              console.log( " the obecjt url is this " , objectUrl ) ;
+
+              sessionStorage.setItem("currentPage" , record.currentPage ) ; 
+              sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
+              sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
+
+              const iframe = iframeRef.current;
+
+              iframe.src = objectUrl + `#page=${iframePageNumber}`;
+            };
+
+          getRequest.onerror = function(event) {
+              console.error("Error retrieving record:", event.target.error);
+          };
+      };
+
+
+      function handleScroll(){
+        alert( " getting scrolled !! ")
+      }
+
+      iframeRef.current.addEventListener('scroll', handleScroll);
+
+
+
+
+
+
+}
+
+
+
+if( !scrollMode && singlePageMode && canvasRef.current )    {
+  twoCanvasDiv.current.style.display = "none" ;
+  canvasDivRef.current.style.display= "flex" ;  
+  pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
+  
+
+
+}
+else if( !scrollMode && !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
+  twoCanvasDiv.current.style.display = "flex" ;
+  canvasDivRef.current.style.display= "none" ; 
+  pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
+
+}
+
+
+
+
+
+   
+  } , [scrollMode]) ; 
+
+  useEffect(() => {
 
 
     const handleKeyDown = (event) => {
@@ -474,7 +689,6 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
 		
 	}, []);
-
 	// return <canvas ref={canvasRef} style={{ height: '100vh' }} />;
 
   function moveToNextPage(){
@@ -537,8 +751,13 @@ console.log(  pageNo +1 !==  totalPage ) ;
 {/* <WrapHeader clockMessageRef={clockMessageRef} pdfRef={pdfRef} btnRef={btnRef}/> */}
 <ClockMessage  clockMessageRef={clockMessageRef} pdfContainer={pdfContainer} fileList={[]}
                setSinglePageMode={setSinglePageMode} pageMovement={pageMovement} 
-               singlePageMode={singlePageMode} />
+               singlePageMode={singlePageMode} scrollMode={scrollMode} setScrollMode={setScrollMode}
+               iframeRef={iframeRef} iframeURL={_iframeURL}  
+               setIframePageNumber={setIframePageNumber}/>
 <div className='pdfContainer' ref={pdfContainer}>
+
+{
+  !scrollMode && 
 
   <div id="leftSideBar" onMouseEnter={()=>{ movePrevfRef.current.style.display="flex" ; 
   completedPageRef.current.style.display="block" ;  }} 
@@ -550,26 +769,51 @@ console.log(  pageNo +1 !==  totalPage ) ;
     </button>
 
  </div>
+}
+ 
 
 
 
   
-  <div id="canvasDiv" ref={canvasDivRef} >
+ 
+
+
+{/* <div id="iframeCanvasDiv"> */}
+{
+  scrollMode && 
+  <iframe
+  ref={iframeRef}
+ 
+  width="100%"
+  height="100%"
+  frameBorder="0"
+
+/>
+}
+
+
+{/* </div> */}
+
+
+
+{ !scrollMode  &&  <div id="canvasDiv" ref={canvasDivRef} >
   <canvas className="fullCanvas" ref={canvasRef}  />
   {/* <canvas className="fullCanvas" ref={canvasRef}  /> */}
   </div>  
-
-
+}
+{ 
+  !scrollMode    && 
   <div id="twoCanvasDiv" ref={twoCanvasDiv} >
   <canvas className="halfCanvas" ref={leftCanvasRef}  />
   <canvas className="halfCanvas" ref={rightCanvasRef}  />
   </div>
 
+}
 
 
-
-
-<div id="rightSideBar" onMouseEnter={()=>{ moveNextRef.current.style.display="flex" ; completedPageRef.current.style.display="block"  }}  
+{
+  !scrollMode && 
+  <div id="rightSideBar" onMouseEnter={()=>{ moveNextRef.current.style.display="flex" ; completedPageRef.current.style.display="block"  }}  
   onMouseLeave={()=>{moveNextRef.current.style.display="none" ; completedPageRef.current.style.display="none" }}
 >
 
@@ -578,6 +822,8 @@ console.log(  pageNo +1 !==  totalPage ) ;
     </button>
 
   </div>
+}
+
 
 
 <div id="completedPage"  ref={completedPageRef}>
@@ -598,6 +844,8 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
     
   );
+
+
 
 
 

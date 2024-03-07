@@ -635,7 +635,13 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                      {/* <button></button> */}
                      
                      {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
-                     <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[1])[0]}</button>
+                     { console.log( " the categiro of bookViewed1" , getBookCategory(bookRecentlyViewed[1]) )}
+                    { 
+                     ( getBookCategory(bookRecentlyViewed[1])  && getBookCategory(bookRecentlyViewed[1])  !== "" && getBookCategory(bookRecentlyViewed[1]).length !== 0   )  && 
+                    
+                    <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[1])[0]}</button>
+                    
+                    }
                     
                     <div className="progress">
                       <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[1]    )}%`}}></div>
@@ -704,8 +710,17 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                      {/* <button></button> */}
                      
                      {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
-                     <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button>
+                     {/* <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button> */}
+                     { 
+                     
+                     ( getBookCategory(bookRecentlyViewed[2])  && getBookCategory(bookRecentlyViewed[2])  !== "" && getBookCategory(bookRecentlyViewed[2]).length !== 0   ) 
+                     
+                     
+                     && 
                     
+                    <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button>
+                    
+                    }
                     <div className="progress">
                       <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[2]    )}%`}}></div>
                       <div className='progress2'></div>
@@ -752,8 +767,6 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                     </Link>
                   
                   
-                  
-                  
                   }
                   
                   <div className="descriptionBook" >
@@ -774,11 +787,23 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                      {/* <button></button> */}
                      
                      {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
-                     <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button>
+                     { 
+                     
+                     
+                     ( getBookCategory(bookRecentlyViewed[3])  && getBookCategory(bookRecentlyViewed[3])  !== "" && getBookCategory(bookRecentlyViewed[3]).length !== 0   ) 
+                     
+                     && 
+                    
+                    <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button>
+                    
+                    }
+                     {/* <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button> */}
                     
                     <div className="progress">
                       <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[3]    )}%`}}></div>
                       <div className='progress2'></div>
+
+
                       <label>{`${getPercentageCompleted(  bookRecentlyViewed[3] )}%`}</label>
                     </div>
                     <div className="options">

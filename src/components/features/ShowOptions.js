@@ -3,13 +3,48 @@ import React , { useState, useEffect }from 'react';
 import {Link} from "react-router-dom"
 import "./style/ClockMessage.css";
 
-import { Columns2  , RectangleVertical } from 'lucide-react' ; 
+import { Columns2  , RectangleVertical , ArrowBigUp , GalleryHorizontal} from 'lucide-react' ; 
+// import { ArrowBigUp } from 'lucide-react';
 
-const ShowOptions = ({showOptions,moveRight,showStopWatch, setSinglePageMode ,singlePageMode,  pageMovement}) => {
+
+const ShowOptions = ({showOptions,moveRight,showStopWatch, setSinglePageMode ,singlePageMode,  pageMovement , 
+    scrollMode , setScrollMode , iframeRef , iframeURL , setIframePageNumber}) => {
     
+const [ jumpToPage , setJumpToPage] = useState(false ) ; 
 
+const [jumpToPageNumber , setJumpToPageNumber] = useState( 1 ) ; 
 
+function jumpToPageChange(){
+    setJumpToPage(true);
+    const pageVal = Number(sessionStorage.getItem("currentPage") ) ; 
+    setJumpToPageNumber( pageVal)  ; 
+}
 
+function goToPage(){
+    // alert( jumpToPageNumber ) ; 
+    
+    const totalPage = Number(sessionStorage.getItem("totalPage") ) ; 
+    let pageVal  = jumpToPageNumber ; 
+    pageVal = Math.max( 1 , pageVal ) ; 
+    pageVal = Math.min( pageVal , totalPage  )  ; 
+    sessionStorage.setItem("currentPage" , pageVal) ; 
+    if( !scrollMode){
+      
+        pageMovement( pageVal ) ; 
+        
+    }
+  else{
+
+   
+    
+    // alert( `in the scroll Mode ${pageVal}`)
+    // console.log(" the iframeURL is thsi " , iframeURL + `#page=${pageVal}`)  ;
+    setIframePageNumber( pageVal) ;  
+    // iframeRef.current.src= iframeURL + `#page=${pageVal}` ;
+  }
+  
+        setJumpToPage( false ) ; 
+}
 return(
     <div id="showOptions" ref={showOptions} >
 
@@ -67,18 +102,52 @@ return(
 <span className="ttooltiptext" >Messages</span>
     </div>
     <div className="svgIcon darkShadow ttooltip"  style={{ backgroundColor: singlePageMode ?"rgba(145, 83, 206, 0.25)" : "white"}} onClick={()=>
-        {setSinglePageMode(true) ; }  } >
+        {
+            setScrollMode( false )
+            setSinglePageMode(true) ; }  } >
         <RectangleVertical/>
         <span className="ttooltiptext" >Single Page</span>
     </div>
     <div className="svgIcon darkShadow ttooltip"  style={{ backgroundColor: !singlePageMode ?"rgba(145, 83, 206, 0.25)" : "white"}}
      onClick={()=>
-        {setSinglePageMode(false) ;  }  } >
+        {
+            setScrollMode( false ) ; 
+            setSinglePageMode(false) ;  }  } >
    <Columns2/>
    <span className="ttooltiptext" >Two Pages</span>
     </div>
     
+    <div className="svgIcon darkShadow ttooltip jump" style={{cursor : jumpToPage ? "auto" : "pointer" }} >
+        
+    { jumpToPage&& <>
+        <input className="jumpToPage" type="number" value={jumpToPageNumber} onChange={(e)=> setJumpToPageNumber(e.target.value)}  />
+        
+        <ArrowBigUp  
+        style={{width:"20px" , height : "20px" , margin:"0" , marginTop:"5px"  , cursor :"pointer"}} 
+        onClick={()=>goToPage()} />
+    </> } 
 
+
+       { !jumpToPage && 
+       <>
+       <ArrowBigUp style={{width:"30px" , height : "30px" , margin:"0" }} onClick={()=>
+        
+
+        jumpToPageChange()  
+        
+        }/>
+        <span className="ttooltiptext" >Jump To Page</span> 
+       </>
+      
+       
+       
+       } 
+    </div>
+
+<div className="svgIcon darkShadow ttooltip" >
+<span className="ttooltiptext" >Scroll Mode</span>
+<GalleryHorizontal onClick={()=>setScrollMode(true)} />
+</div>
 
 
 </div>
