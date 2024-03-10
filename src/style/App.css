@@ -9,3 +9,17 @@ right : 0 ;
 z-index: 20;
 
 }
+
+.joyride2{
+    position: absolute !important ; 
+    z-index:  1000 !important ; 
+    left :  50px !important; 
+    background-color: aqua !important;
+}
+/* 
+
+.react-joyride__overlay{
+    width: 100vw !important ; 
+    height:100vh !important ; 
+    z-index : 100 !important;
+} */

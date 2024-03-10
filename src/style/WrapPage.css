@@ -1,3 +1,10 @@
+.wrpaPageDiv .__floater__body{
+  
+    position: absolute !important ;
+    z-index: 1000 !important ;
+    left: 50px !important ;
+}
+
 body{
     margin :0 ; 
 }

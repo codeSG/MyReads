@@ -12,9 +12,63 @@ import { Link, useLocation } from 'react-router-dom';
 // import './iframeResizer.min.js';
 import {ChevronLeft} from 'lucide-react'
 import {ChevronRight} from 'lucide-react'
+import  Joyride from 'react-joyride';
 
 import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js"
 export default function WrapPage() {
+  const steps2 = [
+    {
+      target: '.showOptions-firstStep',
+      content: 'This is the first step of the tour.',
+      disableBeacon: true
+    },
+   
+    {
+        target: '.showOptions-secondStep',
+        content: 'This is the second step of the tour.',
+        disableBeacon: true
+      }
+      , 
+
+      {
+        target: '.showOptions-thirdStep',
+        content: 'This is the third step of the tour.',
+        disableBeacon: true
+      }
+      ,
+      {
+        target: '.showOptions-fourthStep',
+        content: 'This is the fourth step of the tour.',
+        disableBeacon: true
+      }, 
+      {
+        target: '.showOptions-fifthStep',
+        content: 'This is the fifth step of the tour.',
+        disableBeacon: true
+      }, 
+      {
+        target: '.showOptions-sixthStep',
+        content: 'This is the sixthStep step of the tour.',
+        disableBeacon: true
+      } , 
+      {
+        target: '.showOptions-seventhStep',
+        content: 'This is the seventhStep step of the tour.',
+        disableBeacon: true
+      }  , 
+      {
+        target: '.showOptions-eigthStep',
+        content: 'This is the eigthStep step of the tour.',
+        disableBeacon: true
+      }  , 
+      {
+        target: '.showOptions-ningthStep',
+        content: 'This is the ningthStep step of the tour.',
+        disableBeacon: true
+      }  , 
+
+ 
+  ];
 	const canvasRef = useRef(null);
  
   const location = useLocation(); 
@@ -525,7 +579,8 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
 
 
 }
-else if( !scrollMode && !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
+
+ if( !scrollMode && !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
   twoCanvasDiv.current.style.display = "flex" ;
   canvasDivRef.current.style.display= "none" ; 
   pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
@@ -751,7 +806,30 @@ else if( !scrollMode && !singlePageMode && leftCanvasRef.current  && rightCanvas
 
 
   return (
-    <div style={{"width":"100vw" , height:"100vh" , position:"absolute"}}>
+    <div style={{"width":"100vw" , height:"100vh" , position:"absolute"}} className="wrpaPageDiv">
+
+
+<Joyride className='joyride2'
+
+
+run={true}
+steps={steps2}
+continuous={true}    
+showProgress={true}       
+showSkipButton={true}  
+  
+styles={{
+ 
+  overlay: {
+      width: '100vw',
+      height: '100vh',
+      zIndex: 100
+  }
+}}        
+
+
+/>
+
 {/* <WrapHeader clockMessageRef={clockMessageRef} pdfRef={pdfRef} btnRef={btnRef}/> */}
 <ClockMessage  clockMessageRef={clockMessageRef} pdfContainer={pdfContainer} fileList={[]}
                setSinglePageMode={setSinglePageMode} pageMovement={pageMovement} 

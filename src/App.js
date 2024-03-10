@@ -70,34 +70,50 @@ function App() {
           disableBeacon: true
         },
        
-        // {
-        //     target: '.second-step',
-        //     content: 'This is the second step of the tour.',
-        //     disableBeacon: true
-        //   }
-        //   , 
+        {
+            target: '.showOptions-secondStep',
+            content: 'This is the second step of the tour.',
+            disableBeacon: true
+          }
+          , 
 
-        //   {
-        //     target: '.third-step',
-        //     content: 'This is the third step of the tour.',
-        //     disableBeacon: true
-        //   }
-        //   ,
-        //   {
-        //     target: '.fourth-step',
-        //     content: 'This is the fourth step of the tour.',
-        //     disableBeacon: true
-        //   }, 
-        //   {
-        //     target: '.fifth-step',
-        //     content: 'This is the fifth step of the tour.',
-        //     disableBeacon: true
-        //   }, 
-        //   {
-        //     target: '.sixth-step',
-        //     content: 'This is the fifth step of the tour.',
-        //     disableBeacon: true
-        //   }
+          {
+            target: '.showOptions-thirdStep',
+            content: 'This is the third step of the tour.',
+            disableBeacon: true
+          }
+          ,
+          {
+            target: '.showOptions-fourthStep',
+            content: 'This is the fourth step of the tour.',
+            disableBeacon: true
+          }, 
+          {
+            target: '.showOptions-fifthStep',
+            content: 'This is the fifth step of the tour.',
+            disableBeacon: true
+          }, 
+          {
+            target: '.showOptions-sixthStep',
+            content: 'This is the sixthStep step of the tour.',
+            disableBeacon: true
+          } , 
+          {
+            target: '.showOptions-seventhStep',
+            content: 'This is the seventhStep step of the tour.',
+            disableBeacon: true
+          }  , 
+          {
+            target: '.showOptions-eigthStep',
+            content: 'This is the eigthStep step of the tour.',
+            disableBeacon: true
+          }  , 
+          {
+            target: '.showOptions-ningthStep',
+            content: 'This is the ningthStep step of the tour.',
+            disableBeacon: true
+          }  , 
+
      
       ];
 
@@ -129,8 +145,9 @@ function App() {
                 <div id="App">
                     {/* <Header /> */}
                     {/* <Joyride 
-                    steps={steps}                                       
+                    steps={steps1}                                       
                     /> */}
+
                     <Joyride 
                       run={true}
                             steps={steps1}
@@ -138,14 +155,7 @@ function App() {
                             showProgress={true}       
                             showSkipButton={true}                      
                     />
-                    <Joyride 
-
-                            run={wrapPageRuntour}
-                            steps={steps2}
-                            continuous={true}    
-                            showProgress={true}       
-                            showSkipButton={true}                      
-                    />
+                  
                     <Routes> {/* Wrap Routes */}
                         <Route path="/" element={<MainPage />} />
                         <Route path="/login" element={<Login />} />
