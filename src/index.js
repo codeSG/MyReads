@@ -12,32 +12,7 @@ import MainPage from "./components/MainPage";
 // import PdfViewer from './components/PdfViewer';
 import WrapPage from './components/WrapPage';
 import BetterFile from './components/BetterFile';
-// import "@webcomponents/custom-elements";
-// const appRouter = createBrowserRouter([
-//   {
-//     path :'/' , 
-//     element : <App/>
-//   }, 
-  
-//   {
-//     path : "/login" , 
-//     element : <Login/>
-//   },
 
-   
-//   {
-//     path : "/file" , 
-//     // element : <BetterFile/>
-//     element :  <MainPage/> , 
-    
-//   },{
-//     path:"/file/showfile",
-//     element : <WrapPage/>
-//   }
- 
-  
-
-// ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -45,6 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   // <React.StrictMode>
+
     <App />   
   // </React.StrictMode>
 );

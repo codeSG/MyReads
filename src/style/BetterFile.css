@@ -16,7 +16,10 @@
     display: flex;
     width:100%;
     flex-direction: row-reverse;
-    position:relative
+    position:relative ; 
+    position : absolute  ; 
+    z-index : 5 ; 
+    top : 0 ; 
     /* overflow-x: hidden; */
     /* flex-direction: column; */
 }
@@ -43,7 +46,7 @@
 }
 #textBook{
     padding-top:2vh;
-    padding-bottom: 4vh;
+    padding-bottom: 1vh;
     border-radius:12px ;
     display: flex;
     /* justify-content: space-evenly; */
@@ -215,7 +218,7 @@ height:90%;
     justify-content: space-between;
     padding: 10px 50px;
     padding-right: 100px;
-    margin-top:2vh;
+    /* margin-top:2vh; */
     /* margin-top:50px; */
 } 
 #uploadingLeft{

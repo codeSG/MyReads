@@ -6,7 +6,7 @@ import WrapPage from './components/WrapPage';
 import Header from './components/Header';
 import SignUp from './components/SignUp';
 import "./style/App.css"
-
+import  Joyride from 'react-joyride';
 // Create context
 const ContextInfo = createContext();
 
@@ -18,7 +18,89 @@ function App() {
     const [metadataPath, setMetadataPath] = useState('');
      const [dataBaseCreated, setDataBaseCreated] = useState(true);
     const [request, setRequest] = useState(null);
-    const [ bookRecentlyViewed, setBookRecentlyViewed] = useState([])
+    const [ bookRecentlyViewed, setBookRecentlyViewed] = useState([]) ; 
+    const [runTour, setRunTour] = useState(true);
+    const handleTourEnd = () => {
+        // Handle the end of the tour, if needed
+        setRunTour(false); // Stop the tour after it ends
+    };
+    const steps1 = [
+        {
+          target: '.first-step',
+          content: 'This is the first step of the tour.',
+          disableBeacon: true
+        },
+       
+        {
+            target: '.second-step',
+            content: 'This is the second step of the tour.',
+            disableBeacon: true
+          }
+          , 
+
+          {
+            target: '.third-step',
+            content: 'This is the third step of the tour.',
+            disableBeacon: true
+          }
+          ,
+          {
+            target: '.fourth-step',
+            content: 'This is the fourth step of the tour.',
+            disableBeacon: true
+          }, 
+          {
+            target: '.fifth-step',
+            content: 'This is the fifth step of the tour.',
+            disableBeacon: true
+          }, 
+          {
+            target: '.sixth-step',
+            content: 'This is the fifth step of the tour.',
+            disableBeacon: true
+          }
+     
+      ];
+
+      const steps2 = [
+        {
+          target: '.showOptions-firstStep',
+          content: 'This is the first step of the tour.',
+          disableBeacon: true
+        },
+       
+        // {
+        //     target: '.second-step',
+        //     content: 'This is the second step of the tour.',
+        //     disableBeacon: true
+        //   }
+        //   , 
+
+        //   {
+        //     target: '.third-step',
+        //     content: 'This is the third step of the tour.',
+        //     disableBeacon: true
+        //   }
+        //   ,
+        //   {
+        //     target: '.fourth-step',
+        //     content: 'This is the fourth step of the tour.',
+        //     disableBeacon: true
+        //   }, 
+        //   {
+        //     target: '.fifth-step',
+        //     content: 'This is the fifth step of the tour.',
+        //     disableBeacon: true
+        //   }, 
+        //   {
+        //     target: '.sixth-step',
+        //     content: 'This is the fifth step of the tour.',
+        //     disableBeacon: true
+        //   }
+     
+      ];
+
+
     return (
         <ContextInfo.Provider
             value={{
@@ -43,12 +125,28 @@ function App() {
             <Router>
                 <div id="App">
                     {/* <Header /> */}
+                    {/* <Joyride 
+                    steps={steps}                                       
+                    /> */}
+                    <Joyride 
+                      run={false}
+                            steps={steps1}
+                            continuous={true}    
+                            showProgress={true}       
+                            showSkipButton={true}                      
+                    />
+                    <Joyride 
+                            steps={steps2}
+                            continuous={true}    
+                            showProgress={true}       
+                            showSkipButton={true}                      
+                    />
                     <Routes> {/* Wrap Routes */}
                         <Route path="/" element={<MainPage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/file" element={<MainPage />} />
                         <Route path="/file/showfile" element={<WrapPage />} />
-                    </Routes>
+                    </Routes>   
                 </div>
             </Router>
         </ContextInfo.Provider>

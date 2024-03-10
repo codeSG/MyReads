@@ -619,6 +619,7 @@ font-weight: 400;
 
   .bottomtooltip {
     position: relative;
+    border : 2px solid black ; 
     
   }
   
@@ -636,6 +637,9 @@ font-weight: 400;
     z-index: 5;
     top: 125%;
     left: -70%;
+    /* left : -70% ; 
+    top: 100%;  */
+    
     /* margin-left: -60px; */
   }
   

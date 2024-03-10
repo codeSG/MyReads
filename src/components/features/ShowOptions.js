@@ -144,7 +144,7 @@ return(
        } 
     </div>
 
-<div className="svgIcon darkShadow ttooltip" >
+<div className="svgIcon darkShadow ttooltip  showOptions-firstStep" >
 <span className="ttooltiptext" >Scroll Mode</span>
 <GalleryHorizontal onClick={()=>setScrollMode(true)} />
 </div>

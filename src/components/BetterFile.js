@@ -201,11 +201,6 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
 
 
-
-
-
-
-
     const [ hash , setHash] = useSearchParams()  ;
       
     const [search , setSearch] = useState("") ; 
@@ -588,7 +583,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 <label>My Reads</label>
               </div>
                 
-                <div id="search">
+                <div id="search" className='first-step'>
                     <input id="searchInput" placeholder="Search"
                     onChange={  (e)=>{  searchFilter(e.target.value ) ;  }} />
                     <i id="font" className='bx bx-search-alt-2'></i> 
