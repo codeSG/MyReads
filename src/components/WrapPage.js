@@ -52,13 +52,13 @@ export default function WrapPage() {
 
   // const [ readingTimeOut, setReadingTimeOut] = useState( 0 ) ; 
 
-  const pdfDoc = useRef(null)  ; 
+  let pdfDoc = useRef(null)  ; 
 // const [totalPages, setTotalPages] = useState(0) ; 
 
 // const [currentPage , setCurrentPage] = useState(1) ; 
 
   const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath, 
-    bookRecentlyViewed, setBookRecentlyViewed  } = useContext(ContextInfo) ;
+    bookRecentlyViewed, setBookRecentlyViewed, setWrapPageRunTour , wrapPageRuntour } = useContext(ContextInfo) ;
 
 
 
@@ -109,9 +109,10 @@ openDBRequest.onsuccess = function(event) {
 async function loadNewDocument(doc, pageNo ) {
 
 
+
 // alert( pageNo )
   pdfDoc.current = doc;
-
+// pdfDoc = doc ;
   // const pageNo = Number( sessionStorage.getItem("currentPage") ) ; 
 
 
@@ -247,6 +248,8 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
 }
 
+
+if(!wrapPageRuntour)setWrapPageRunTour( true ) ; 
 }
 
 
@@ -271,13 +274,14 @@ console.log(  pageNo +1 !==  totalPage ) ;
             // Check if pdfDoc exists and destroy it
             if (pdfDoc.current) {
                 pdfDoc.current.destroy().then(() => {
-                    pdfDoc.current = null; // Set to null after destruction
+                    pdfDoc.current = doc; // Set to null after destruction
                     loadNewDocument(doc , pageNo );
                 }).catch((error) => {
                     console.error('Error destroying previous document:', error);
                 });
             } else {
               console.log( " I got the new Doc here " , doc )
+              pdfDoc.current = doc;
                 loadNewDocument(doc , pageNo );
 
             }

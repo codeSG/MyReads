@@ -285,7 +285,33 @@ left: 4%;
         width:70%;
     height:5%;
 }
+.svgContainer{
+    display:flex ; 
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height:12%;
+    width:70%;
+    border-radius: 12px;
+    
 
+    /* padding:2px ;  */
+    /* background-color: aqua; */
+}
+.svgContainerIcon{
+
+    width:90%; 
+    height:46%;
+    padding:5px ;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    /* margin:4px 0 ;  */
+}
 .svgIcon{
     width:70%;
     height:5%;

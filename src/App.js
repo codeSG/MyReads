@@ -20,6 +20,7 @@ function App() {
     const [request, setRequest] = useState(null);
     const [ bookRecentlyViewed, setBookRecentlyViewed] = useState([]) ; 
     const [runTour, setRunTour] = useState(true);
+    const [ wrapPageRuntour , setWrapPageRunTour] = useState( false ) ; 
     const handleTourEnd = () => {
         // Handle the end of the tour, if needed
         setRunTour(false); // Stop the tour after it ends
@@ -119,7 +120,9 @@ function App() {
                 request,
                 setRequest, 
                 bookRecentlyViewed, 
-                setBookRecentlyViewed
+                setBookRecentlyViewed, 
+                wrapPageRuntour,
+                setWrapPageRunTour
             }}
         >
             <Router>
@@ -129,13 +132,15 @@ function App() {
                     steps={steps}                                       
                     /> */}
                     <Joyride 
-                      run={false}
+                      run={true}
                             steps={steps1}
                             continuous={true}    
                             showProgress={true}       
                             showSkipButton={true}                      
                     />
                     <Joyride 
+
+                            run={wrapPageRuntour}
                             steps={steps2}
                             continuous={true}    
                             showProgress={true}       
