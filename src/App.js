@@ -21,6 +21,8 @@ function App() {
     const [ bookRecentlyViewed, setBookRecentlyViewed] = useState([]) ; 
     const [runTour, setRunTour] = useState(true);
     const [ wrapPageRuntour , setWrapPageRunTour] = useState( false ) ; 
+    const [enterYourName , setEnterYourName] = useState( localStorage.getItem("userName"))
+    const [ userName , setUserName] = useState( localStorage.getItem("userName") ) ; 
     const handleTourEnd = () => {
         // Handle the end of the tour, if needed
         setRunTour(false); // Stop the tour after it ends
@@ -138,7 +140,9 @@ function App() {
                 bookRecentlyViewed, 
                 setBookRecentlyViewed, 
                 wrapPageRuntour,
-                setWrapPageRunTour
+                setWrapPageRunTour , 
+                userName ,  
+                setUserName
             }}
         >
             <Router>
@@ -149,7 +153,7 @@ function App() {
                     /> */}
 
                     <Joyride 
-                      run={true}
+                      run={wrapPageRuntour}
                             steps={steps1}
                             continuous={true}    
                             showProgress={true}       

@@ -186,6 +186,10 @@ left: 4%;
 .deleteIcon:hover{
     transform: scale(1.3);
 }
+/* svg:hover{
+    transform: scale(1.3);
+} */
+
 .pageNumber{
     /* margin-bottom: 10px; */
     font-weight: bold;
@@ -600,7 +604,9 @@ font-weight: 400;
     /* display: inline-block; */
     /* border-bottom: 1px dotted black; */
   }
-  
+  .ttooltip:hover{
+    transform: scale(1.1);
+  }
   .ttooltip .ttooltiptext {
     visibility: hidden;
     /* visibility: visible; */
@@ -645,7 +651,7 @@ font-weight: 400;
 
   .bottomtooltip {
     position: relative;
-    border : 2px solid black ; 
+    /* border : 2px solid black ;  */
     
   }
   

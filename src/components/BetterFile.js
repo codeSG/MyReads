@@ -12,6 +12,7 @@ import { useSearchParams } from 'react-router-dom';
 import Calendar from "../components/features/Calendar"
 // import { Link } from 'react-router-dom';
 import AddNewFilePopup from './features/AddNewFilePopup';
+import UserName from './features/UserName.js';
 
 import {ContextInfo}  from "../App"
 import openBook from "../image/openBook.png"
@@ -43,9 +44,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       setDataBaseCreated,
       request,
       setRequest, 
-      bookRecentlyViewed, setBookRecentlyViewed
+      bookRecentlyViewed, setBookRecentlyViewed , 
+      userName , setUserName
     } = useContext(ContextInfo) ;
-    
+    // alert( ` The bane of the user is  ${userName}  ${userName===''}` )
     function getImageLink(bookID){
       if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
 
@@ -72,7 +74,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
       let arr = originalFile.filter( ele => ele.id === bookID ) ; 
       if( arr.length === 0 ) return ""
-      return arr[0].bookName ;
+      return arr[0].bookName.substring( 0 ,arr[0].bookName .length - 4  ) ;
     }
     function getBookPath(bookID){
       // alert(bookID )
@@ -398,8 +400,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               setFileList( bookEntries ) ; 
               console.log("bookEntries" ,bookEntries )
               setOriginalFile( bookEntries )  ;
-              setBlack( false )  ; 
-              setSpinner( false ) ; 
+              if( userName) setBlack( false )  ;
+               
+               setSpinner( false ) ; 
 
               setBookRecentlyViewed( setFrequentBooks()) ; 
 
@@ -580,7 +583,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             <div id="heading">
               <div id="topBar">
                 <img src={openBook} />
-                <label>My Reads</label>
+                
+
+
+                <label>My Book Shelf</label>
               </div>
                 
                 <div id="search" className='first-step'>
@@ -868,9 +874,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                               
                           </div>
                           <div id="content">
-                          <p className="title">{ele.bookName}</p>
+                          <p className="title">{ele.bookName.substring(0, ele.bookName.length -4 )}</p>
                           
-                                <div className="bookoptions"     >
+                                <div className="bookoptions"  >
                                 
                                   
                                   <Link   className="FileLink" to={`/file/showfile?bookID=${ele.id}`} >
@@ -933,6 +939,11 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
             </div>
           }
+           {
+            (userName===null) && <UserName  setBlack={setBlack}/>
+
+          }
+
           {
             
             ( deleteBookID !== -1 ) && <DeletePopup  setBlack={setBlack}
@@ -973,6 +984,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 <Spinner/>
             </div>
           }
+
+         
 
  
     </div>

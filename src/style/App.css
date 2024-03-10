@@ -16,6 +16,9 @@ z-index: 20;
     left :  50px !important; 
     background-color: aqua !important;
 }
+.react-joyride__overlay{
+    background: rgba(0, 0, 0, 0.8) !important ;
+}
 /* 
 
 .react-joyride__overlay{

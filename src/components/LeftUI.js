@@ -10,6 +10,7 @@ import FrequentCanvasComponent from './FrequentCanvasComponent' ;
 import { Pencil , Check} from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import goalsaathi from  "../image/goalsaathi.png" ; 
 const temp = new Date() ; 
 const month = temp.getMonth() ; 
 const year = temp.getFullYear() ; 
@@ -26,10 +27,11 @@ currentDate.setDate(1);
 let firstDayOfWeek = currentDate.getDay();
 const LeftUI = () => {
     const [ enterName , setEnterName] = useState( true ) ;  
-    const [ userName , setUserName] = useState("") ; 
+    // const [ userName , setUserName] = useState("") ; 
     const inputImageRef = useRef(null) ; 
     const inputNameRef = useRef(null) ; 
-    const {calendarEntry , setCalendarEntry, bookRecentlyViewed, setBookRecentlyViewed, originalFile, setOriginalFile } = useContext(ContextInfo)
+    const {calendarEntry , setCalendarEntry, bookRecentlyViewed, setBookRecentlyViewed, originalFile, setOriginalFile , 
+      userName, setUserName } = useContext(ContextInfo)
     const [ userImageSrc , setUserImageSrc] = useState("") ; 
 
     function imageUploaded( imageFile ){
@@ -115,7 +117,7 @@ const LeftUI = () => {
   
         let arr = originalFile.filter( ele => ele.id === bookID ) ; 
         if( arr.length === 0 ) return ""
-        return arr[0].bookName ;
+        return arr[0].bookName.substring(  0 , arr[0].bookName.length - 4  ) ;
       }
       function getBookPath(bookID){
         // alert(bookID )
@@ -128,7 +130,7 @@ const LeftUI = () => {
       }
   useEffect(()=>{
     let val = localStorage.getItem("userName") ;
-    val = !val ? "" : val ; 
+    // val = !val ? "" : val ; 
     setUserName( val )  ;  
     const userImageSrc = JSON.parse( localStorage.getItem("userImageSrc")) ; 
     setUserImageSrc( userImageSrc ) ; 
@@ -155,7 +157,7 @@ onChange={e => imageUploaded(e.target.files[0])} />
           
             <div id="welcome">
                 <p id="greeting">Greetings...</p>
-                <input ref={inputNameRef} id="userName" placeholder='UserName' value={userName} onChange={(e)=>setUserName(e.target.value)} 
+                <input ref={inputNameRef} id="userName" placeholder='UserName' value={userName===null?"":userName} onChange={(e)=>setUserName(e.target.value)} 
                 autofocus="autofocus" readOnly={enterName} />
                { enterName &&  <Pencil  className="third-step" onClick={()=>{setEnterName(false)
                     inputNameRef.current.focus() 
@@ -170,9 +172,10 @@ onChange={e => imageUploaded(e.target.files[0])} />
             </div>
           
            </div>
+           {/* <div id='bookReadContainer'> */}
            <div id="bookRead">
                 <p id="bookName">{getBookName(bookRecentlyViewed[0])}</p>
-                <p id="author">- {getBookAuthor(bookRecentlyViewed[0])}</p>
+                <p id="author">-- {getBookAuthor(bookRecentlyViewed[0])}</p>
                 
                     <div id="bookView">
                         <div className>
@@ -183,16 +186,16 @@ onChange={e => imageUploaded(e.target.files[0])} />
                   bookClass={"firstViewCanvas"}
                   />}
                             {/* <CanvasComponent />
-<img src={getImageLink(bookRecentlyViewed[0])} className="firstViewCanvas"/> */}
+              <img src={getImageLink(bookRecentlyViewed[0])} className="firstViewCanvas"/> */}
                         </div>
-                        <label className="getPagesCompleted">{getPagesCompleted(  bookRecentlyViewed[0] )}</label>
-                        <label className="getPercentageCompleted">{`${getPercentageCompleted(  bookRecentlyViewed[0] )}%`}</label>
+                        
+                       
                     </div>
                 
                     <div className="bookprogress">
                       <div className='bookprogress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[0]    )}%`}} ></div>
                       <div className='bookprogress2'></div>
-                     
+                      <label className="getPagesCompleted">{getPagesCompleted(  bookRecentlyViewed[0] )}</label>
                     
                     </div> 
                 <Link to ={getBookPath(bookRecentlyViewed[0])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[0]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[0]) }}>
@@ -203,6 +206,8 @@ onChange={e => imageUploaded(e.target.files[0])} />
 
                      
             </div>
+           {/* </div> */}
+        
             <p id="reading"  className='fifth-step' >READING TRACKER</p>
            <div id="ddateBox">
                 <div id="yearAndMonth">  
@@ -249,7 +254,10 @@ onChange={e => imageUploaded(e.target.files[0])} />
                 </div>
             </div>
 
-
+           
+              <img src={goalsaathi} className='goalSaathi' />
+           
+              
         </div>
 
     )

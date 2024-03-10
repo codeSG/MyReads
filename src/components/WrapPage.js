@@ -106,7 +106,8 @@ export default function WrapPage() {
 
   // const [ readingTimeOut, setReadingTimeOut] = useState( 0 ) ; 
 
-  let pdfDoc = useRef(null)  ; 
+  let pdfDoc1 = useRef(null)  ; 
+  let pdfDoc2 = useRef(null)  ; 
 // const [totalPages, setTotalPages] = useState(0) ; 
 
 // const [currentPage , setCurrentPage] = useState(1) ; 
@@ -165,18 +166,19 @@ async function loadNewDocument(doc, pageNo ) {
 
 
 // alert( pageNo )
-  pdfDoc.current = doc;
-// pdfDoc = doc ;
+  // pdfDoc1.current = doc;
+  // pdfDoc2.current = doc ; 
+// pdfDoc1 = doc ;
   // const pageNo = Number( sessionStorage.getItem("currentPage") ) ; 
 
 
-const totalPage = pdfDoc.current.numPages;
+const totalPage = pdfDoc1.current.numPages;
 sessionStorage.setItem("totalPage" , totalPage ) ; 
 
 // Log the total number of pages
 console.log('Total number of pages:', totalPage);
 // setTotalPages(totalPage ) 
-console.log( " is it null " , pdfDoc.current ) ;
+console.log( " is it null " , pdfDoc1.current ) ;
 
 
 
@@ -213,7 +215,7 @@ localStorage.setItem("readingTimeOut" , JSON.stringify( readTimeOut ))
 if( singlePageMode ){
 
   // alert(singlePageMode)
-  const page = await pdfDoc.current.getPage(pageNo);
+  const page = await pdfDoc1.current.getPage(pageNo);
 
 
 const viewport = page.getViewport({ scale: 1.5 });
@@ -244,7 +246,7 @@ const viewport = page.getViewport({ scale: 1.5 });
 
   // alert(singlePageMode) ; 
   // THE CODR FOR SSHOWING THE LEFT  HALF PAGE 
-  const page1 = await pdfDoc.current.getPage(pageNo);
+  const page1 = await pdfDoc1.current.getPage(pageNo);
   
 const viewport = page1.getViewport({ scale: 1.5 });
 const canvas = leftCanvasRef.current;
@@ -275,7 +277,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
  if( pageNo +1  <=  totalPage  ){
   rightCanvasRef.current.style.display = "block" ; 
-        const page2 = await pdfDoc.current.getPage(pageNo+1);
+        const page2 = await pdfDoc2.current.getPage(pageNo+1);
           
         const viewport = page2.getViewport({ scale: 1.5 });
         const canvas = rightCanvasRef.current;
@@ -323,26 +325,27 @@ if(!wrapPageRuntour)setWrapPageRunTour( true ) ;
         window.location.origin + '/pdf.worker.min.mjs';
 
 
-        pdfJS.getDocument({ url: pdfURL }).promise
-        .then((doc) => {
-            // Check if pdfDoc exists and destroy it
-            if (pdfDoc.current) {
-                pdfDoc.current.destroy().then(() => {
-                    pdfDoc.current = doc; // Set to null after destruction
-                    loadNewDocument(doc , pageNo );
-                }).catch((error) => {
-                    console.error('Error destroying previous document:', error);
-                });
-            } else {
-              console.log( " I got the new Doc here " , doc )
-              pdfDoc.current = doc;
-                loadNewDocument(doc , pageNo );
-
-            }
-        })
-        .catch((error) => {
-            console.error('Error loading PDF document:', error);
-        });
+        try {
+          const doc1 = await pdfJS.getDocument({ url: pdfURL }).promise;
+          const doc2 = await pdfJS.getDocument({ url: pdfURL }).promise;
+  
+          if (pdfDoc1.current) {
+              pdfDoc1.current.destroy().then(() => {
+                  pdfDoc1.current = doc1;
+                  pdfDoc2.current = doc2;
+  
+                  loadNewDocument(doc1, pageNo); // Load page from first document
+              }).catch((error) => {
+                  console.error('Error destroying previous document:', error);
+              });
+          } else {
+              pdfDoc1.current = doc1;
+              pdfDoc2.current = doc2;
+              loadNewDocument(doc1, pageNo); // Load page from first document
+          }
+      } catch (error) {
+          console.error('Error loading PDF document:', error);
+      }
 
 
 
@@ -905,6 +908,7 @@ styles={{
 
   </div>
 }
+
 
 
 

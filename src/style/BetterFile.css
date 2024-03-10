@@ -36,7 +36,7 @@
     
     width:100%;
     /* gap:70px; */
-    margin-top:5vh;
+    margin-top:4vh;
     /* background-color: red ; */
     display : grid ;
     grid-template-columns: repeat( 5 , 18%) ;
@@ -77,7 +77,7 @@
 }
 
 .bookoptions{
-    margin-top: 5px;
+    /* margin-top: 5px; */
     display:flex; 
     justify-content: space-around;
 }
@@ -147,15 +147,16 @@ height:90%;
     /* margin-right:0; */
 }
 .title{
-    margin-top:10px ; 
+    /* margin-top:10px ;  */
     font-size:20px ;
     /* word-spacing: 5px;  */
     word-wrap: break-word;
     font-weight: 600;
-    height:45px ; 
+    height:4vh ; 
     width:100%;
     overflow : hidden; 
     padding-left:10px ; 
+    padding-top:2px ; 
     color:rgb(65, 65, 65)
 }
 #search{
@@ -228,11 +229,12 @@ height:90%;
     width:15%;
 
 }
-#uploadingLeft svg{
+#uploadingLeft img{
     /* width:40px ; 
     height:40px; */
     width: 50px;
 height: 42px;
+margin-right:4vh ; 
 }
 #uploadingLeft label{
     /* height : 100%; */
@@ -281,6 +283,7 @@ line-height: 29px;
 
 background: rgba(145, 83, 206, 0.56);
 border-radius: 10px;
+cursor : pointer ; 
 }
 
 .categoryOptions{
@@ -309,15 +312,15 @@ border-radius: 10px;
 
 }
 #topBar img{
-width : 40px ; 
-height : 30px ; 
+width : 50px ; 
+height : 50px ; 
 /* padding-right: 10px; */
 }
 #topBar label{
     padding-left: 20px;
     width : 200px ; 
     height:30px;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
      
     }
@@ -336,7 +339,7 @@ height : 30px ;
      padding-left:1%;
      position:absolute ; 
      right : 0 ; 
-     padding-bottom:4vh;
+     /* padding-bottom:4vh; */
      /* position: absolute;
      top:0 ; 
      right : 0 ;  */
@@ -448,8 +451,10 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     /* margin-top: 25%; */
     font-weight: bold;
     padding-left: 10%;
-    position:absolute ;
-    bottom:32%; 
+    margin:2vh 0 ; 
+    margin-bottom:0;
+    /* position:absolute ;
+    bottom:32%;  */
 }
 
     #ddateBox{
@@ -465,8 +470,8 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
         box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
         border-radius:12px;
-        position:absolute ; 
-        bottom: 2%;
+        /* position:absolute ; 
+        bottom: 2%; */
         
         /* margin-left:60px; */
        /* top:5%; */
@@ -500,7 +505,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
         height:90%;
-        padding-bottom: 10%;
+        padding-bottom: 5%;
         /* height:fit-content; */
         /* position : absolute ;
         top:50px  ; 
@@ -543,7 +548,8 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* gap:10px; */
         background-color: white;
         height:8vh ; 
-        /* border-radius: 12px; */
+        border-radius: 12px;
+        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
         /* padding:5px; */
 
 
@@ -555,7 +561,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         display : flex ; 
         justify-content: center;
         align-items: center;
-        border-right: 4px solid rgba(145, 83, 206, 0.25);
+        /* border-right: 4px solid rgba(145, 83, 206, 0.25); */
         /* background-color: aqua; */
         
 
@@ -615,23 +621,35 @@ overflow: hidden;
         cursor: pointer;
     }
     #bookRead{
+        width:90%;
         margin-top: 10% ; 
-        margin-left:10%;
-        height: 40%;
+        margin-left:5%;
+        height: fit-content;
+        padding-bottom: 1vh;
+        background-color: white;
+        border-radius: 12px ;
+        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+    }
+    #bookReadContainer{
+        /* width:100%; */
+        height:fit-content;
     }
     #bookName{          
         font-size:20px;
         font-weight: bold;
         height:8%;
         overflow:hidden;
+        text-align: center;
     }
     #author{
         
         font-size:20px;
         font-weight: bold;
-        height:8%;
+        /* height: fit-content;
+        max-height : 6vh ;  */
+        height:3vh;
         overflow:hidden;
-
+        text-align: center;
     }
     #bookLink{
         margin-top: 5px;
@@ -645,8 +663,9 @@ overflow: hidden;
         /* padding: 0cap; */
     }
     #bookView{
-        margin-top:4%;
-        height:80%;
+        margin-top:2%;
+        /* height:10%; */
+        height:25vh;
         width:100%;
         display : flex ; 
         justify-content: center;
@@ -657,11 +676,12 @@ overflow: hidden;
 
     }
     #bookView div{
-        width:60%;
-        padding:10px ; 
+        width:50%;
+        padding-bottom:1vh ; 
+
         background-color: white ;
         border-radius: 12px;
-        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+        /* box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25); */
         
     }
     .firstViewCanvas{
@@ -670,16 +690,19 @@ overflow: hidden;
         border:1px solid black;
     }
     #read{
-        margin-top: 5%;
+        margin-top: 4%;
         margin-left:5%;
-        
-        padding:15px 5px 5px;
+        /* margin-bottom: 5%; */
+        border-radius: 12px;
+        font-size:20px ; 
+        padding:5px 5px 5px;
         color:black ; 
         background: rgba(145, 83, 206, 0.56);
         width: fit-content;
         width:90%;
         height:fit-content;
         font-weight: bold;
+        text-align: center;
 
     }
     #read a{
@@ -692,14 +715,15 @@ overflow: hidden;
         display:flex;
         justify-content: space-between;
         padding:10px;
-        align-items: center;
+        padding-bottom:0 ; 
+        /* align-items: center; */
     }
     #heading p{
         font-weight:bolder ;
         font-size:20px;
     }
     #threeBooks{
-        margin-top:5vh;
+        margin-top:4vh;
         width:100%;
         height:30vh;
         /* background-color: red; */
@@ -903,18 +927,7 @@ cursor: pointer;
     width:10%;
     background-color: aqua;
 }
-.bookprogress{
-    margin-top: 2%;
-    height : 2% ; 
-    width : 80%; 
-    border-radius: 15px;
-    border:0; 
-    display : flex ; 
-    background-color: red ;
-    position: relative;
-    /* margin-top:5%; */
-    /* position: absolute;   */
-}
+
 .getPercentageCompleted{
     position:absolute;
     /* left:100%; */
@@ -936,8 +949,10 @@ cursor: pointer;
 }
 .getPagesCompleted{
     position:absolute;
+    z-index: 5;
     /* left:100%; */
-    right: 0% ; 
+    /* right: 20px ;  */
+    left:102%;
     /* top:20px; */
     /* top:-100% ;  */
     /* top:-100% ;  */
@@ -947,11 +962,28 @@ cursor: pointer;
     /* top:-550%; */
     /* top:-100%; */
     /* top:100% ;  */
-bottom:-5%;
+/* bottom:-10%; */
+top:0;
+top:-110%;
+/* bottom:0; */
     font-size: 15px;
     width:fit-content ; 
     font-weight: bolder ;
     color: #000000;
+}
+.bookprogress{
+    margin-top: 2%;
+    height : 2% ; 
+    height : 1vh ; 
+    width : 80%; 
+    border-radius: 15px;
+    border:0; 
+    display : flex ; 
+    /* background-color: red ; */
+    position: relative;
+    /* border-radius: 12px ; */
+    /* margin-top:5%; */
+    /* position: absolute;   */
 }
 .bookprogress1{
     position: absolute; 
@@ -962,6 +994,7 @@ bottom:-5%;
     /* height:2%; */
     height:100%;
     background-color: green;
+    background-color: yellow;
     border-radius: 15px;
     z-index: 5;
 }
@@ -987,8 +1020,9 @@ bottom:-5%;
      position: absolute; 
     top:0; 
     left:0; 
-    background-color: rgb(247, 247, 134); 
-    background-color: gray;
+    /* background-color: rgb(247, 247, 134);  */
+    /* background-color: gray; */
+    background-color: lightgray;
     width: 100%;
     height:100%;
 }
@@ -1074,4 +1108,26 @@ bottom:-5%;
   .checkbox-custom:hover{
     background: rgba(145, 83, 206, 0.56);
     border: 1px solid #000000;
+  }
+
+
+  /* .goalSaathi{
+    height:fit-content ; 
+    width:60% ; 
+    cursor: pointer;
+    
+    margin-top:5%;
+    position: absolute;
+    bottom:5px;
+    margin-left: 20%;
+  } */
+  .goalSaathi {
+
+    width:70% ; 
+    height : 8vh; 
+  
+    position: absolute;
+    bottom:5px;
+    margin-left: 15%;
+    border-radius: 0;
   }
