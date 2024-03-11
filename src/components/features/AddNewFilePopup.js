@@ -21,6 +21,10 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
         const [metaDataTitle, setMetaDataTitle] = useState("")  ; 
         const [metaDataDescription , setMetaDataDescription] = useState("") ;
 
+        const [ bookCategoryTag , setBookCategoryTag] = useState([]) ; 
+
+
+
         function categoryFilter(category){
             if( !category){
                 setFileList( originalFile ) ; 
@@ -325,6 +329,31 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
         }, 
         [fileUpload]);
 
+        useEffect( ()=>{
+
+            let categoryA = "" , categoryB = "" , categoryC = "" ; 
+            // const bookArr = [] ; 
+            const bookObj =  originalFile.reduce( ( acc , ele )=>{
+                const categoryArr = ele.categories ; 
+                if( categoryArr.length === 0 ) return acc ; 
+                const category = categoryArr[0] ; 
+
+                if( !acc[category]){
+                    acc[category] = 0 ; 
+                }
+                acc[category] = acc[category]  +  1; 
+                return acc ; 
+            } , {} ); 
+
+            const bookArr = Object.keys(bookObj) ;  
+            
+            console.log(  " the bookArr s rhis "  , bookArr ) ; 
+
+            bookArr.sort((a, b) => bookObj[b] - bookObj[a]); // Corrected sorting function
+
+            setBookCategoryTag(bookArr);
+
+        } , [originalFile])
 
   return (       
                 <div id="addBook">
@@ -347,10 +376,20 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
                     </div>
                     <div className="categoryOptions">
-                        <button onClick={()=> categoryFilter("")  }>ALL</button>
-                        <button onClick={()=> categoryFilter("MYSTERY")  }   >MYSTERY</button>
-                        <button onClick={()=> categoryFilter("HISTORY")  } >HISTORY</button>
-                        <button onClick={()=> categoryFilter("COMIC")  } >COMIC</button>
+                        <div className="categoryDiv" onClick={()=> categoryFilter("") } >
+                        <p >ALL</p>
+                        </div>
+                        {
+                           bookCategoryTag[0] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[0])  }   >  <p>{bookCategoryTag[0]}</p></div>
+                        }
+                        
+                        {
+                           bookCategoryTag[1] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[1])  }   >  <p>{bookCategoryTag[1]}</p></div>
+                        }
+                        
+                        {
+                           bookCategoryTag[2] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[2])  }   >  <p>{bookCategoryTag[2]}</p></div>
+                        }
                     </div>
                     <button id="done" className='sixth-step'
                     onClick={()=>{

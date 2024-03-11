@@ -108,6 +108,7 @@ export default function WrapPage() {
 
   let pdfDoc1 = useRef(null)  ; 
   let pdfDoc2 = useRef(null)  ; 
+  let pdfDoc3 = useRef(null) ; 
 // const [totalPages, setTotalPages] = useState(0) ; 
 
 // const [currentPage , setCurrentPage] = useState(1) ; 
@@ -215,7 +216,7 @@ localStorage.setItem("readingTimeOut" , JSON.stringify( readTimeOut ))
 if( singlePageMode ){
 
   // alert(singlePageMode)
-  const page = await pdfDoc1.current.getPage(pageNo);
+  const page = await pdfDoc3.current.getPage(pageNo);
 
 
 const viewport = page.getViewport({ scale: 1.5 });
@@ -328,21 +329,27 @@ if(!wrapPageRuntour)setWrapPageRunTour( true ) ;
         try {
           const doc1 = await pdfJS.getDocument({ url: pdfURL }).promise;
           const doc2 = await pdfJS.getDocument({ url: pdfURL }).promise;
+          const doc3 = await pdfJS.getDocument({ url: pdfURL }).promise;
   
-          if (pdfDoc1.current) {
-              pdfDoc1.current.destroy().then(() => {
-                  pdfDoc1.current = doc1;
-                  pdfDoc2.current = doc2;
-  
-                  loadNewDocument(doc1, pageNo); // Load page from first document
-              }).catch((error) => {
-                  console.error('Error destroying previous document:', error);
-              });
-          } else {
-              pdfDoc1.current = doc1;
-              pdfDoc2.current = doc2;
-              loadNewDocument(doc1, pageNo); // Load page from first document
-          }
+
+         if (pdfDoc1.current) {
+            await pdfDoc1.current.destroy();
+            await pdfDoc2.current.destroy();
+            await pdfDoc3.current.destroy();
+            pdfDoc1.current = doc1;
+            pdfDoc2.current = doc2;
+            pdfDoc3.current = doc3 ; 
+        } else {
+            pdfDoc1.current = doc1;
+            pdfDoc2.current = doc2;
+            pdfDoc3.current = doc3 ; 
+        }
+    
+        loadNewDocument(doc1, pageNo); // Load page from first document
+
+
+
+
       } catch (error) {
           console.error('Error loading PDF document:', error);
       }
@@ -373,7 +380,7 @@ if(!wrapPageRuntour)setWrapPageRunTour( true ) ;
 
 
     useEffect(()=>{
-      // alert( " watching single Pa")
+      // alert( `useEffect ${singlePageMode} is this 1111111 `)
       if( singlePageMode && canvasRef.current )    {
         twoCanvasDiv.current.style.display = "none" ;
         canvasDivRef.current.style.display= "flex" ;  
@@ -382,9 +389,10 @@ if(!wrapPageRuntour)setWrapPageRunTour( true ) ;
 
 
       }
-      else if( !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
+       if( !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
         twoCanvasDiv.current.style.display = "flex" ;
         canvasDivRef.current.style.display= "none" ; 
+        // alert(" 2222222222 here ")
         pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
 
       }
@@ -755,7 +763,8 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
 
   function moveToNextPage(){
 
-
+// alert("hi11111111111")
+// alert(singlePageMode)
     if( singlePageMode ){
       let num = Number( sessionStorage.getItem("currentPage")) ;
       const totalPages = Number( sessionStorage.getItem("totalPage"))
@@ -768,7 +777,10 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
       // alert( num )
       pageMovement( num) ;
 
-    }else{
+    }
+    
+    if( !singlePageMode) {
+      // alert("hi")
       let num = Number( sessionStorage.getItem("currentPage")) ;
       const totalPages = Number( sessionStorage.getItem("totalPage")) ;
       if( num >= totalPages-1  ) return  ;
