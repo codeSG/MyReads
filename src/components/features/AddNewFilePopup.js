@@ -331,11 +331,12 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
         useEffect( ()=>{
 
+            if( !originalFile ) return  ; 
             let categoryA = "" , categoryB = "" , categoryC = "" ; 
             // const bookArr = [] ; 
             const bookObj =  originalFile.reduce( ( acc , ele )=>{
                 const categoryArr = ele.categories ; 
-                if( categoryArr.length === 0 ) return acc ; 
+                if( !categoryArr || categoryArr.length === 0 ) return acc ; 
                 const category = categoryArr[0] ; 
 
                 if( !acc[category]){

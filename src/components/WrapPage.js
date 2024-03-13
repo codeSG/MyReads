@@ -13,9 +13,17 @@ import { Link, useLocation } from 'react-router-dom';
 import {ChevronLeft} from 'lucide-react'
 import {ChevronRight} from 'lucide-react'
 import  Joyride from 'react-joyride';
+// import "../assets/pspdfkit.js";
+import PdfViewerComponent from "./PdfViewerComponent.js"
+// import "./assets/pspdfkit.js";
+
 
 import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js"
 export default function WrapPage() {
+
+  const containerRef = useRef(null); 
+  // const baseUrl = `${window.location.protocol}//${window.location.host}/assets/`;
+
   const steps2 = [
     {
       target: '.showOptions-firstStep',
@@ -100,7 +108,7 @@ export default function WrapPage() {
 
   const [scrollMode , setScrollMode] = useState( false ) ; 
 
-  const [_iframeURL , setIframeURL] = useState("") ; 
+  const [ _iframeURL , setIframeURL] = useState("") ; 
 
   const [iframePageNumber , setIframePageNumber] = useState(1 ) ; 
 
@@ -456,6 +464,7 @@ useEffect( ()=>{
               
                 const blob = new Blob(  [record.data] , { type: 'application/pdf' });
                 const objectUrl = URL.createObjectURL(blob);
+                sessionStorage.setItem('OBJECTURL' , objectUrl ) ; 
   
                 setIframeURL(objectUrl) ; 
   
@@ -548,7 +557,7 @@ if( iframeRef.current && scrollMode ){
               const objectUrl = URL.createObjectURL(blob);
 
               setIframeURL(objectUrl) ; 
-
+// alert(objectUrl)
               // setObjectURL(objectUrl) ; 
               console.log( " the obecjt url is this " , objectUrl ) ;
 
@@ -698,6 +707,7 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
                 sessionStorage.setItem("currentPage" , record.currentPage ) ; 
                 sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
                 sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
+                sessionStorage.setItem("OBJECTURL" ,  objectUrl  ) ; 
 
               console.log( "the object url can fit in sesion storgae " , objectUrl  ) ; 
               
@@ -876,6 +886,13 @@ styles={{
 
 
 {/* <div id="iframeCanvasDiv"> */}
+
+{/* {
+  scrollMode && 
+  <PdfViewerComponent
+  document={sessionStorage.getItem("objectUrl")} // PDF URL
+/>
+} */}
 {
   scrollMode && 
   <iframe
@@ -887,6 +904,8 @@ styles={{
 
 />
 }
+
+
 
 
 {/* </div> */}

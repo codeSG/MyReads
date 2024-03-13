@@ -10,6 +10,8 @@ import { Columns2  , RectangleVertical , ArrowBigUp , GalleryHorizontal} from 'l
 const ShowOptions = ({showOptions,moveRight,showStopWatch, setSinglePageMode ,singlePageMode,  pageMovement , 
     scrollMode , setScrollMode , iframeRef , iframeURL , setIframePageNumber}) => {
     
+
+        // alert( iframeURL )
 const [ jumpToPage , setJumpToPage] = useState(false ) ; 
 
 const [jumpToPageNumber , setJumpToPageNumber] = useState( 1 ) ; 
@@ -45,11 +47,120 @@ function goToPage(){
   
         setJumpToPage( false ) ; 
 }
+
+async function getPdfBytesFromUrl(pdfUrl) {
+    try {
+        const response = await fetch(pdfUrl);
+        if (!response.ok) {
+            throw new Error('Failed to fetch PDF file');
+        }
+        const pdfBytes = await response.arrayBuffer();
+        return pdfBytes;
+    } catch (error) {
+        console.error('Error fetching PDF bytes:', error);
+        return null;
+    }
+}
+
+
+
+
+async function savePDFChanges(){
+    try{
+
+    //     const existingPdfBytes = await fetch(iframeURL).then(res => res.arrayBuffer())
+
+    // const file = await getFileFromInput(existingPdfBytes);
+    const OBJECTURL = sessionStorage.getItem("OBJECTURL") ; 
+    const response = await fetch(OBJECTURL);
+    const pdfBytes = await response.arrayBuffer();
+    const file = await getFileFromInput(pdfBytes);
+
+    console.log( " the modified pdf file is this "  , file , "dekh bhaoya dhyan se") ; 
+    // console.log()
+    saveChangesInBook(file) ; 
+    }catch(error){
+
+    }
+    
+
+
+}
+
+function saveChangesInBook(file){
+    const openDBRequest = indexedDB.open("BooksDatabase", 1);
+  
+    const pageNo = Number( sessionStorage.getItem("currentPage")) ; 
+    const totalPageOfBook = Number( sessionStorage.getItem("totalPage"))
+  
+  openDBRequest.onsuccess = function(event) {
+      const db = event.target.result;
+  
+      const transaction = db.transaction("booksinformation", "readwrite");
+      const objectStore = transaction.objectStore("booksinformation");
+  
+      const key = Number(sessionStorage.getItem("bookKey"));
+  
+      const getRequest = objectStore.get(key);
+  
+      getRequest.onsuccess = function(event) {
+          let record = event.target.result;
+  
+          // Modify the total page count
+          record.currentPage = pageNo; // Assuming totalPages is the new total page count
+  
+          record.totalPage = totalPageOfBook ; 
+
+        //   -------------------------------------
+
+            record = { ...record , ...file }
+        // ------------------------------------
+
+          // Update the record in the object store
+          const updateRequest = objectStore.put(record);
+  
+          updateRequest.onsuccess = function(event) {
+              console.log("Bonzye the pdf is saved successfully");
+          };
+  
+          updateRequest.onerror = function(event) {
+              console.error("Error updating total pages:", event.target.error);
+          };
+      };
+  
+      getRequest.onerror = function(event) {
+          console.error("Error retrieving record:", event.target.error);
+      };
+  };
+  
+  
+  }
+
+
+
+const getFileFromInput = (existingPdfBytes) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            resolve({
+                type: 'application/pdf', // Assuming PDF type
+                size: existingPdfBytes.byteLength, // Get the byte length of existingPdfBytes
+                data: event.target.result , // Use existingPdfBytes directly
+            });
+        };
+        reader.onerror = (event) => {
+            reject(event.target.error);
+        };
+        reader.readAsArrayBuffer(new Blob( [existingPdfBytes] , { type: 'application/pdf' }   )); // Convert existingPdfBytes to Blob and read as ArrayBuffer
+    });
+}
+
+
 return(
     <div id="showOptions" ref={showOptions} >
 
         <Link to="/">
-        <div className="svgIcon link ttooltip showOptions-ningthStep"   >
+        <div className="svgIcon link ttooltip showOptions-ningthStep"   onClick={()=> {}}>
             <svg  style={{width:"25px" , height:"25px"}} viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.91974 9.8706L0.959868 11.0934L0 9.8706L0.959868 8.6478L1.91974 9.8706ZM25 23.7071C25 24.1658 24.857 24.6057 24.6024 24.9301C24.3477 25.2544 24.0024 25.4366 23.6423 25.4366C23.2823 25.4366 22.9369 25.2544 22.6823 24.9301C22.4277 24.6057 22.2847 24.1658 22.2847 23.7071H25ZM7.74818 19.7412L0.959868 11.0934L2.8796 8.6478L9.66792 17.2956L7.74818 19.7412ZM0.959868 8.6478L7.74818 0L9.66792 2.4456L2.8796 11.0934L0.959868 8.6478ZM1.91974 8.14104H15.4964V11.6002H1.91974V8.14104ZM25 20.248V23.7071H22.2847V20.248H25ZM15.4964 8.14104C18.0169 8.14104 20.4342 9.41658 22.2164 11.6871C23.9987 13.9576 25 17.037 25 20.248H22.2847C22.2847 17.9544 21.5695 15.7548 20.2964 14.133C19.0234 12.5113 17.2967 11.6002 15.4964 11.6002V8.14104Z" fill="black"/>
             </svg>
