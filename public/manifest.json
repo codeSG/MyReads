@@ -1,17 +1,22 @@
 {
   "manifest_version": 3,
   
-  "name": "KindleRead",
+  "name": "My Book Shelf",
   "description": "Allows you to upload and read books + many other options",
   "version": "1.0",
+    "icons":   {
+      "16": "openBook.png",
+      "48": "openBook.png",
+      "128": "openBook.png"
+    }
+  ,
   "action": {
     "default_icon":   {
-      "16": "bookLogo.jpg",
-      "48": "bookLogo.jpg",
-      "128": "bookLogo.jpg"
+      "16": "openBook.png",
+      "48": "openBook.png",
+      "128": "openBook.png"
     }
-  }
- ,
+  },
   "permissions": [
     "tabs",
     "scripting",

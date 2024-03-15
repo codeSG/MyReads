@@ -242,7 +242,7 @@ margin-right:4vh ;
     /* font-weight: bold; */
    
 width:fit-content;
-font-family: 'Inter';
+font-family: Inter;
 font-style: normal;
 font-weight: 600;
 font-size: 24px;
@@ -277,7 +277,7 @@ align-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Inter';
+    font-family: Inter;
 font-style: normal;
 font-weight: 600;
 font-size: 20px;
@@ -860,7 +860,7 @@ overflow: hidden;
     .getBookAuthor{
         width:90%;
         margin-left: 5%;
-font-family: 'Inter';
+font-family: Inter;
 font-style: normal;
 font-weight: 400;
 font-size: 15px;
@@ -874,7 +874,7 @@ overflow: hidden;
     }
 
 .getBookCategory{
-    height: 10%;
+    height: 9%;
     width: fit-content;
     max-width:80%;
 

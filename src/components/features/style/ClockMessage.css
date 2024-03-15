@@ -181,6 +181,7 @@ left: 4%;
     z-index:5 ; 
     right:0;
     bottom:-15px;
+    cursor : pointer ; 
 }
 
 .deleteIcon:hover{
@@ -304,8 +305,8 @@ left: 4%;
 }
 .svgContainerIcon{
 
-    width:90%; 
-    height:46%;
+    width:95%; 
+    height:48%;
     padding:5px ;
     border-radius: 12px;
     display: flex;

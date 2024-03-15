@@ -157,7 +157,8 @@ function App() {
                             steps={steps1}
                             continuous={true}    
                             showProgress={true}       
-                            showSkipButton={true}                      
+                            showSkipButton={true}   
+                                           
                     />
                   
                     <Routes> {/* Wrap Routes */}

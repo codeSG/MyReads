@@ -352,7 +352,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
             bookArr.sort((a, b) => bookObj[b] - bookObj[a]); // Corrected sorting function
 
-            setBookCategoryTag(bookArr);
+            setBookCategoryTag((prev) => bookArr);
 
         } , [originalFile])
 

@@ -14,7 +14,7 @@ import {ChevronLeft} from 'lucide-react'
 import {ChevronRight} from 'lucide-react'
 import  Joyride from 'react-joyride';
 // import "../assets/pspdfkit.js";
-import PdfViewerComponent from "./PdfViewerComponent.js"
+// import PdfViewerComponent from "./PdfViewerComponent.js"
 // import "./assets/pspdfkit.js";
 
 
@@ -221,7 +221,7 @@ console.log(  "the readTimeOut" , readTimeOut ) ;
 // setReadingTimeOut( readTimeOut ) ; 
 localStorage.setItem("readingTimeOut" , JSON.stringify( readTimeOut ))
 // alert( readingTimeOut )
-if( singlePageMode ){
+if( singlePageMode && canvasRef.current && pdfDoc3.current ){
 
   // alert(singlePageMode)
   const page = await pdfDoc3.current.getPage(pageNo);
@@ -251,10 +251,13 @@ const viewport = page.getViewport({ scale: 1.5 });
 
 
   
-}else{
+}
+
+if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){
 
   // alert(singlePageMode) ; 
   // THE CODR FOR SSHOWING THE LEFT  HALF PAGE 
+
   const page1 = await pdfDoc1.current.getPage(pageNo);
   
 const viewport = page1.getViewport({ scale: 1.5 });
@@ -509,8 +512,23 @@ useEffect( ()=>{
   useEffect(()=>{ 
 
 // alert(  `the scrollMode is ${scrollMode}` )
-if( iframeRef.current && scrollMode ){
+if( iframeRef.current && scrollMode  ){
 
+
+  const handleMessageFromIframe = (event) => {
+    const { type, data } = event.data;
+    if (type === 'annotationAdded' || type === 'annotationModified') {
+      // Update annotations data structure with received annotation
+      
+      // annotationsData.push(data);
+      console.log("handleMessageFromIframe", data)
+      // Save annotations to local storage
+      // saveAnnotationsToLocalStorage(annotationsData);
+    }
+  };
+  console.log( "iframeRef.current" , iframeRef.current)
+
+  iframeRef.current.addEventListener('message', handleMessageFromIframe);
 
 
   const searchParams = new URLSearchParams(location.search);
@@ -591,7 +609,7 @@ if( iframeRef.current && scrollMode ){
 
 
 
-if( !scrollMode && singlePageMode && canvasRef.current )    {
+if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
   twoCanvasDiv.current.style.display = "none" ;
   canvasDivRef.current.style.display= "flex" ;  
   pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
@@ -600,7 +618,8 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
 
 }
 
- if( !scrollMode && !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
+ if( !scrollMode && !singlePageMode && leftCanvasRef.current 
+   && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current)     {
   twoCanvasDiv.current.style.display = "flex" ;
   canvasDivRef.current.style.display= "none" ; 
   pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
@@ -614,9 +633,23 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
    
   } , [scrollMode]) ; 
 
+  
   useEffect(() => {
 
 
+    
+
+    // function handleMessageFromIframe(){
+      
+
+    //   alert("hi11111111")
+    // }
+
+
+    // iframeRef.current.addEventListener('message', handleMessageFromIframe);
+
+
+  // localStorage.setItem("firstTimeView" , true ) ; 
     const handleKeyDown = (event) => {
       if (event.key === "ArrowRight") {
         // Right arrow key was pressed
@@ -828,21 +861,31 @@ if( !scrollMode && singlePageMode && canvasRef.current )    {
     }
    
   }
+ 
 
 
   return (
+  
     <div style={{"width":"100vw" , height:"100vh" , position:"absolute"}} className="wrpaPageDiv">
+    
+{
 
-
+  
+   !localStorage.getItem("firstTimeView") && 
 <Joyride className='joyride2'
 
 
-run={true}
+run={ true   }
 steps={steps2}
 continuous={true}    
 showProgress={true}       
 showSkipButton={true}  
-  
+callback={({ status }) => {
+  if (status === 'finished' || status === 'skipped') {
+    // setIsTourOpen(false);
+    localStorage.setItem("firstTimeView" , true )
+  }
+}}
 styles={{
  
   overlay: {
@@ -854,6 +897,8 @@ styles={{
 
 
 />
+}
+
 
 {/* <WrapHeader clockMessageRef={clockMessageRef} pdfRef={pdfRef} btnRef={btnRef}/> */}
 <ClockMessage  clockMessageRef={clockMessageRef} pdfContainer={pdfContainer} fileList={[]}
@@ -866,12 +911,12 @@ styles={{
 {
   !scrollMode && 
 
-  <div id="leftSideBar" onMouseEnter={()=>{ movePrevfRef.current.style.display="flex" ; 
+  <div id="leftSideBar" onClick={ () =>moveToPreviousPage() } onMouseEnter={()=>{ movePrevfRef.current.style.display="flex" ; 
   completedPageRef.current.style.display="block" ;  }} 
      onMouseLeave={()=>{movePrevfRef.current.style.display="none" ; 
      completedPageRef.current.style.display="none" }} >
 
-    <button ref={movePrevfRef} id="movePrev" onClick={ () =>moveToPreviousPage() }>
+    <button ref={movePrevfRef} id="movePrev" >
       <ChevronLeft />
     </button>
 
@@ -929,11 +974,11 @@ styles={{
 
 {
   !scrollMode && 
-  <div id="rightSideBar" onMouseEnter={()=>{ moveNextRef.current.style.display="flex" ; completedPageRef.current.style.display="block"  }}  
+  <div id="rightSideBar"  onClick={ () => moveToNextPage()  } onMouseEnter={()=>{ moveNextRef.current.style.display="flex" ; completedPageRef.current.style.display="block"  }}  
   onMouseLeave={()=>{moveNextRef.current.style.display="none" ; completedPageRef.current.style.display="none" }}
 >
 
-    <button  ref={moveNextRef} id="moveNext" onClick={ () => moveToNextPage()  }>
+    <button  ref={moveNextRef} id="moveNext">
     <ChevronRight  />
     </button>
 

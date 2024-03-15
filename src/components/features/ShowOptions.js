@@ -174,7 +174,7 @@ return(
         </Link>
    
 
-    <div className="svgIcon darkShadow ttooltip showOptions-eigthStep" onClick={()=>moveRight()}>
+    <div className="svgIcon darkShadow ttooltip showOptions-eigthStep" style={{backgroundColor:"white"}} onClick={()=>moveRight()}>
     <svg style={{width:"25px" , height:"25px"}}  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M15.5 5H11L16 12L11 19H15.5L20.5 12L15.5 5Z" fill="black"/>
 <path d="M8.5 5H4L9 12L4 19H8.5L13.5 12L8.5 5Z" fill="black"/>
@@ -196,7 +196,7 @@ return(
         <span className="ttooltiptext" >Single Page</span>
     </div> */}
 
-<div className="darkShadow svgContainer">
+<div className="darkShadow svgContainer" style={{ border : "1px solid rgba(0, 0, 0, 0.5)" , padding:"2px" , height:"13%"}}>
 
         <div className="svgContainerIcon ttooltip showOptions-seventhStep" onClick={()=>moveRight()} style={{ backgroundColor:showStopWatch? "white":"rgba(145, 83, 206, 0.25)" }}>
             <svg style={{width:"25px" , height:"25px"}} viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,7 +213,7 @@ return(
 
 
         <div className="svgContainerIcon ttooltip showOptions-sixthStep" onClick={()=>moveRight()} style={{ backgroundColor:showStopWatch? "rgba(145, 83, 206, 0.25)" :"white" }}>
-    <svg style={{ width:"25px" , height:"25px"}} viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg style={{ width:"30px" , height:"30px"}} viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.375 3.125V0.375H16.625V3.125H8.375ZM11.125 18.25H13.875V10H11.125V18.25ZM12.5 29.25C10.8042 29.25 9.2055 28.9237 7.704 28.271C6.2025 27.6183 4.89075 26.7301 3.76875 25.6063C2.64583 24.4833 1.75804 23.1711 1.10538 21.6696C0.452708 20.1681 0.125917 18.5699 0.125 16.875C0.125 15.1792 0.451792 13.5805 1.10538 12.079C1.75896 10.5775 2.64675 9.26575 3.76875 8.14375C4.89167 7.02083 6.20387 6.13304 7.70537 5.48037C9.20687 4.82771 10.8051 4.50092 12.5 4.5C13.9208 4.5 15.2844 4.72917 16.5906 5.1875C17.8969 5.64583 19.1229 6.31042 20.2687 7.18125L22.1937 5.25625L24.1188 7.18125L22.1937 9.10625C23.0646 10.2521 23.7292 11.4781 24.1875 12.7844C24.6458 14.0906 24.875 15.4542 24.875 16.875C24.875 18.5708 24.5482 20.1695 23.8946 21.671C23.241 23.1725 22.3533 24.4843 21.2313 25.6063C20.1083 26.7292 18.7961 27.6174 17.2946 28.271C15.7931 28.9246 14.1949 29.2509 12.5 29.25ZM12.5 26.5C15.1583 26.5 17.4271 25.5604 19.3063 23.6813C21.1854 21.8021 22.125 19.5333 22.125 16.875C22.125 14.2167 21.1854 11.9479 19.3063 10.0688C17.4271 8.18958 15.1583 7.25 12.5 7.25C9.84167 7.25 7.57292 8.18958 5.69375 10.0688C3.81458 11.9479 2.875 14.2167 2.875 16.875C2.875 19.5333 3.81458 21.8021 5.69375 23.6813C7.57292 25.5604 9.84167 26.5 12.5 26.5Z" fill="black"/>
 </svg>
 <span className="ttooltiptext" >StopWatch</span>
@@ -228,7 +228,7 @@ return(
 
 
 
-<div className="darkShadow svgContainer showOptions-fifthStep">
+<div className="darkShadow svgContainer showOptions-fifthStep"  style={{padding:"2px" , border : "1px solid rgba(0, 0, 0, 0.5)" }} >
         <div className="svgContainerIcon  ttooltip"  style={{ backgroundColor: scrollMode ?"rgba(145, 83, 206, 0.25)" : "white"}}
         onClick={()=>
             {
@@ -243,11 +243,12 @@ return(
     <span className="ttooltiptext" >Scroll Mode</span>
         </div>
 
-        <div className="svgContainerIcon  ttooltip"  style={{ backgroundColor:"rgba(145, 83, 206, 0.25)" }} >
+        <div className="svgContainerIcon  ttooltip"  style={{  backgroundColor: scrollMode ?"rgba(145, 83, 206, 0.25)" : "white" }} >
             {/* <RectangleVertical/> */}
             
 
-    <svg style={{width:"20px", height:"20px" , backgroundColor:"rgba(145, 83, 206, 0.25)"}}  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg style={{width:"20px", height:"20px" , 
+backgroundColor: scrollMode ?"rgba(145, 83, 206, 0.25)" : "white"   }}  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.17208 16.818L7.75708 18.232L12.0001 22.475L16.2431 18.232L14.8281 16.818L12.0001 19.647L9.17208 16.818ZM14.8281 7.182L16.2431 5.768L12.0001 1.525L7.75708 5.768L9.17208 7.182L12.0001 4.354L14.8281 7.182Z" fill="black"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9ZM12 11C12.2652 11 12.5196 11.1054 12.7071 11.2929C12.8946 11.4804 13 11.7348 13 12C13 12.2652 12.8946 12.5196 12.7071 12.7071C12.5196 12.8946 12.2652 13 12 13C11.7348 13 11.4804 12.8946 11.2929 12.7071C11.1054 12.5196 11 12.2652 11 12C11 11.7348 11.1054 11.4804 11.2929 11.2929C11.4804 11.1054 11.7348 11 12 11Z" fill="black"/>
 </svg>
@@ -277,7 +278,7 @@ return(
 
 
 
-    <div className="darkShadow svgContainer ">
+    <div className="darkShadow svgContainer" style={{padding:"2px" , border : "1px solid rgba(0, 0, 0, 0.5)"  , height : "13%"}}>
         <div className="svgContainerIcon  ttooltip showOptions-fourthStep"  style={{ backgroundColor: !singlePageMode && !scrollMode ?"rgba(145, 83, 206, 0.25)" : "white"}}
         onClick={()=>
             {
@@ -333,14 +334,14 @@ return(
 
 
 
-<div onClick={()=>moveRight()}  className="svgIcon darkShadow ttooltip showOptions-secondStep">
+<div style={{backgroundColor:"white"}} onClick={()=>moveRight()}  className="svgIcon darkShadow ttooltip showOptions-secondStep">
     <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0V20H9.563L12.281 22.72L13.001 23.406L13.721 22.719L16.437 20H26V0H0ZM2 2H24V18H15.594L15.281 18.28L13 20.563L10.72 18.283L10.406 18.001H2V2ZM6 5V7H20V5H6ZM6 9V11H20V9H6ZM6 13V15H16V13H6Z" fill="black"/>
 </svg>
 <span className="ttooltiptext" >Messages</span>
     </div>
 
-<div className="svgIcon darkShadow ttooltip jump showOptions-firstStep " style={{cursor : jumpToPage ? "auto" : "pointer" }} >
+<div className="svgIcon darkShadow ttooltip jump showOptions-firstStep " style={{cursor : jumpToPage ? "auto" : "pointer" , backgroundColor : jumpToPage ? "rgba(145, 83, 206, 0.25)" : "white" }} >
         
     { jumpToPage&& <>
         <input className="jumpToPage" type="number" value={jumpToPageNumber} onChange={(e)=> setJumpToPageNumber(e.target.value)}  />
@@ -386,30 +387,13 @@ return(
 
        { !jumpToPage && 
        <>
-       {/* <svg width="72" height="58"  onClick={()=>jumpToPageChange()  } viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_575_79)">
-<rect x="4" width="64" height="50" rx="20" fill="#9153CE" fill-opacity="0.25" shape-rendering="crispEdges"/>
-</g>
-<defs>
-<filter id="filter0_d_575_79" x="0" y="0" width="72" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_575_79"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_575_79" result="shape"/>
-</filter>
-</defs>
-</svg> */}
+     
 
 
 
-
-<svg style={{width:"30px" , height : "30px" , margin:"0" }} onClick={()=>jumpToPageChange()  } viewBox="0 0 31 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15.5 15.75C16.1852 15.75 16.8422 15.9871 17.3267 16.409C17.8112 16.831 18.0833 17.4033 18.0833 18C18.0833 18.5967 17.8112 19.169 17.3267 19.591C16.8422 20.0129 16.1852 20.25 15.5 20.25C14.8149 20.25 14.1578 20.0129 13.6733 19.591C13.1889 19.169 12.9167 18.5967 12.9167 18C12.9167 17.4033 13.1889 16.831 13.6733 16.409C14.1578 15.9871 14.8149 15.75 15.5 15.75ZM30.3025 9.9675L28.2488 17.7188L19.375 15.93L24.2833 13.2525C23.3583 11.9492 22.0653 10.8741 20.5277 10.1297C18.9901 9.38525 17.2592 8.99632 15.5 9C10.3979 9 6.16127 12.2175 5.32168 16.4587L2.7771 16.065C3.82335 10.7775 9.11918 6.75 15.5 6.75C20.1242 6.75 24.1929 8.87625 26.4792 12.06L30.3025 9.9675Z" fill="black"/>
-</svg>
+    <svg style={{width:"30px" , height : "30px" , margin:"0" , backgroundColor : "white" }} onClick={()=>jumpToPageChange()  } viewBox="0 0 31 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5 15.75C16.1852 15.75 16.8422 15.9871 17.3267 16.409C17.8112 16.831 18.0833 17.4033 18.0833 18C18.0833 18.5967 17.8112 19.169 17.3267 19.591C16.8422 20.0129 16.1852 20.25 15.5 20.25C14.8149 20.25 14.1578 20.0129 13.6733 19.591C13.1889 19.169 12.9167 18.5967 12.9167 18C12.9167 17.4033 13.1889 16.831 13.6733 16.409C14.1578 15.9871 14.8149 15.75 15.5 15.75ZM30.3025 9.9675L28.2488 17.7188L19.375 15.93L24.2833 13.2525C23.3583 11.9492 22.0653 10.8741 20.5277 10.1297C18.9901 9.38525 17.2592 8.99632 15.5 9C10.3979 9 6.16127 12.2175 5.32168 16.4587L2.7771 16.065C3.82335 10.7775 9.11918 6.75 15.5 6.75C20.1242 6.75 24.1929 8.87625 26.4792 12.06L30.3025 9.9675Z" fill="black"/>
+    </svg>
 
        {/* <ArrowBigUp style={{width:"30px" , height : "30px" , margin:"0" }} onClick={()=>
         

@@ -411,6 +411,7 @@ svg{
     display:flex ; 
     /* justify-content: center; */
     align-items: center;
+    cursor: pointer;
     /* width:50px; */
     /* background-color: aqua; */
 }
@@ -433,6 +434,7 @@ svg{
     display: none ;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
 }
 
@@ -446,6 +448,7 @@ svg{
     height:100vh;
     right:0;
     display:flex ; 
+    cursor : pointer ; 
     flex-direction: row-reverse;
     /* justify-content: center; */
     align-items: center;
@@ -494,5 +497,6 @@ svg{
     display: none ;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
 }
