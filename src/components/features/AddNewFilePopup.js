@@ -26,7 +26,8 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
 
         function categoryFilter(category){
-            if( !category){
+
+            if( !category || category === 'All' ){
                 setFileList( originalFile ) ; 
                 return;
             }
@@ -351,6 +352,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
             console.log(  " the bookArr s rhis "  , bookArr ) ; 
 
             bookArr.sort((a, b) => bookObj[b] - bookObj[a]); // Corrected sorting function
+            bookArr.unshift("All" ) ; 
 
             setBookCategoryTag((prev) => bookArr);
 
@@ -377,9 +379,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
                     </div>
                     <div className="categoryOptions">
-                        <div className="categoryDiv" onClick={()=> categoryFilter("") } >
-                        <p >ALL</p>
-                        </div>
+                        
                         {
                            bookCategoryTag[0] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[0])  }   >  <p>{bookCategoryTag[0]}</p></div>
                         }
@@ -390,6 +390,9 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                         
                         {
                            bookCategoryTag[2] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[2])  }   >  <p>{bookCategoryTag[2]}</p></div>
+                        }
+                         {
+                           bookCategoryTag[3] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[3])  }   >  <p>{bookCategoryTag[2]}</p></div>
                         }
                     </div>
                     <button id="done" className='sixth-step'

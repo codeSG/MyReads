@@ -13,13 +13,27 @@ import { Link, useLocation } from 'react-router-dom';
 import {ChevronLeft} from 'lucide-react'
 import {ChevronRight} from 'lucide-react'
 import  Joyride from 'react-joyride';
+// import { PdfViewerComponent, Toolbar, Magnification, Navigation, LinkAnnotation, BookmarkView,
+//   ThumbnailView, Print, TextSelection, TextSearch, Annotation, Inject } from '@syncfusion/ej2-react-pdfviewer';
+  
+// import {  PDFViewer } from '@recogito/recogito-react-pdf';
+
+
 // import "../assets/pspdfkit.js";
 // import PdfViewerComponent from "./PdfViewerComponent.js"
 // import "./assets/pspdfkit.js";
 
 
-import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js"
+import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js";
+let pdfviewer;
 export default function WrapPage() {
+
+
+  function highlightMode() {
+    var viewer = document.getElementById('container').ej2_instances[0];
+    viewer.annotation.setAnnotationMode('Highlight');
+  }
+
 
   const containerRef = useRef(null); 
   // const baseUrl = `${window.location.protocol}//${window.location.host}/assets/`;
@@ -932,23 +946,26 @@ styles={{
 
 {/* <div id="iframeCanvasDiv"> */}
 
-{/* {
-  scrollMode && 
-  <PdfViewerComponent
-  document={sessionStorage.getItem("objectUrl")} // PDF URL
-/>
-} */}
 {
   scrollMode && 
-  <iframe
+  
+   <iframe
   ref={iframeRef}
  
   width="100%"
   height="100%"
   frameBorder="0"
 
+
 />
+
+
+ 
 }
+
+
+
+
 
 
 
