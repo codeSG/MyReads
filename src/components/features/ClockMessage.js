@@ -130,7 +130,7 @@ function moveRight(){
     
   return (
     <div id="clockContainer">
-       <ShowOptions  moveRight={moveRight} showOptions={showOptions} showStopWatch={showStopWatch}
+       <ShowOptions  moveRight={moveRight} showOptions={showOptions} showStopWatch={showStopWatch} setShowStopWatch={setShowStopWatch}
        setSinglePageMode={setSinglePageMode} pageMovement={pageMovement} singlePageMode={singlePageMode}
        scrollMode={scrollMode} setScrollMode={setScrollMode} 
        iframeRef={iframeRef}  iframeURL ={iframeURL} setIframePageNumber={setIframePageNumber}
@@ -148,6 +148,7 @@ function moveRight(){
       
       
       } */}
+      
        <StopWatch showStopWatch={showStopWatch} />
        
        <Timer moveRight={moveRight}  showStopWatch={showStopWatch}/>

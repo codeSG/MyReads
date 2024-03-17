@@ -23,43 +23,40 @@ function App() {
     const [ wrapPageRuntour , setWrapPageRunTour] = useState( false ) ; 
     const [enterYourName , setEnterYourName] = useState( localStorage.getItem("userName"))
     const [ userName , setUserName] = useState( localStorage.getItem("userName") ) ; 
+    const [firebaseFileFetched , setFirebaseFileFetched]  = useState( localStorage.getItem("firebaseFileFetched") )
     const handleTourEnd = () => {
         // Handle the end of the tour, if needed
         setRunTour(false); // Stop the tour after it ends
     };
     const steps1 = [
         {
+          // selector: '.first-step1, .first-step2',
           target: '.first-step',
-          content: 'This is the first step of the tour.',
+          content: 'Managing and finding book on laptop is a tedious task, why not add all books, that are easy to place on your digital bookshelf',
           disableBeacon: true
         },
        
         {
             target: '.second-step',
-            content: 'This is the second step of the tour.',
+            content: 'Find your current running booking easily and continue focusing on its reading',
             disableBeacon: true
           }
           , 
 
           {
             target: '.third-step',
-            content: 'This is the third step of the tour.',
+            content: ' Reading Habit is sometimes hard, why not make them part of automatic tracking in terms of time and pages read per day',
             disableBeacon: true
           }
           ,
           {
             target: '.fourth-step',
-            content: 'This is the fourth step of the tour.',
+            content: 'Filter book based on categories or find the right book out of your library',
             disableBeacon: true
           }, 
           {
             target: '.fifth-step',
-            content: 'This is the fifth step of the tour.',
-            disableBeacon: true
-          }, 
-          {
-            target: '.sixth-step',
-            content: 'This is the fifth step of the tour.',
+            content: 'Read book and try different actions to track reading habit, progress, and add notes',
             disableBeacon: true
           }
      
@@ -142,7 +139,8 @@ function App() {
                 wrapPageRuntour,
                 setWrapPageRunTour , 
                 userName ,  
-                setUserName
+                setUserName , firebaseFileFetched  , setFirebaseFileFetched
+
             }}
         >
             <Router>

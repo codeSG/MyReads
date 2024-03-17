@@ -10,18 +10,23 @@ import "../../style/BetterFile.css" ;
 import { ToastContainer, toast } from 'react-toastify';
 import library from "../../image/library.png" ; 
 import 'react-toastify/dist/ReactToastify.css';
+ import {ChevronRight , ChevronLeft  } from "lucide-react" ; 
+ import {readBook} from "../../utils/updateBookRecentlyViewed.js"
 const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, setSpinner,
-    hashID, setHashID  }) => {
+    hashID, setHashID   , uploadNewBook ,  setUploadNewBook}) => {
         const {fileList, setFileList, originalFile, setOriginalFile,
             dataBaseCreated,
             setDataBaseCreated,
             request,
-            setRequest
+            setRequest, firebaseFileFetched, setFirebaseFileFetched , 
+            bookRecentlyViewed, setBookRecentlyViewed
           } = useContext(ContextInfo)
         const [metaDataTitle, setMetaDataTitle] = useState("")  ; 
         const [metaDataDescription , setMetaDataDescription] = useState("") ;
 
         const [ bookCategoryTag , setBookCategoryTag] = useState([]) ; 
+        const [bookCategoryInd , setBookCategoryInd] = useState(0) ; 
+        const [activebookCategoryInd , setactivebookCategoryInd] = useState(0) ; 
 
 
 
@@ -49,7 +54,36 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
         const getFileFromInput = ()=>{
 
 
+            if( !firebaseFileFetched ){
+                return new Promise((resolve, reject) => {
+                const url = "https://firebasestorage.googleapis.com/v0/b/uploadingfile-b50cc.appspot.com/o/The-Jungle-Books-text.pdf?alt=media&token=c129e8b6-6e88-402a-b119-dbb092898277"
+                fetch(url)
+                .then(async (response) => {
+                    const data = await response.arrayBuffer();
+                    // Get the content type from the response headers
+                    const contentType = response.headers.get('content-type');
+                    // Get the size of the data
+                    const size = data.byteLength;
+                    resolve({
+                        type: contentType,
+                        size: size,
+                        data: data,
+                    });
 
+                    console.log( "all the fileds got " , data ,   contentType , size)
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+
+            }) 
+                
+
+
+
+
+
+            }
             return new Promise((resolve, reject) => {
                 // const file = document.getElementById('file').files[0];
                 const reader = new FileReader();
@@ -60,6 +94,8 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                         size: fileUpload.size,
                         data: event.target.result,
                     });
+
+                    
                 };
                 reader.onerror = (event) => {
                     reject(event.target.error);
@@ -137,9 +173,25 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                    
                      setFileList(prev=>[...prev , {...objectUploaded}])  ;
                 setOriginalFile( prev=>[...prev ,{...objectUploaded}] ) ; 
-                setBlack( false ) ; 
-                setSpinner( false  ) ;  
-                 setFileUpload( null ) ; 
+                if( firebaseFileFetched){
+                    setBlack( false ) ; 
+                    setSpinner( false  ) ;  
+                     setFileUpload( null ) ;
+                     setUploadNewBook( false ) ; 
+                }else{
+                    // localStorage.setItem("bookID1" ,  keyID ) ; 
+                    // localStorage.setItem("bookID2" ,-1 ) ; 
+                    // localStorage.setItem("bookID3" , -1  ) ; 
+                    // localStorage.setItem("bookID4" ,  -1  ) ; 
+
+                    // const arr = [ keyID,keyID,-1, -1 ]
+                    // setBookRecentlyViewed(arr);
+                    setBookRecentlyViewed(readBook(keyID));
+                    setFirebaseFileFetched( true  ) ; 
+                    localStorage.setItem("firebaseFileFetched" , true ) ;  
+                }
+               
+                
                 // setBlack( false ) ; 
                 // setSpinner( false  ) ;  
                 //  setFileUpload( null ) ; 
@@ -167,6 +219,68 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
         }
 
+        useEffect(()=>{
+            if( firebaseFileFetched ) return ; 
+            async function fetchTheFile(){
+            const uploadedBookObj = {  currentPage : 1 , totalPage : 0 , notes : []    } ; 
+            const fileUploadName = "The-Jungle-Books-text" ; 
+                const bookInforMation = await fetch("https://www.googleapis.com/books/v1/volumes?q="+fileUploadName) ; 
+                console.log("bookInforMation",bookInforMation);
+                const bookInforMationJson = await bookInforMation.json() ; 
+                console.log("bookInforMationJson",bookInforMationJson);
+                let cnt = 0 ;
+                for( let entry of bookInforMationJson.items){
+                    if( entry.volumeInfo?.authors ){
+                        uploadedBookObj.bookAuthor  = entry.volumeInfo.authors[0] ;
+                        cnt++;
+                    }
+                    if( entry.volumeInfo?.categories ){
+                        uploadedBookObj.bookGenre  = entry.volumeInfo.categories[0] ;
+                        cnt++;
+                    }
+                    if( entry.volumeInfo?.imageLinks?.thumbnail ){
+                        uploadedBookObj.bookImageLink  =  entry.volumeInfo.imageLinks.thumbnail ;
+                        cnt++;
+                    }
+                   
+                    if( cnt === 3 ) break ; 
+
+                }
+
+                if( !uploadedBookObj.bookAuthor){
+                    uploadedBookObj.Author = "Anonyomus"  ; 
+                   }
+                   
+                   if( !uploadedBookObj.bookGenre){
+                    uploadedBookObj.bookGenre = "Anoyomus"  ; 
+                   }
+                   
+                   if( !uploadedBookObj.bookImageLink){
+                    uploadedBookObj.bookImageLink = bookImageSubstitue  ; 
+                   }
+      
+                //    if( cnt !== 3 ){
+                //     bookEntries[ind] = bookObj ;
+                //    }
+
+
+                uploadedBookObj.bookName = fileUploadName ; 
+                console.log( "uploadedBookObj.bookAuthor", uploadedBookObj.bookAuthor, uploadedBookObj.bookGenre, uploadedBookObj.bookImageLink );
+                
+
+
+            storeFileInIndexedDB( uploadedBookObj ) ; 
+
+                }
+            fetchTheFile() 
+
+
+        } , [firebaseFileFetched])
+
+        useEffect(()=>{
+            if( !uploadNewBook ) return ; 
+                setUpload()  ; 
+        } , [uploadNewBook])
 
 
         const uploadRef = useRef( null ) ; 
@@ -294,7 +408,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                         
                 //     }
                 // }
-                storeFileInIndexedDB( uploadedBookObj )
+                storeFileInIndexedDB( uploadedBookObj ) ; 
                 
                 
                
@@ -353,8 +467,8 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
             bookArr.sort((a, b) => bookObj[b] - bookObj[a]); // Corrected sorting function
             bookArr.unshift("All" ) ; 
-
-            setBookCategoryTag((prev) => bookArr);
+            console.log(  "  bookArr.unshift(all) "  , bookArr ) ; 
+            setBookCategoryTag(  bookArr);
 
         } , [originalFile])
 
@@ -378,24 +492,45 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                         <label>Library</label>
 
                     </div>
-                    <div className="categoryOptions">
-                        
+                    <div className="categoryOptions fourth-step">
+                       {bookCategoryInd != 0 && 
+                        <ChevronLeft  className='leftArrow'  onClick={()=> setBookCategoryInd(prev => prev-1)}/>
+                       } 
                         {
-                           bookCategoryTag[0] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[0])  }   >  <p>{bookCategoryTag[0]}</p></div>
+                           bookCategoryTag[bookCategoryInd] &&  <div
+                           style={{ background: bookCategoryInd === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
+                           className="categoryDiv" onClick={()=> {categoryFilter(bookCategoryTag[bookCategoryInd]) ; 
+                            setactivebookCategoryInd(bookCategoryInd)  ;}  }   >  <p>{bookCategoryTag[bookCategoryInd]}</p></div>
                         }
                         
                         {
-                           bookCategoryTag[1] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[1])  }   >  <p>{bookCategoryTag[1]}</p></div>
+                           bookCategoryTag[bookCategoryInd+1] &&  <div 
+                           style={{ background: bookCategoryInd+1 === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
+                           className="categoryDiv" onClick={()=> {categoryFilter(bookCategoryTag[bookCategoryInd + 1]); 
+                            setactivebookCategoryInd(bookCategoryInd+1)  ;
+                        }  }   >  <p>{bookCategoryTag[bookCategoryInd+1]}</p></div>
                         }
                         
                         {
-                           bookCategoryTag[2] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[2])  }   >  <p>{bookCategoryTag[2]}</p></div>
+                           bookCategoryTag[bookCategoryInd + 2] &&  <div 
+                           style={{ background: bookCategoryInd +2 === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
+                           className="categoryDiv" onClick={()=>{ categoryFilter(bookCategoryTag[bookCategoryInd + 2])  ; 
+                            setactivebookCategoryInd(bookCategoryInd+2)  ; }
+                        }   >  <p>{bookCategoryTag[bookCategoryInd+2]}</p></div>
                         }
                          {
-                           bookCategoryTag[3] &&  <div  className="categoryDiv" onClick={()=> categoryFilter(bookCategoryTag[3])  }   >  <p>{bookCategoryTag[2]}</p></div>
+                           bookCategoryTag[bookCategoryInd + 3 ] &&  <div 
+                           style={{ background: bookCategoryInd + 3  === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
+                           className="categoryDiv" onClick={()=> {categoryFilter(bookCategoryTag[bookCategoryInd +3]) ; setactivebookCategoryInd(bookCategoryInd+3) }   }   >  <p>{bookCategoryTag[bookCategoryInd+3]}</p></div>
                         }
+                        {
+                            (bookCategoryInd + 3  < bookCategoryTag.length -1  ) &&
+
+                             <ChevronRight  className='rightArrow' onClick={()=>setBookCategoryInd(prev => prev+1)}/>
+                        }
+                        
                     </div>
-                    <button id="done" className='sixth-step'
+                    <button id="done" 
                     onClick={()=>{
                        
                             // setUploadBook( true ) ; 

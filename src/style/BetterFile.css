@@ -36,7 +36,7 @@
     
     width:100%;
     /* gap:70px; */
-    margin-top:4vh;
+    margin-top:3vh;
     /* background-color: red ; */
     display : grid ;
     grid-template-columns: repeat( 5 , 18%) ;
@@ -45,7 +45,7 @@
     
 }
 #textBook{
-    padding-top:2vh;
+    /* padding-top:1vh; */
     padding-bottom: 1vh;
     border-radius:12px ;
     display: flex;
@@ -61,6 +61,7 @@
 
     /* margin:auto ;  */
     /* margin:auto  ; */
+    position: relative;
 
 }
 #image{
@@ -148,16 +149,20 @@ height:90%;
 }
 .title{
     /* margin-top:10px ;  */
-    font-size:20px ;
+    font-size:15px ;
     /* word-spacing: 5px;  */
     word-wrap: break-word;
     font-weight: 600;
     height:4vh ; 
+    height: fit-content;
     width:100%;
     overflow : hidden; 
     padding-left:10px ; 
-    padding-top:2px ; 
-    color:rgb(65, 65, 65)
+    /* padding-top:2px ;  */
+    color:rgb(65, 65, 65) ; 
+    text-align: center;
+    color : black ; 
+    padding:1vh 0 ; 
 }
 #search{
    
@@ -219,7 +224,8 @@ height:90%;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px  ;
+    padding: 0 20px  ;
+    padding-bottom: 0 ;
     
     /* padding-right: 100px; */
     /* margin-top:2vh; */
@@ -267,7 +273,7 @@ align-items: center;
     justify-content: center;
     align-items: center;
     margin-top:4vh;
-    height:12vh;
+    height:9vh;
 }
 #addBook p{
     font-weight: bold;
@@ -304,11 +310,26 @@ margin-left: 5%;
     align-items: center;
     height:60%;
     background: linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), #EEDDFF;
-border-top-left-radius: 20px;
-border-bottom-left-radius: 20px;
-border-top-right-radius:20px;
-border-bottom-right-radius: 20px;
-
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius:15px;
+    border-bottom-right-radius: 15px;
+    position: relative;
+    padding-top:7px;
+}
+.leftArrow{
+    position: absolute;
+    left :0 ; 
+    z-index: 10;
+    color: black;
+    cursor: pointer;
+}
+.rightArrow{
+    position: absolute;
+    right :0 ; 
+    z-index: 10;
+    color: black;
+    cursor: pointer;
 }
 .categoryDiv{
     /* background: rgba(145, 83, 206, 0.56); */
@@ -318,14 +339,20 @@ border-bottom-right-radius: 20px;
     border: 0;
     padding: 0  10px; 
     border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     /* font-weight: 600; */
     width:22%;
     cursor: pointer;
     height: 100%;
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     
+}
+.categoryDiv:hover{
+background:  rgba(145, 83, 206, 0.56) ;
 }
 .categoryDiv button{
     /* background: rgba(145, 83, 206, 0.56); */
@@ -334,6 +361,7 @@ border-bottom-right-radius: 20px;
     border: 0;
     /* padding:10px ;  */
     border-radius: 10px;
+    
     font-weight: 600;
     width:100%;
     height:80%;
@@ -347,6 +375,8 @@ border-bottom-right-radius: 20px;
     height: fit-content;
     max-height: 50%;
     overflow: hidden;
+    margin-bottom: 4%;
+    text-transform: uppercase;
     /* display: flex;  */
     /* justify-content: center;
     align-items: center; */
@@ -501,6 +531,8 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     padding-left: 10%;
     margin:2vh 0 ; 
     margin-bottom:0;
+    
+    /* background-color:#F1E9F9 ; */
     /* position:absolute ;
     bottom:32%;  */
 }
@@ -668,6 +700,52 @@ overflow: hidden;
         bottom:0;
         cursor: pointer;
     }
+    #pinkBoxDiv{
+        width:90%;
+        height : 40vh ; 
+        margin-top: 10% ; 
+        margin-left:5%;
+        /* padding-bottom: 1vh; */
+        background-color: white;
+        border-radius: 12px ;
+        box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+        /* display: flex; */
+        /* justify-content: center;
+        align-items: center; */
+        position: relative;
+    }
+    #pinkBox{
+        width:80% ; 
+        height : 90%;
+        margin-left: 10%;
+        margin-top: 5%;
+        cursor: pointer;
+    }
+    #plusUploadPink{
+        position: absolute;
+        z-index: 10;
+        width:15% ; 
+        height : 15% ; 
+        top:35% ; 
+        left:45%; 
+        cursor: pointer;
+    }
+    #uploadPink{
+        cursor: pointer;
+        display: inline-block;
+        /* background-color: red ; */
+        
+        width: 30%;
+        text-align: center;
+        
+        font-weight: 600;
+        position: absolute;
+        z-index: 10;
+        /* width:10% ;  */
+        height : 10% ; 
+        top:55% ; 
+        left:38%; 
+    }
     #bookRead{
         width:90%;
         margin-top: 10% ; 
@@ -777,7 +855,7 @@ overflow: hidden;
         /* background-color: red; */
         
         display: flex;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         
     }
    
@@ -827,8 +905,9 @@ overflow: hidden;
    
 
     .frequent{
-        width:30%;
+        width:32%;
         height: 100%;
+        margin-right: 2%;
         background-color: aqua;
         display: flex;
         justify-content: space-evenly;
@@ -837,6 +916,10 @@ overflow: hidden;
         box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
         border-radius: 20px;
     }
+    /* .uploadBooks{
+        cursor: pointer;
+    } */
+    
     .recentViewCanvas{
         width : 40%  ;
         height : 85%;
@@ -1169,13 +1252,147 @@ top:-110%;
     bottom:5px;
     margin-left: 20%;
   } */
+
+  #bottomImages{
+    display : flex ; 
+    justify-content: space-evenly;
+    align-items: center;
+    width : 100% ; 
+    height : 8vh ;
+    position: absolute;
+    bottom:5px;
+    
+    border-radius: 0;
+  }
   .goalSaathi {
 
     width:70% ; 
-    height : 8vh; 
+    height : 100%; 
   
-    position: absolute;
-    bottom:5px;
-    margin-left: 15%;
-    border-radius: 0;
+    
   }
+  .ideaDiv{
+    width:17% ; 
+    height : 80%; 
+    padding: 10px ;
+    background-color: white ;
+    border-radius: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  }
+  .idea{
+    width:100% ; 
+    height : 100%; 
+  }
+  .progressBook{
+    margin-top: 1vh;
+    margin-bottom: 1vh ;
+    height :  3vh ; 
+    /* background-color: rgb(199, 199, 100); */
+    width : 75%;
+    /* border-radius: 15px; */
+    border:0;
+    background-color: white ;
+    /* border-radius : 15px ;  */
+    /* background-color: black; */
+    
+    /* background-color: red ; */
+  }
+.progressBookDiv{
+    width: 80%;
+    height: 100%;
+    position:relative ; 
+    /* margin-left: 5%; */
+    display : flex ; 
+    /* margin-top:5%; */
+    /* position: absolute; */
+    position: relative;
+    /* bottom:20%;  */
+    /* margin-right: 2vw; */
+    background-color: white;
+}
+.progress1Div{
+    position: absolute; 
+    top:40%; 
+    left:0; 
+    width:50%;
+    /* height:2%; */
+    height:20%;
+    background-color: green;
+    border-radius: 15px;
+    z-index: 5;
+}
+.progress2Div{
+    border-radius: 15px;
+     position: absolute; 
+    top:40%; 
+    left:0; 
+    background-color: rgb(192, 192, 88); 
+    width: 100%;
+    height:20%;
+}
+
+.progressBook label{
+    position:absolute;
+    left:105%;
+    /* top:20px; */
+    /* top:-100% ;  */
+    /* top:-100% ;  */
+    /* bottom:0 ;  */
+    /* font-size:10px; */
+    /* bottom:-10%; */
+    /* top:-550%; */
+    /* top:-100%; */
+    top:25%;
+    font-size: 10px;
+    width:fit-content ; 
+    
+    height:fit-content ; 
+}
+ 
+
+#frequentBook1Div{
+    width:90% ; 
+    height : 90% ; 
+    background-color: white;
+    position: relative;
+
+}
+#uploadBookImage {
+    width:80% ; 
+    height : 100% ; 
+  
+    margin-left: 10%;
+    position: relative;
+    cursor: pointer;
+
+}
+#plusUpload{
+    position: absolute;
+    top:30%;
+    left:45%;
+    z-index: 10;
+    width: 10% ; 
+    height : 17% ; 
+    cursor: pointer;
+}
+#uploadP{
+    /* font-size: 20px; */
+    top:50%;
+    left:30%;
+    z-index: 10;
+    position: absolute;
+    color : black ; 
+    font-weight: 600;
+    cursor: pointer;
+}
+#bookP{
+    top:50%;
+    left:53%;
+    z-index: 10;
+    position: absolute;
+    color : black ; 
+    font-weight: 600;
+    cursor: pointer;
+}
+

@@ -13,15 +13,6 @@ import { Link, useLocation } from 'react-router-dom';
 import {ChevronLeft} from 'lucide-react'
 import {ChevronRight} from 'lucide-react'
 import  Joyride from 'react-joyride';
-// import { PdfViewerComponent, Toolbar, Magnification, Navigation, LinkAnnotation, BookmarkView,
-//   ThumbnailView, Print, TextSelection, TextSearch, Annotation, Inject } from '@syncfusion/ej2-react-pdfviewer';
-  
-// import {  PDFViewer } from '@recogito/recogito-react-pdf';
-
-
-// import "../assets/pspdfkit.js";
-// import PdfViewerComponent from "./PdfViewerComponent.js"
-// import "./assets/pspdfkit.js";
 
 
 import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js";
@@ -41,53 +32,23 @@ export default function WrapPage() {
   const steps2 = [
     {
       target: '.showOptions-firstStep',
-      content: 'This is the first step of the tour.',
+      content: 'Track your reading time, by starting stop-watch or Pre-fixed your reading time using Pomodoro timer',
       disableBeacon: true
     },
    
     {
         target: '.showOptions-secondStep',
-        content: 'This is the second step of the tour.',
+        content: 'Reading mode bring the actual experience allowing to read books by scrolling or page by page mode allowing jumping to any page directly and view as one page or two page format.',
         disableBeacon: true
       }
       , 
 
       {
         target: '.showOptions-thirdStep',
-        content: 'This is the third step of the tour.',
+        content: 'Record all your notes/comments that will enrich your learning to 10x times',
         disableBeacon: true
       }
       ,
-      {
-        target: '.showOptions-fourthStep',
-        content: 'This is the fourth step of the tour.',
-        disableBeacon: true
-      }, 
-      {
-        target: '.showOptions-fifthStep',
-        content: 'This is the fifth step of the tour.',
-        disableBeacon: true
-      }, 
-      {
-        target: '.showOptions-sixthStep',
-        content: 'This is the sixthStep step of the tour.',
-        disableBeacon: true
-      } , 
-      {
-        target: '.showOptions-seventhStep',
-        content: 'This is the seventhStep step of the tour.',
-        disableBeacon: true
-      }  , 
-      {
-        target: '.showOptions-eigthStep',
-        content: 'This is the eigthStep step of the tour.',
-        disableBeacon: true
-      }  , 
-      {
-        target: '.showOptions-ningthStep',
-        content: 'This is the ningthStep step of the tour.',
-        disableBeacon: true
-      }  , 
 
  
   ];
@@ -331,7 +292,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
 }
 
 
-if(!wrapPageRuntour)setWrapPageRunTour( true ) ; 
+// if(!wrapPageRuntour)setWrapPageRunTour( true ) ; 
 }
 
 

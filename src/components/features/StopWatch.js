@@ -1,10 +1,10 @@
-import React , { useState }from 'react';
+import React , { useState , useEffect}from 'react';
 // import 'boxicons';
 import "./style/ClockMessage.css";
 // import "./style/ClockMessage.css"
 
-import {Play} from "lucide-react"
-import {PauseCircle } from "lucide-react";
+// import {Play} from "lucide-react"
+import { Play, PauseCircle , Square} from "lucide-react";
 
 
 const StopWatch = ({showStopWatch}) => {
@@ -28,6 +28,18 @@ const StopWatch = ({showStopWatch}) => {
     setIsPause( false ) ; 
     clearTimeout( timeInterval )
      
+  }
+  useEffect(()=>{
+
+    return ()=>{
+      clearTimeout( timeInterval );
+    }
+  } , [] )
+
+  function squareResetButton(){
+    setIsPause( false ) ; 
+    clearTimeout( timeInterval ) ; 
+    setTimer(0) ; 
   }
 
   function getProperTime(){
@@ -59,11 +71,15 @@ const StopWatch = ({showStopWatch}) => {
             
            
             
-            {
-                isPause ?  <PauseCircle onClick={()=>pauseButton()} className='innerIcon' /> :
-                 <Play onClick={()=>playButton()} className='innerIcon'/> 
-            }
             
+                  
+                 
+            
+            
+               <Square style={{visibility : isPause ? "hidden" :"visible" }}  className='innerIcon' onClick={()=>squareResetButton()}/>
+               <PauseCircle style={{visibility : isPause ?"visible" :"hidden"}} onClick={()=>pauseButton()} className='innerIcon' /> 
+               <Play style={{visibility : isPause ? "hidden" : "visible" }}  onClick={()=>playButton()} className='innerIcon'/>
+              
             
             </div>
         </div>

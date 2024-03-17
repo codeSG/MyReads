@@ -3,9 +3,7 @@ import React , { useState, useEffect }from 'react';
 import "./style/ClockMessage.css";
 // import "./style/ClockMessage.css"
 
-import {Play} from "lucide-react"
-import {PauseCircle } from "lucide-react"
-import {Square } from "lucide-react"
+import {Play,  PauseCircle , Square} from "lucide-react"
 
 
 const Timer = ({moveRight , showStopWatch}) => {
@@ -101,7 +99,12 @@ const Timer = ({moveRight , showStopWatch}) => {
     }
 
 
+    useEffect(()=>{
 
+        return ()=>{
+            clearInterval(timeInterval ) ; 
+        }
+    } , [] )
 
 
     return (
