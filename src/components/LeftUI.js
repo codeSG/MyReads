@@ -28,7 +28,7 @@ let currentDate = new Date();
 currentDate.setDate(1);
 
 let firstDayOfWeek = currentDate.getDay();
-const LeftUI = ({setUploadNewBook}) => {
+const LeftUI = ({setUploadNewBook , setSendFeedBack , setBlack}) => {
     const [ enterName , setEnterName] = useState( true ) ;  
     // const [ userName , setUserName] = useState("") ; 
     const inputImageRef = useRef(null) ; 
@@ -91,8 +91,8 @@ const LeftUI = ({setUploadNewBook}) => {
         
         let arr = originalFile.filter( ele => ele.id === bookID ) ; 
         if( arr.length === 0 ) return "" ;
-        const a  = arr[0].currentPage ; 
-        const b = arr[0].totalPage ; 
+        const a  = !arr[0].currentPage ? 0 : arr[0].currentPage ; 
+        const b = !arr[0].totalPage ? 36 : arr[0].totalPage; 
         if( a <=0 || b <=0  ) return "" ; 
         
         // const c = Math.ceil(  ( a/b)*100  ) ; 
@@ -162,11 +162,11 @@ onChange={e => imageUploaded(e.target.files[0])} />
                 <p id="greeting">Greetings...</p>
                 <input ref={inputNameRef} id="userName" placeholder='UserName' value={userName===null?"":userName} onChange={(e)=>setUserName(e.target.value)} 
                 autofocus="autofocus" readOnly={enterName} />
-               { enterName &&  <Pencil   onClick={()=>{setEnterName(false)
+               { enterName &&  <Pencil width="20" height="20"   onClick={()=>{setEnterName(false)
                     inputNameRef.current.focus() 
             
             }} /> }
-               { !enterName && <Check  onClick={()=>{
+               { !enterName && <Check  width="20" height="20"  onClick={()=>{
 
                 localStorage.setItem('userName' , userName  ) ; 
                 setEnterName(true) ; 
@@ -181,7 +181,7 @@ onChange={e => imageUploaded(e.target.files[0])} />
             &&
             <div id="pinkBoxDiv" >
              
-              <img src={pinkBox}  id="pinkBox"  onClick={()=>{setUploadNewBook(false);setUploadNewBook(true)}}  />
+              <img  src={pinkBox}  id="pinkBox"  onClick={()=>{setUploadNewBook(false);setUploadNewBook(true)}}  />
               <img src={plusUpload} id="plusUploadPink" onClick={()=>{setUploadNewBook(false);setUploadNewBook(true)}} />
               <p id="uploadPink" onClick={()=>{setUploadNewBook(false);setUploadNewBook(true)}}  >UPLOAD</p>
               
@@ -190,10 +190,16 @@ onChange={e => imageUploaded(e.target.files[0])} />
            }
           
            {
+            // { console.log(bookRecentlyViewed)}
             
             !(!bookRecentlyViewed[0] || bookRecentlyViewed[0] ===-1|| originalFile.length===0)
+          
             &&
+            
             <div id="bookRead" className="second-step" >
+              {console.log("!(!bookRecentlyViewed[0]  " , 
+              bookRecentlyViewed )}
+              
                 <p id="bookName">{getBookName(bookRecentlyViewed[0])}</p>
                 <p id="author">-- {getBookAuthor(bookRecentlyViewed[0])}</p>
                 
@@ -203,7 +209,7 @@ onChange={e => imageUploaded(e.target.files[0])} />
                   <img src={bookImageSubstitue}  className='firstViewCanvas'/> :   
                   <FrequentCanvasComponent  bookID={bookRecentlyViewed[0]}  
                   bookImageSubstitue={bookImageSubstitue} 
-                  bookClass={"firstViewCanvas"}
+                  bookClass={"firstViewCanvas"} bookRecentlyViewed={bookRecentlyViewed}
                   />}
                             {/* <CanvasComponent />
               <img src={getImageLink(bookRecentlyViewed[0])} className="firstViewCanvas"/> */}
@@ -228,9 +234,9 @@ onChange={e => imageUploaded(e.target.files[0])} />
             </div>}
            {/* </div> */}
            
-              
-            <p id="reading"  >READING TRACKER</p>
-           <div id="ddateBox" className="third-step">
+              <div id="ddateBoxDiv" className="third-step">
+              <p id="reading"  >READING TRACKER</p>
+           <div id="ddateBox" >
                 <div id="yearAndMonth">  
                 <p id="yearand">{monthNames[month]}</p>
                 <p id="andmonth">{year}</p>
@@ -275,9 +281,12 @@ onChange={e => imageUploaded(e.target.files[0])} />
                 </div>
             </div>
 
+              </div>
+          
+
                 <div id="bottomImages">
                 <img src={goalsaathi} className='goalSaathi' />
-                <div className="ideaDiv">
+                <div className="ideaDiv" onClick={()=> { setSendFeedBack( true ) ;  setBlack(true)}}>
                   <img  src={idea} className="idea" />
                 </div>
                 </div>

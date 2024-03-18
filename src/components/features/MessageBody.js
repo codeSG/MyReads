@@ -224,7 +224,7 @@ console.log("333333333333333333333" , msgArr)
 
 return(
  <div id="second">
-       
+       <p id="notes">NOTES</p>
        <div id="message">
            <div id="messageDiv" style={ msgArr.length === 0 ? {padding:"0"}:{}}>
            { 

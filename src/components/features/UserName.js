@@ -47,6 +47,15 @@ const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
     //   setSpinner( false ) ; 
     //   setWrapPageRunTour( true) ; 
     // }
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        // Perform an action when Enter key is pressed
+        localStorage.setItem("userName" , name)
+        setUserName(name);
+        setNameDone(true) ; 
+        // You can perform any action here like submitting the form, etc.
+      }
+    };
     return (
         <div id="_userName" > 
         
@@ -54,11 +63,11 @@ const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
                 <img src={openBook} />
                 <div>
                     <p>Welcome To</p>
-                    <h1>MyBookshelf</h1>
+                    <h1>My Book Shelf</h1>
                 </div>
           </div>
           <div className="userNameDiv2">
-            <input placeholder="Enter Your Name" value={name} onChange={e=> setName(e.target.value)} />
+            <input onKeyDown={handleKeyDown} placeholder="Enter Your Name" value={name} onChange={e=> setName(e.target.value)} />
             <img  src={proceed} onClick={()=>{ 
                localStorage.setItem("userName" , name)
                setUserName(name);

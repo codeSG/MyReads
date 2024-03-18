@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useContext } from 'react';
 import "../style/BetterFile.css"
 import { ContextInfo  } from '../App';
 
-const FrequentCanvasComponent = ({bookID , bookImageSubstitue , bookClass}) => {
+const FrequentCanvasComponent = ({bookID , bookImageSubstitue , bookClass , bookRecentlyViewed}) => {
   const canvasRef = useRef(null);
 
   const {  originalFile } = useContext( ContextInfo )
@@ -199,7 +199,7 @@ const FrequentCanvasComponent = ({bookID , bookImageSubstitue , bookClass}) => {
    }
 
    fun() ; 
-  }, []); // This effect runs only once when the component mounts
+  }, [bookRecentlyViewed]); // This effect runs only once when the component mounts
 
   return <canvas className={bookClass} ref={canvasRef}  />;
 };

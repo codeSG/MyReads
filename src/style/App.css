@@ -10,14 +10,9 @@ z-index: 20;
 
 }
 
-.joyride2{
-    position: absolute !important ; 
-    z-index:  1000 !important ; 
-    left :  50px !important; 
-    background-color: aqua !important;
-}
-.react-joyride__overlay{
-    background: rgba(0, 0, 0, 0.8) !important ;
+
+.__floater__body button{
+    color : black  !important; 
 }
 /* 
 

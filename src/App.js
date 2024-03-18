@@ -51,7 +51,7 @@ function App() {
           ,
           {
             target: '.fourth-step',
-            content: 'Filter book based on categories or find the right book out of your library',
+            content: 'Filter book based on categories or serach the right book out of your library',
             disableBeacon: true
           }, 
           {
@@ -150,12 +150,21 @@ function App() {
                     steps={steps1}                                       
                     /> */}
 
-                    <Joyride 
+                    <Joyride
+                    // wrapPageRuntour 
                       run={wrapPageRuntour}
                             steps={steps1}
                             continuous={true}    
                             showProgress={true}       
-                            showSkipButton={true}   
+                            showSkipButton={true}  
+                            styles={{
+                              options: {
+                              
+                               
+                                primaryColor: 'rgba(145, 83, 206, 0.56)',
+                                color: 'black',
+                              }
+                            }} 
                                            
                     />
                   

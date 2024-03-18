@@ -6,6 +6,7 @@
   "origin": "*",
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@emailjs/browser": "^4.3.3",
     "@pdftron/pdfjs-express": "^8.7.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@react-three/drei": "^9.102.3",

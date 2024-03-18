@@ -10,14 +10,14 @@ const Calendar = () => {
     let numberOfDays = new Date(year, month+1, 0).getDate();
     if(!calendarEntry) return <div></div>
   return (
-    <div id="dateBox">
+    <div id="clddateBox">
         <p> SCHEDULED READING -- </p>
-        <div id="date">           
+        <div id="clddate">           
           {
             calendarEntry.map( ( ele,ind)=>{
                 return <>
-                    <input type="checkbox" id={`checkbox${ind}`} checked={ele} />
-                    <label className="checkbox-custom" for={`checkbox${ind}`}></label>
+                    <input type="checkbox" id={`cldcheckbox${ind}`} checked={ele} />
+                    <label className="cldcheckbox-custom" for={`cldcheckbox${ind}`}></label>
 
                 </>
             })

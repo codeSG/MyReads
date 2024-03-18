@@ -48,7 +48,7 @@ align-items: center;
 }
 .first{
     width:80% ; 
-    height  :18% ; 
+    height  :25% ; 
     /* border : 2px solid black; */
     background-color: rgb(228, 228, 228);
     /* padding:10px;
@@ -60,7 +60,7 @@ align-items: center;
 }
 .timerFirst{
     width:80% ; 
-    height  :18% ; 
+    height  :25% ; 
     /* border : 2px solid black; */
     background-color: rgb(228, 228, 228);
     /* padding:10px;
@@ -83,7 +83,7 @@ align-items: center;
     /* padding:20px; */
 }
 #clock{
-    height : 100% ; 
+    height : 80% ; 
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -101,11 +101,12 @@ border-bottom-right-radius: 12px;
     /* height:60% ;
     width  : 100% ;  */
     /* padding-top: 10px; */
-    font-size:50px;
+    font-size:3.5vw;
+    height:60% ; 
     text-align: center;
     /* margin-top:20px ;  */
     width:90%;
-    height:fit-content ;
+    /* height:fit-content ; */
     padding-bottom:5px; 
     /* padding-top:5px ; */
     /* border-radius: 50%; */
@@ -120,9 +121,9 @@ border-bottom-right-radius: 12px;
 }
 #min{
     text-align: center;
-    font-size:20px;
+    font-size:1.3vw;
     /* padding-bottom: 10px; */
-    height:fit-content;
+    height:15%;
 
 }
 .timer{
@@ -134,14 +135,25 @@ border-bottom-right-radius: 12px;
     /* background-color: rgba(145, 83, 206, 0.25); */
     border-top-left-radius:12px ;
     border-top-right-radius: 12px;
+    height :20% ; 
+    font-size:1.3vw ; 
+}
+#notes{
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-size: 1.3vw;
+
 }
 #message{
     /* background-color: brown; */
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    /* border-top-left-radius: 12px;
+    border-top-right-radius: 12px; */
     width:100%;
     height  : 100% ;
-    padding-top: 20px;
+    padding-top: 10px;
     padding-bottom: 20px;
     background-color:white;
     display: flex;
@@ -160,7 +172,7 @@ border-bottom-right-radius: 12px;
     font-family: 'Inter';
 font-style: normal;
 /* font-weight: 700; */
-font-size: 15px;
+font-size: 1.3vwpx;
 }
 
 #messageContent::placeholder{
@@ -168,7 +180,7 @@ font-size: 15px;
     font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
-font-size: 15px;
+font-size: 1.1vw;
 /* text-align: justify; */
 position: absolute;
 top: 4%;
@@ -180,7 +192,7 @@ left: 4%;
     position : absolute ; 
     z-index:5 ; 
     right:0;
-    bottom:-15px;
+    bottom:0;
     cursor : pointer ; 
 }
 
@@ -195,6 +207,7 @@ left: 4%;
     /* margin-bottom: 10px; */
     font-weight: bold;
     cursor: pointer;
+    font-size: 1.1vw;
 }
 .pageBody{
     
@@ -206,7 +219,8 @@ left: 4%;
     /* overflow-x: auto ; */
     text-wrap: wrap;
     word-wrap: break-word; 
-  overflow-wrap: break-word
+  overflow-wrap: break-word ; 
+  font-size: 1.1vw;
     /* width */
     /* margin-bottom: 2px; */
 }
@@ -305,15 +319,15 @@ left: 4%;
 }
 .svgContainerIcon{
 
-    width:95%; 
-    height:48%;
+    width:100%; 
+    height:50%;
     padding:5px ;
     border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     cursor: pointer;
     /* margin:4px 0 ;  */
 }
@@ -339,8 +353,8 @@ height:100%;
 
 
 .svgIcon svg{
-    width:100%;
-    height:100%;
+    /* width:100%;
+    height:100%; */
 }
 .svgIcon:hover{
     transform: scale(1.1);
@@ -376,8 +390,8 @@ height:100%;
 }
 
 .innersvgIcon svg{
-    width:50%;
-    height:80%;
+    /* width:50%;
+    height:80%; */
 }
 
 @keyframes leftClockMoving {
@@ -543,7 +557,7 @@ input::-webkit-outer-spin-button,
     font-family: 'Inter';
 font-style: normal;
 font-weight: bold;
-font-size: 15px;
+font-size: 1.1vw;
 resize : none ; 
 /* position: absolute; */
 /* position: absolute  ; 
@@ -579,12 +593,15 @@ font-weight: 400;
 .sendMessage{
     position:absolute ; 
     z-index:20;
-    right:5%;
+    right:4%;
     /* bottom:-5%; */
     cursor: pointer;
     width:20px ; 
     height : 20px ; 
 
+}
+.sendMessage:hover{
+    transform: scale(1.2);
 }
 
 
@@ -650,8 +667,9 @@ font-weight: 400;
 
 
 
-  .bottomtooltip {
+  .bottomtooltip svg {
     position: relative;
+    margin:5px ; 
     /* border : 2px solid black ;  */
     
   }
@@ -692,8 +710,8 @@ font-weight: 400;
   }
 
   .jumpToPage{
-    width:80%;
-    height:25px ; 
+    /* width:80%; */
+    /* height:25px ;  */
     border: 0 ; 
     border-bottom: 1px solid black ;
     

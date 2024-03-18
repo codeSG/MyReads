@@ -32,11 +32,13 @@ import { Play , Trash2} from 'lucide-react';
 import LeftUI from './LeftUI';
 import { setFrequentBooks } from '../utils/updateBookRecentlyViewed';
 
-
+import SendFeedBack from './features/SendFeedBack.js';
 
 
 const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName , 
   setSpinner}) => {
+
+    const [ sendFeedBack , setSendFeedBack] = useState( false ) ; 
     const [ firstTimeViewName  , setFirstTimeViewName ] = useState( localStorage.getItem("userName")  ) ; 
     const [ nameDone , setNameDone] = useState( localStorage.getItem("userName") === "" ? true : localStorage.getItem("userName") ) ; 
     const [ uploadNewBook , setUploadNewBook] = useState( false ) ; 
@@ -86,7 +88,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
       let arr = originalFile.filter( ele => ele.id === bookID ) ; 
       if( arr.length === 0 ) return ""
-      return arr[0].categories ;
+      return arr[0].bookGenre ;
     }
     function getBookName(bookID){
       if( !bookID || bookID === -1 ) return "" ; 
@@ -244,7 +246,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
         
            
             await deleteObject(desertRef);
-            alert("The File got deleted Successdully !!");
+            // alert("The File got deleted Successdully !!");
         
             const res = await listAll(listRef);
         
@@ -369,6 +371,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
              console.log("bookInforMationJson",bookInforMationJson);
              let cnt = 0 ;
              const bookObj = { ...ele } ; 
+             bookInforMationJson.items =  bookInforMationJson.items ?  bookInforMationJson.items :[] ; 
              for( let bookentry of bookInforMationJson.items){
                  if( bookentry.volumeInfo?.authors ){
                   bookObj.bookAuthor  = bookentry.volumeInfo.authors[0] ;
@@ -498,9 +501,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
   return (
     <div id="bookBox"> 
       <LeftUI
-      fileUpload={fileUpload} setFileUpload={setFileUpload}  setSpinner={setSpinner} hashID={hashID} setHashID={setHashID}             
-      setUploadBook={setUploadBook} setBlack={setBlack}
-      setDeletePath={setDeletePath}  deletePath={deletePath} setUploadNewBook={setUploadNewBook}
+     setBlack={setBlack}
+     setUploadNewBook={setUploadNewBook}
+      setSendFeedBack={setSendFeedBack}
       />
       <div id="right">
             <div id="heading">
@@ -520,9 +523,12 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 </div>
             </div>
            
+        
+
             <div id="threeBooks" >
              
-              
+              {console.log("!(!bookRecentlyViewed[1] || bookRecentlyViewed[1] ===-1|| originalFile.length===0) " , 
+              bookRecentlyViewed )}
             {
               !(!bookRecentlyViewed[1] || bookRecentlyViewed[1] ===-1|| originalFile.length===0) 
               && 
@@ -536,7 +542,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                   
                   <FrequentCanvasComponent  bookID={bookRecentlyViewed[1]}  
                 bookImageSubstitue={bookImageSubstitue} 
-                bookClass={"recentCanvas"}
+                bookClass={"recentCanvas"} bookRecentlyViewed={bookRecentlyViewed}
                 />
                   </Link>
                 
@@ -565,7 +571,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                   { 
                     ( getBookCategory(bookRecentlyViewed[1])  && getBookCategory(bookRecentlyViewed[1])  !== "" && getBookCategory(bookRecentlyViewed[1]).length !== 0   )  && 
                   
-                  <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[1])[0]}</button>
+                  <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[1])}</button>
                   
                   }
                   
@@ -597,172 +603,178 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                     /> */}
                   </div>
                 </div>
-              </div>}
+              </div>
+              
+            }
 
 
               {
               
-              !(!bookRecentlyViewed[2] || bookRecentlyViewed[2] ===-1|| originalFile.length===0) 
-              && 
-              <div className="frequent" id="frequentBook2">
-                  {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
-                  { (!bookRecentlyViewed[2] || bookRecentlyViewed[2] ===-1|| originalFile.length===0)?
-                  <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
-                  
-                    <Link to= {getBookPath(bookRecentlyViewed[2])}  className='recentViewCanvas'  >
+                !(!bookRecentlyViewed[2] || bookRecentlyViewed[2] ===-1|| originalFile.length===0) 
+                && 
+                <div className="frequent" id="frequentBook2">
+                    {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
+                    { (!bookRecentlyViewed[2] || bookRecentlyViewed[2] ===-1|| originalFile.length===0)?
+                    <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
                     
-                    <FrequentCanvasComponent  bookID={bookRecentlyViewed[2]}  
-                  bookImageSubstitue={bookImageSubstitue} 
-                  bookClass={"recentCanvas"}
-                  />
-                    </Link>
-                  
-                  
-                  
-                  
-                  }
-                  
-                  <div className="descriptionBook" >
-                    <label className="getBookName">
-                    { getBookName(bookRecentlyViewed[2])}
-                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                      <Link to= {getBookPath(bookRecentlyViewed[2])}  className='recentViewCanvas'  >
+                      
+                      <FrequentCanvasComponent  bookID={bookRecentlyViewed[2]}  
+                    bookImageSubstitue={bookImageSubstitue} 
+                    bookClass={"recentCanvas"} bookRecentlyViewed={bookRecentlyViewed}
+                    />
+                      </Link>
                     
-
-                    </label>
-                    <label className="getBookAuthor">
-                     { getBookAuthor(bookRecentlyViewed[2])}
-                     {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
-                   
-
-
-                    </label>
-
-                     {/* <button></button> */}
-                     
-                     {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
-                     {/* <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button> */}
-                     { 
-                     
-                     ( getBookCategory(bookRecentlyViewed[2])  && getBookCategory(bookRecentlyViewed[2])  !== "" && getBookCategory(bookRecentlyViewed[2]).length !== 0   ) 
-                     
-                     
-                     && 
                     
-                    <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button>
+                    
                     
                     }
-                    <div className="progress">
-                      <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[2]    )}%`}}></div>
-                      <div className='progress2'></div>
-                      <label>{`${getPercentageCompleted(  bookRecentlyViewed[2] )}%`}</label>
-                    </div>
-                    <div className="options">
-                      <Link to ={getBookPath(bookRecentlyViewed[2])} >
-                          <button>Read</button>
-                      </Link>
+                    
+                    <div className="descriptionBook" >
+                      <label className="getBookName">
+                      { getBookName(bookRecentlyViewed[2])}
+                      {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                      
+
+                      </label>
+                      <label className="getBookAuthor">
+                      { getBookAuthor(bookRecentlyViewed[2])}
+                      {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                    
+
+
+                      </label>
+
+                      {/* <button></button> */}
+                      
+                      {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
+                      {/* <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])[0]}</button> */}
+                      { 
+                      
+                      ( getBookCategory(bookRecentlyViewed[2])  && getBookCategory(bookRecentlyViewed[2])  !== "" && getBookCategory(bookRecentlyViewed[2]).length !== 0   ) 
                       
                       
-                      {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
-                     <Trash2   className="trash"   onClick={ ()=>{
-                        setDeleteBookID( bookRecentlyViewed[2]) ; 
-                        setDeleteName( getBookName(bookRecentlyViewed[2]) );
-                        // alert( ele.id) ; 
-                        // setBlack( true ); 
-                      }}/>
-                      {/* <img src={dustbins}
-                      onClick={ ()=>{
-                        setDeleteBookID( bookRecentlyViewed[1]) ; 
-                        setDeleteName( getBookName(bookRecentlyViewed[1]) );
-                        // alert( ele.id) ; 
-                        // setBlack( true ); 
-                      }}
-                      /> */}
-                    </div>
-                  </div>
-               </div>}
-
-
-
-                      { !(!bookRecentlyViewed[3] || bookRecentlyViewed[3] ===-1|| originalFile.length===0) 
                       && 
-                      <div className="frequent" id="frequentBook3" >
-                      {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
-                      { (!bookRecentlyViewed[3] || bookRecentlyViewed[3] ===-1|| originalFile.length===0)?
-                      <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
                       
-                        <Link to= {getBookPath(bookRecentlyViewed[3])}  className='recentViewCanvas'  >
-                        
-                        <FrequentCanvasComponent  bookID={bookRecentlyViewed[3]}  
-                      bookImageSubstitue={bookImageSubstitue} 
-                      bookClass={"recentCanvas"}
-                      />
-                        </Link>
-                      
+                      <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[2])}</button>
                       
                       }
-                      
-                      <div className="descriptionBook" >
-                        <label className="getBookName">
-                        { getBookName(bookRecentlyViewed[3])}
-                         {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
-                        
-    
-                        </label>
-                        <label className="getBookAuthor">
-                         { getBookAuthor(bookRecentlyViewed[3])}
-                         {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
-                       
-    
-    
-                        </label>
-    
-                         {/* <button></button> */}
-                         
-                         {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
-                         { 
-                         
-                         
-                         ( getBookCategory(bookRecentlyViewed[3])  && getBookCategory(bookRecentlyViewed[3])  !== "" && getBookCategory(bookRecentlyViewed[3]).length !== 0   ) 
-                         
-                         && 
-                        
-                        <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button>
-                        
-                        }
-                         {/* <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button> */}
-                        
-                        <div className="progress">
-                          <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[3]    )}%`}}></div>
-                          <div className='progress2'></div>
-    
-    
-                          <label>{`${getPercentageCompleted(  bookRecentlyViewed[3] )}%`}</label>
-                        </div>
-                        <div className="options">
-                          <Link to ={getBookPath(bookRecentlyViewed[3])} >
-                              <button>Read</button>
-                          </Link>
-                          
-                          
-                          {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
-                         <Trash2   className="trash"   onClick={ ()=>{
-                            setDeleteBookID( bookRecentlyViewed[3]) ; 
-                            setDeleteName( getBookName(bookRecentlyViewed[3]) );
-                            // alert( ele.id) ; 
-                            // setBlack( true ); 
-                          }}/>
-                          {/* <img src={dustbins}
-                          onClick={ ()=>{
-                            setDeleteBookID( bookRecentlyViewed[1]) ; 
-                            setDeleteName( getBookName(bookRecentlyViewed[1]) );
-                            // alert( ele.id) ; 
-                            // setBlack( true ); 
-                          }}
-                          /> */}
-                        </div>
+                      <div className="progress">
+                        <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[2]    )}%`}}></div>
+                        <div className='progress2'></div>
+                        <label>{`${getPercentageCompleted(  bookRecentlyViewed[2] )}%`}</label>
                       </div>
-                       </div>
-                      }
+                      <div className="options">
+                        <Link to ={getBookPath(bookRecentlyViewed[2])} >
+                            <button>Read</button>
+                        </Link>
+                        
+                        
+                        {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
+                      <Trash2   className="trash"   onClick={ ()=>{
+                          setDeleteBookID( bookRecentlyViewed[2]) ; 
+                          setDeleteName( getBookName(bookRecentlyViewed[2]) );
+                          // alert( ele.id) ; 
+                          // setBlack( true ); 
+                        }}/>
+                        {/* <img src={dustbins}
+                        onClick={ ()=>{
+                          setDeleteBookID( bookRecentlyViewed[1]) ; 
+                          setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                          // alert( ele.id) ; 
+                          // setBlack( true ); 
+                        }}
+                        /> */}
+                      </div>
+                    </div>
+                </div>
+               
+              }
+
+
+              {
+                !(!bookRecentlyViewed[3] || bookRecentlyViewed[3] ===-1|| originalFile.length===0) 
+                && 
+                <div className="frequent" id="frequentBook3" >
+                {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
+                { (!bookRecentlyViewed[3] || bookRecentlyViewed[3] ===-1|| originalFile.length===0)?
+                <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
+                
+                  <Link to= {getBookPath(bookRecentlyViewed[3])}  className='recentViewCanvas'  >
+                  
+                  <FrequentCanvasComponent  bookID={bookRecentlyViewed[3]}  
+                bookImageSubstitue={bookImageSubstitue} 
+                bookClass={"recentCanvas"} 
+                bookRecentlyViewed={bookRecentlyViewed}
+                />
+                  </Link>
+                
+                
+                }
+                
+                <div className="descriptionBook" >
+                  <label className="getBookName">
+                  { getBookName(bookRecentlyViewed[3])}
+                    {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                  
+
+                  </label>
+                  <label className="getBookAuthor">
+                    { getBookAuthor(bookRecentlyViewed[3])}
+                    {/* { "ssssssss dddddddd eeeeeeeeeee ww wwwwwwww ssss ddddddddddd fffff ffffff "} */}
+                  
+
+
+                  </label>
+
+                    {/* <button></button> */}
+                    
+                    {/* <button>{ getBookCategory(bookRecentlyViewed[1])[0]  }</button>  */}
+                    { 
+                    
+                    
+                    ( getBookCategory(bookRecentlyViewed[3])  && getBookCategory(bookRecentlyViewed[3])  !== "" && getBookCategory(bookRecentlyViewed[3]).length !== 0   ) 
+                    
+                    && 
+                  
+                  <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])}</button>
+                  
+                  }
+                    {/* <button className='getBookCategory'>{ getBookCategory(bookRecentlyViewed[3])[0]}</button> */}
+                  
+                  <div className="progress">
+                    <div className='progress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[3]    )}%`}}></div>
+                    <div className='progress2'></div>
+
+
+                    <label>{`${getPercentageCompleted(  bookRecentlyViewed[3] )}%`}</label>
+                  </div>
+                  <div className="options">
+                    <Link to ={getBookPath(bookRecentlyViewed[3])} >
+                        <button>Read</button>
+                    </Link>
+                    
+                    
+                    {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
+                    <Trash2   className="trash"   onClick={ ()=>{
+                      setDeleteBookID( bookRecentlyViewed[3]) ; 
+                      setDeleteName( getBookName(bookRecentlyViewed[3]) );
+                      // alert( ele.id) ; 
+                      // setBlack( true ); 
+                    }}/>
+                    {/* <img src={dustbins}
+                    onClick={ ()=>{
+                      setDeleteBookID( bookRecentlyViewed[1]) ; 
+                      setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                      // alert( ele.id) ; 
+                      // setBlack( true ); 
+                    }}
+                    /> */}
+                  </div>
+                </div>
+                </div>
+              
+              }
              
                
              {
@@ -789,6 +801,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                
                 
             </div>
+
+           
+          
            
             <AddNewFilePopup setUploadBook={setUploadBook} setBlack={setBlack} 
             fileUpload={fileUpload} setFileUpload={setFileUpload}  setSpinner={setSpinner}
@@ -804,24 +819,27 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                     {
 
                       // const key = "" + ind ; 
-                      //     urlHelper( key, ele.url , 1 ) ; 
+                      //     urlHelper( key, ele.url , 1 ) ;
+                      // {alert("fileList.map( (ele, ind)=>")} 
                       return(
                       
-                        <div id="textBook" className='fifth-step'>
+                        <div  className='textBook fifth-step'>
 <p className="title">{ele.bookName.substring(0, ele.bookName.length -4 )}</p>
-                           <div id="image"> 
+                           <div className="image"> 
                                                               
-                              {/* <img className="canvasImage"  src={ele.bookImageLink}/>    . */}
-
-                              <Link to={`/file/showfile?bookID=${ele.id}`}>
-                                    <CanvasComponent  bookID={ele.id}  originalFile={originalFile}
-                            bookImageSubstitue={bookImageSubstitue}
-                            bookClass={"canvasImage"} />
-                              </Link>
-                              {/* <CanvasComponent  bookID={ele.id}  originalFile={originalFile}
-                      bookImageSubstitue={bookImageSubstitue}
-                      bookClass={"canvasImage"} /> */}
-
+                             
+                          
+                          
+                          <Link to={`/file/showfile?bookID=${ele.id}`}>
+                          <CanvasComponent  bookID={ele.id}  originalFile={originalFile}
+                  bookImageSubstitue={bookImageSubstitue}
+                  bookClass={"canvasImage"} />
+                    </Link>
+                          
+                          
+                          
+                             
+                           
                               
                           </div>
                           {/* <div> */}
@@ -894,10 +912,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
 
 
         {
-            black && <div 
+            black && <div  onClick={()=>{if( sendFeedBack) {setSendFeedBack(false) ;  setBlack(false)}} }
             style={{backgroundColor:"black", position:"fixed", 
             top:"0", left:"0", right:"0",bottom:"0",
-            opacity:"0.6" , zIndex:"4" , width:"100%" , height:"100%"}}>
+            opacity:"0.5" , zIndex:"4" , width:"100%" , height:"100%"}}>
 
             </div>
           }
@@ -906,13 +924,20 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             nameDone={nameDone} setNameDone={setNameDone} />
 
           }
+          {
+       sendFeedBack && <SendFeedBack  setSendFeedBack={setSendFeedBack} setBlack={setBlack} 
+  />
+
+          }
 
           {
             
-            ( deleteBookID !== -1 ) && <DeletePopup  setBlack={setBlack}
+            ( deleteBookID !== -1 ) && <DeletePopup  
+             setBlack={setBlack}
               setDeletInd={setDeletInd}  deleteFile={deleteFile}
               deletePath={ deletePath} setDeletePath={setDeletePath}  deleteBookID={deleteBookID} 
               setDeleteBookID = {setDeleteBookID} deleteName={deleteName} setDeleteName={setDeleteName}
+              // deleteAuthor={} deleteGenre={}
               
               
             />

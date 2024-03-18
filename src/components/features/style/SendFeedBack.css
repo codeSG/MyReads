@@ -1,0 +1,68 @@
+.userEmail{
+    margin-top:2vh;
+    width : 100%; 
+    height : 5vh ; 
+    background: #EEDDFF;
+    outline: 0 ;
+    border: 0;
+    width: 85%;
+    font-size: 1.5vw;
+    border-radius: 5px;
+    padding: 10px;
+}
+.feedback{
+
+        position: relative;
+        margin-top:2vh;
+        width : 100%; 
+        height : 20vh ; 
+        background: #EEDDFF;
+        outline: 0 ;
+        border: 0;
+        width: 85%;
+        font-size: 1.5vw;
+        border-radius: 5px;
+        padding: 10px;
+        resize: none ;
+    
+}
+/* .feedback::placeholder{
+    position: absolute;
+    top:10px ; 
+    left:10px ; 
+} */
+textarea::-webkit-resizer,
+textarea::-moz-resizer,
+textarea::-ms-resizer {
+  display: none;
+}
+.sendEmail{
+    display : flex ; 
+    justify-content: space-evenly;
+    height : 6vh ; 
+    width: 85% ; 
+    
+    margin-top:2vh ; 
+}
+.sendEmail p{
+   
+    text-align: center;
+    font-family: inherit;
+    border:0 ; 
+    width : 35% ; 
+    height : 100% ; 
+    color : black ; 
+    background:  rgba(145, 83, 206, 0.56);
+    cursor: pointer;
+
+    border-radius: 5px ;
+    font-weight: 600;
+    padding-top:4%;
+}
+.sendEmail img{
+    height : 100%;  
+    width : 35% ; 
+    /* width : 7vw ; 
+    height : 13vh ;  */
+  
+}

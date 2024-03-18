@@ -16,19 +16,22 @@
 }
 .userNameDiv1{
     display: flex;
+    height : 15vh ; 
     /* align-items: center; */
 }
 .userNameDiv1 img{
-width:100px ; 
-height:100px;
+width:30% ; 
+height:100% ;
 margin-right: 20px;
 }
 .userNameDiv1 p{
     margin-top: 10px;
+    font-size:1.2vw;
 }
 .userNameDiv1 h1{
     margin-top: 15px;
-    margin-left: 10px;
+    font-size: 2vw;
+    /* margin-left: 10px; */
 }
 .userNameDiv2{
     width : 100%; 

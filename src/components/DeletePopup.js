@@ -1,15 +1,59 @@
-import React , {useContext} from 'react'
+import React , {useContext , useState , useEffect} from 'react'
 import "../style/DeletePopup.css";
 import {ContextInfo} from "../App";
-import {deleteBook} from "../utils/updateBookRecentlyViewed"
-const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDeletePath,deleteFile , deleteBookID,setDeleteBookID , 
+import {deleteBook , setFrequentBooks} from "../utils/updateBookRecentlyViewed"
+// import FrequentCanvasComponent from './FrequentCanvasComponent';
+import DeleteCanvasComponent from "./DeleteCanvasComponent.js" ; 
+import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
+const DeletePopup = ({  eleteName , deleteAuthor , deleteGenre,  setDeleteName, setBlack, deletePath,setDeletePath,deleteFile , deleteBookID,setDeleteBookID , 
 }) => {
-  
+
+  // alert(deleteBookID)  ;
+  // const [ deleteBook , setDeleteBook] = useState(false) ; 
+  // useEffect(()=>{
+  //   setDeleteBook(false) ; 
+  //   setDeleteBook(true ) ; 
+  // } , [deleteBookID]) ; 
   const {fileList, setFileList, originalFile, setOriginalFile,   bookRecentlyViewed, 
     setBookRecentlyViewed} = useContext(ContextInfo) ; 
+    function getPercentageCompleted(bookID ){
+      if( !bookID || bookID === -1 ) return 0 ;
+      
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return 0 ;
+      const a  = arr[0].currentPage ; 
+      const b = arr[0].totalPage ; 
+      if( a <=0 || b <=0  ) return 0 ; 
+      
+      const c = Math.ceil(  ( a/b)*100  ) ; 
+      return c ;
 
+    }
+    function getBookAuthor(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return ""
+      return arr[0].bookAuthor ;
+    }
+
+    function getBookCategory(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return ""
+      return arr[0].bookGenre ;
+    }
+    function getBookName(bookID){
+      if( !bookID || bookID === -1 ) return "" ; 
+
+      let arr = originalFile.filter( ele => ele.id === bookID ) ; 
+      if( arr.length === 0 ) return ""
+      return arr[0].bookName.substring( 0 ,arr[0].bookName .length - 4  ) ;
+    }
 
   async function deleteFileFromIndexedDB(deleteID) {
+    // alert("hi")
     try {
       // Open a connection to the IndexedDB database
       const db = await new Promise((resolve, reject) => {
@@ -48,10 +92,31 @@ const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDelete
      zIndex:"6" , width:"100%" , height:"fitContent" , display:"flex" , 
      justifyContent:"center" , alignItems:"center"}}
     >
-    <div id="p1box">
-        <p id="p1p">{`Are you sure, you want to Delete ${deleteName} !!`}  </p>
-        <div id="p1dec">
-            <button onClick={ async ()=>{
+    <div id="deletep1box">
+
+       <div className="deleteFrequent" >
+                {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
+                { (!bookRecentlyViewed[1] || bookRecentlyViewed[1] ===-1|| originalFile.length===0)?
+                <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
+                
+                 
+                  
+                  <DeleteCanvasComponent  deleteBookID={deleteBookID}  
+                bookImageSubstitue={bookImageSubstitue} 
+                bookClass={"deleteRecentCanvas"} bookRecentlyViewed={bookRecentlyViewed}
+                />
+                 
+                
+                
+                }
+                
+                <div className="deleteDescriptionBook" >
+
+                  <p id="deleteQuestion">Do you want to delete this book ?</p>
+                  <div className="deleteOptions">
+
+
+                  <button onClick={ async ()=>{
               // if( deleteInd === -1 ) return ; 
               
               // deleteFile(deletePath ) ; 
@@ -66,8 +131,9 @@ const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDelete
                 setFileList( prevArr => prevArr.filter( (ele) => ele.id !== deleteBookID)) ;
                 const delArr =  deleteBook(deleteBookID) ; 
 
-                console.log( " ADD NEW FILE POPUP JS " , delArr  )
-                setBookRecentlyViewed( [...delArr] )
+                console.log( " ADD NEW FILE POPUP JS " , delArr  ) ; 
+                setBookRecentlyViewed( setFrequentBooks()) ; 
+                // setBookRecentlyViewed( () => [...delArr] )
 
 
                 // setOriginalFile( prev => [...prev])
@@ -75,13 +141,25 @@ const DeletePopup = ({deleteName , setDeleteName, setBlack, deletePath,setDelete
               
              
 
-            }}>Yes</button>
+            }}>YES</button>
              <button onClick={()=>{
                setDeleteBookID(-1) ; 
                setDeleteName("") ;
                setBlack( false ) ; 
-            }}> No</button>
-        </div>
+            }}>NO</button>
+
+
+
+
+
+
+
+                  </div>
+                  
+                 
+                
+                </div>
+              </div>
     </div>
     </div>
     

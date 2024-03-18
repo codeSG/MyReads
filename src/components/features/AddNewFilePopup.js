@@ -27,6 +27,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
         const [ bookCategoryTag , setBookCategoryTag] = useState([]) ; 
         const [bookCategoryInd , setBookCategoryInd] = useState(0) ; 
         const [activebookCategoryInd , setactivebookCategoryInd] = useState(0) ; 
+        const [startingIndex , setStartingIndex ] = useState(0) ; 
 
 
 
@@ -38,15 +39,15 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
             }
             const arr = originalFile.filter( ele => {
                 let got = false; 
-                for (let catg of ele.categories) {
-                    if (catg.toLowerCase().includes(category.toLowerCase())) {
+                // for (let catg of ele.categories) {
+                    if (ele.bookGenre.toLowerCase().includes(category.toLowerCase())) {
                         got = true; 
-                        break; 
-                    }
+                        // break; 
+                    // }
                 }
                 return got; 
             });
-            setFileList( arr ) ;
+            setFileList( () => arr ) ;
             
         }
         
@@ -171,6 +172,12 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                     const objectUploaded = {...fileObject} ; 
                     objectUploaded.id  = keyID ;
                    
+                    const originalFileCategory = originalFile ; 
+
+                    // const catg = objectUploaded.ca
+                    // originalFileCategory.push(objectUploaded) ;
+                    // console.log(" originalFileCategory.push(objectUploaded) ;" , originalFileCategory ) 
+                    // updateFileTags(originalFileCategory) ; 
                      setFileList(prev=>[...prev , {...objectUploaded}])  ;
                 setOriginalFile( prev=>[...prev ,{...objectUploaded}] ) ; 
                 if( firebaseFileFetched){
@@ -190,6 +197,9 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                     setFirebaseFileFetched( true  ) ; 
                     localStorage.setItem("firebaseFileFetched" , true ) ;  
                 }
+
+                // updateFileTags( originalFile)
+                // updateFileTags() ; 
                
                 
                 // setBlack( false ) ; 
@@ -444,22 +454,27 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
         }, 
         [fileUpload]);
 
-        useEffect( ()=>{
+        function updateFileTags( originalFileCategory){
 
-            if( !originalFile ) return  ; 
+            console.log("function updateFileTags(){  " , originalFileCategory );
+            if( !originalFileCategory ) return  ; 
             let categoryA = "" , categoryB = "" , categoryC = "" ; 
             // const bookArr = [] ; 
-            const bookObj =  originalFile.reduce( ( acc , ele )=>{
-                const categoryArr = ele.categories ; 
-                if( !categoryArr || categoryArr.length === 0 ) return acc ; 
-                const category = categoryArr[0] ; 
+            const bookObj =  originalFileCategory.reduce( ( acc , ele )=>{
+                const categoryArr = ele.bookGenre ; 
+                if( !categoryArr ) return acc ; 
+                const category = categoryArr ; 
 
+                console.log( "const category = categoryArr ; " ,  category , acc[category])
                 if( !acc[category]){
-                    acc[category] = 0 ; 
+                    acc[category] = 1 ; 
+                }else {
+                    acc[category] = acc[category]  +  1; 
                 }
-                acc[category] = acc[category]  +  1; 
+               
                 return acc ; 
             } , {} ); 
+            console.log( " the bookOnject " , bookObj )
 
             const bookArr = Object.keys(bookObj) ;  
             
@@ -468,9 +483,17 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
             bookArr.sort((a, b) => bookObj[b] - bookObj[a]); // Corrected sorting function
             bookArr.unshift("All" ) ; 
             console.log(  "  bookArr.unshift(all) "  , bookArr ) ; 
-            setBookCategoryTag(  bookArr);
+            setBookCategoryTag( (prev)=> bookArr);
 
-        } , [originalFile])
+
+
+        }
+
+        useEffect( ()=>{
+
+            updateFileTags(originalFile) ; 
+           
+        } , [originalFile ])
 
   return (       
                 <div id="addBook">
@@ -493,40 +516,36 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
                     </div>
                     <div className="categoryOptions fourth-step">
-                       {bookCategoryInd != 0 && 
-                        <ChevronLeft  className='leftArrow'  onClick={()=> setBookCategoryInd(prev => prev-1)}/>
+                       {startingIndex != 0 && 
+                        <ChevronLeft  className='leftArrow'  onClick={()=> setStartingIndex(prev => prev-1)}/>
                        } 
-                        {
-                           bookCategoryTag[bookCategoryInd] &&  <div
-                           style={{ background: bookCategoryInd === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
-                           className="categoryDiv" onClick={()=> {categoryFilter(bookCategoryTag[bookCategoryInd]) ; 
-                            setactivebookCategoryInd(bookCategoryInd)  ;}  }   >  <p>{bookCategoryTag[bookCategoryInd]}</p></div>
-                        }
-                        
-                        {
-                           bookCategoryTag[bookCategoryInd+1] &&  <div 
-                           style={{ background: bookCategoryInd+1 === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
-                           className="categoryDiv" onClick={()=> {categoryFilter(bookCategoryTag[bookCategoryInd + 1]); 
-                            setactivebookCategoryInd(bookCategoryInd+1)  ;
-                        }  }   >  <p>{bookCategoryTag[bookCategoryInd+1]}</p></div>
-                        }
-                        
-                        {
-                           bookCategoryTag[bookCategoryInd + 2] &&  <div 
-                           style={{ background: bookCategoryInd +2 === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
-                           className="categoryDiv" onClick={()=>{ categoryFilter(bookCategoryTag[bookCategoryInd + 2])  ; 
-                            setactivebookCategoryInd(bookCategoryInd+2)  ; }
-                        }   >  <p>{bookCategoryTag[bookCategoryInd+2]}</p></div>
-                        }
-                         {
-                           bookCategoryTag[bookCategoryInd + 3 ] &&  <div 
-                           style={{ background: bookCategoryInd + 3  === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" :""}}
-                           className="categoryDiv" onClick={()=> {categoryFilter(bookCategoryTag[bookCategoryInd +3]) ; setactivebookCategoryInd(bookCategoryInd+3) }   }   >  <p>{bookCategoryTag[bookCategoryInd+3]}</p></div>
-                        }
-                        {
-                            (bookCategoryInd + 3  < bookCategoryTag.length -1  ) &&
 
-                             <ChevronRight  className='rightArrow' onClick={()=>setBookCategoryInd(prev => prev+1)}/>
+                       
+                          {bookCategoryTag.map((ele, ind) => {
+                            return (
+                                (ind < startingIndex  || ind >= startingIndex+4 )? (
+                                    <div key={ind}></div>
+                                ) : (
+                                    <div
+                                        key={ind}
+                                        style={{ background: ind === activebookCategoryInd ? "rgba(145, 83, 206, 0.56)" : "" }}
+                                        className="categoryDiv"
+                                        onClick={() => {
+                                            categoryFilter(bookCategoryTag[ind]);
+                                            setactivebookCategoryInd(ind);
+                                        }}
+                                    >
+                                        <p>{bookCategoryTag[ind]}</p>
+                                    </div>
+                                )
+                            );
+                        })}
+                    
+                     
+                        {
+                            (startingIndex + 3  < bookCategoryTag.length -1  ) &&
+
+                             <ChevronRight  className='rightArrow' onClick={()=>setStartingIndex(prev => prev+1)}/>
                         }
                         
                     </div>
@@ -559,4 +578,4 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
   )
 }
 
-export default AddNewFilePopup
+export default AddNewFilePopup ; 

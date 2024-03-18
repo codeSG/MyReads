@@ -8,7 +8,7 @@ input[type='checkbox'] {
     display: none;
 }
 
-.checkbox-custom {
+.cldcheckbox-custom {
     width: 30px;
     height: 30px;
     border-radius: 5px;
@@ -18,7 +18,7 @@ input[type='checkbox'] {
     position: relative;
 }
 
-.checkbox-custom::before {
+.cldcheckbox-custom::before {
     content: "";
     display: block;
     width: 10px;
@@ -41,7 +41,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     font-size:25px;
 }
    
-#dateBox{
+#clddateBox{
     /* background-color: yellow ; */
     width: 80%;
     
@@ -50,7 +50,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     top:25%;
     
 }
-#date{
+#clddate{
     display: grid ;
     grid-template-columns: repeat( 6 , 30px );
     column-gap: 10px ;
@@ -66,7 +66,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     top:50px  ; 
     left:60px ; 
 }
-#dateBox p{
+#clddateBox p{
     text-align: center;
     font-weight: bold ;
     width : fit-content;

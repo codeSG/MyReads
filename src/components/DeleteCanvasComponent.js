@@ -1,12 +1,18 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import "../style/BetterFile.css"
-const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass} ) => {
+import { ContextInfo  } from '../App';
+
+const DeleteCanvasComponent = ({ deleteBook , deleteBookID , bookImageSubstitue , bookClass , bookRecentlyViewed}) => {
   const canvasRef = useRef(null);
+// alert(deleteBookID) ; 
+  const {  originalFile } = useContext( ContextInfo )
+
   const pdfDoc = useRef(null)  ; 
 
   async function loadNewDocument(doc, pageNo ) {
 
 
+    // alert( pageNo )
       pdfDoc.current = doc;
     
       // const pageNo = Number( sessionStorage.getItem("currentPage") ) ; 
@@ -18,7 +24,7 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
     // Log the total number of pages
     // console.log('Total number of pages:', totalPage);
     // setTotalPages(totalPage ) 
-    // console.log( " is it null " , pdfDoc.current ) ;
+    console.log( " is it null " , pdfDoc.current ) ;
     
     
     
@@ -27,7 +33,7 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
     
     
     const viewport = page.getViewport({ scale: 1.5 });
-    const canvas = canvasRef.current;
+          const canvas = canvasRef.current;
         const canvasContext = canvas.getContext('2d');
     
         // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
@@ -42,7 +48,9 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
         // Render PDF page into canvas context.
         const renderContext = { canvasContext, viewport };
         const renderTask =  page.render(renderContext);
-     
+    
+        // const temp = pageNo + " / " + totalPage ; 
+        // completedPageLabelRef.current.innerText = temp ; 
     
 
     
@@ -75,7 +83,7 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
                   console.error('Error destroying previous document:', error);
               });
           } else {
-            // console.log( " I got the new Doc here " , doc )
+            console.log( " I got the new Doc here " , doc )
               loadNewDocument(doc , pageNo );
 
           }
@@ -93,44 +101,94 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
 
   useEffect(() => {
 
-    // alert("Canvas")
+    console.log( " 1111111111111 the frequent books ")
+    console.log( "the orginal file was" , originalFile ) ;
+    console.log( "the book ID was " , deleteBookID )
     // console.log(" the  originanFile is " , originalFile , " the id is " , bookID )
    function fun(){
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    if( !bookID || bookID === -1 ) {
-        const img = new Image();
-       
-        img.src = bookImageSubstitue ; 
-        img.onload = () => {
-            ctx.drawImage(img, 10, -20); // Draw the image at position (0, 0)
-            // ctx.fillRect(10, 10, 100, 100);
-          };
+    if( !deleteBookID || deleteBookID === -1 ) {
 
-          return ; 
+
+        if (pdfDoc.current) {
+            pdfDoc.current.destroy().then( ()=>{
+
+                const img = new Image();
+       
+                img.src = bookImageSubstitue ; 
+                img.onload = () => {
+                    ctx.drawImage(img, 10, -20); // Draw the image at position (0, 0)
+                    // ctx.fillRect(10, 10, 100, 100);
+                  };
+        
+                  return ; 
+
+
+            })
+        }else{
+
+            const img = new Image();
+       
+            img.src = bookImageSubstitue ; 
+            img.onload = () => {
+                ctx.drawImage(img, 10, -20); // Draw the image at position (0, 0)
+                // ctx.fillRect(10, 10, 100, 100);
+              };
+    
+              return ; 
+
+
+
+
+        }
+       
       }
 
-      // console.log( "the orginal file was" , originalFile ) ; 
-      let arr = originalFile.filter( ele => ele.id === bookID ) ;
-      // console.log( "   let arr = originalFile.filter( ele => ele.id === bookID ) ;" , arr , bookID ) 
-      if( arr.length === 0 ) {
-        const img = new Image();
+      console.log( " the frequent books ")
+      console.log( "the orginal file was" , originalFile ) ;
+      console.log( "the book ID was " , deleteBookID ) 
+    //   console.log( )
+      let arr = originalFile.filter( ele => ele.id === deleteBookID ) ; 
+      if(  arr.length === 0  ) {
+
+
+        if (pdfDoc.current) {
+            pdfDoc.current.destroy().then( ()=>{
+
+                const img = new Image();
        
-        img.src = bookImageSubstitue ; 
-        img.onload = () => {
-            ctx.drawImage(img, 0, 0); // Draw the image at position (0, 0)
-            // ctx.fillRect(10, 10, 100, 100);
-          };
+                img.src = bookImageSubstitue ; 
+                img.onload = () => {
+                    ctx.drawImage(img, 10, -20); // Draw the image at position (0, 0)
+                    // ctx.fillRect(10, 10, 100, 100);
+                  };
+        
+                  return ; 
 
-          return ;
 
+            })
+        }else{
+
+            const img = new Image();
+       
+            img.src = bookImageSubstitue ; 
+            img.onload = () => {
+                ctx.drawImage(img, 10, -20); // Draw the image at position (0, 0)
+                // ctx.fillRect(10, 10, 100, 100);
+              };
+    
+              return ; 
+
+
+        }
+       
       }
-      // console.log( " the arr which I got was this " , arr ) ; 
+      console.log( " the arr which I got was this " , arr ) ; 
       const blob = new Blob(  [arr[0].data] , { type: 'application/pdf' });
       const objectUrl = URL.createObjectURL(blob);
-      pageMovement(1 , objectUrl ) ; 
-
+      pageMovement(1 , objectUrl )
 
     // Example: Draw a red rectangle on the canvas
     // ctx.fillStyle = 'red';
@@ -141,9 +199,9 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
    }
 
    fun() ; 
-  }, [ originalFile , bookID  ]); // This effect runs only once when the component mounts
+  }, [deleteBookID , originalFile]); // This effect runs only once when the component mounts
 
   return <canvas className={bookClass} ref={canvasRef}  />;
 };
 
-export default CanvasComponent;
+export default DeleteCanvasComponent;

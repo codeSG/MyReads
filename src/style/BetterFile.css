@@ -41,20 +41,22 @@
     display : grid ;
     grid-template-columns: repeat( 5 , 18%) ;
     row-gap: 5vh;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding-right:2vw;
     
 }
-#textBook{
+.textBook{
     /* padding-top:1vh; */
-    padding-bottom: 1vh;
+    /* padding-bottom: 1vh; */
     border-radius:12px ;
     display: flex;
     /* justify-content: space-evenly; */
     flex-direction: column;
     align-items: center;
     width : 100% ; 
-    height:fit-content ; 
-    /* overflow: hidden; */
+    height:40vh ;
+
+    overflow: hidden;
     background: linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), linear-gradient(0deg, #EEDDFF, #EEDDFF), #EEDDFF;
     box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
     /* margin:40px; */
@@ -64,10 +66,11 @@
     position: relative;
 
 }
-#image{
-    width : 60% ; 
-    height : 180px ; 
-    margin-right : 10px ; 
+.image{
+    width : 70% ; 
+    /* height : 180px ;  */
+    height : 68% ; 
+    /* margin-right : 10px ;  */
     /* border-radius: 12px; */
 
 }
@@ -79,6 +82,8 @@
 
 .bookoptions{
     /* margin-top: 5px; */
+    height : 100%;
+    width:100%; 
     display:flex; 
     justify-content: space-around;
 }
@@ -89,8 +94,10 @@
   cursor: pointer;
 }
 .bookoptions img{
-    width:30px ; 
-height:30px;
+    /* width:30px ; 
+height:30px; */
+height:90% ; 
+width:20% ; 
 }
 .bookoptions a{
     width:35%;
@@ -115,6 +122,7 @@ height:90%;
 } */
 #content{
     width:100%;
+    height: 10% ; 
     /* height : 210px ;  */
    
 }
@@ -149,12 +157,12 @@ height:90%;
 }
 .title{
     /* margin-top:10px ;  */
-    font-size:15px ;
+    /* font-size:15px ; */
     /* word-spacing: 5px;  */
     word-wrap: break-word;
     font-weight: 600;
-    height:4vh ; 
-    height: fit-content;
+    /* height:4vh ;  */
+    /* height: fit-content; */
     width:100%;
     overflow : hidden; 
     padding-left:10px ; 
@@ -162,7 +170,12 @@ height:90%;
     color:rgb(65, 65, 65) ; 
     text-align: center;
     color : black ; 
-    padding:1vh 0 ; 
+    /* padding:1vh 0 ;  */
+    padding-top: 2%;
+    height : 14%;
+    margin-bottom:1%;
+    font-size:1vw ; 
+    /* margin-bottom:5%; */
 }
 #search{
    
@@ -224,7 +237,7 @@ height:90%;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px  ;
+    padding: 0 20px  0 0  ;
     padding-bottom: 0 ;
     
     /* padding-right: 100px; */
@@ -257,7 +270,7 @@ width:fit-content;
 font-family: Inter;
 font-style: normal;
 font-weight: 600;
-font-size: 20px;
+font-size: 1.5vw;
 line-height: 29px;
 height: 52px;
 display: flex;
@@ -277,6 +290,7 @@ align-items: center;
 }
 #addBook p{
     font-weight: bold;
+    font-size:1vw;
 }
 #done{
     /* width:150px; */
@@ -292,7 +306,7 @@ align-items: center;
     font-family: Inter;
 font-style: normal;
 font-weight: 600;
-font-size: 20px;
+font-size: 1.7vw;
 line-height: 29px;
 height:100%;
 
@@ -339,8 +353,8 @@ margin-left: 5%;
     border: 0;
     padding: 0  10px; 
     border-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    /* border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; */
     /* font-weight: 600; */
     width:22%;
     cursor: pointer;
@@ -398,7 +412,7 @@ height : 60px ;
     padding-left: 20px;
     width : 200px ; 
     height:30px;
-    font-size: 20px;
+    font-size: 1.7vw;
     font-weight: 600;
      
     }
@@ -468,12 +482,14 @@ input[type='checkbox'] {
     text-align: left;
     background-color: yellow;
     margin:0;
+    font-size:1vw ; 
 }
 #andmonth{
     border-top-right-radius: 12px;
     text-align: right;
     background-color: aqua;
     margin:0;
+    font-size: 1vw;
 }
 .wweekDay{
     text-align: center;
@@ -481,6 +497,7 @@ input[type='checkbox'] {
     height:100%;
     font-weight: bold;
     padding: 0;
+    font-size: 1.3vw;
 }
 .checkbox-custom:hover{
     transform: scale(1.1);
@@ -525,17 +542,26 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     opacity: 1;
     font-size:25px;
 }
+#ddateBoxDiv{
+    height:33% ;
+    margin-top:2vh;
+    }
 #reading{
     /* margin-top: 25%; */
     font-weight: bold;
     padding-left: 10%;
-    margin:2vh 0 ; 
-    margin-bottom:0;
+    /* margin:2vh 0 ;  */
+    margin-bottom:3%;
+    height:7% ; 
+    margin-bottom: 1vh;
+    font-size:1.1vw;
     
     /* background-color:#F1E9F9 ; */
     /* position:absolute ;
     bottom:32%;  */
+
 }
+
 
     #ddateBox{
         /* background-color: yellow ; */
@@ -544,6 +570,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* margin-top:100px ;  */
         /* position:relative ;  */
         height:30%;
+        height:90%;
 
         margin-top:1% ;
         margin-left: 10%;
@@ -562,6 +589,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
         /* margin-top: 0; */
         display: flex;
         height:10%;
+        width:100% ; 
         /* background-color: red; */
     }
     #bbookdate{
@@ -597,7 +625,7 @@ input[type='checkbox']:checked + .checkbox-custom::before {
        
         font-weight: bold ;
         width : fit-content;
-        font-size:15px;
+        /* font-size:15px; */
         font-family: Arial, Helvetica, sans-serif;
         /* position: absolute; */
         width  : 100%;  
@@ -663,23 +691,27 @@ input[type='checkbox']:checked + .checkbox-custom::before {
     }
     #greeting{
         /* font-size:15px; */
+        padding-top:2%;
         font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
-font-size: 16px;
-line-height: 29px;
+font-size: 1.3vw;
+/* line-height: 29px; */
+height : 50% ; 
     }
     #userName{
         /* width:60%; */
         font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
-font-size: 20px;
-line-height: 29px;
+font-size: 1.3vw;
+/* line-height: 29px; */
 border : 0 ; 
 outline : 0 ; 
-width:85%;
+width:75%;
 overflow: hidden;
+height : 50%; 
+
         /* margin-top:5px; */
         /* text-wrap: wrap; */
     }
@@ -691,11 +723,12 @@ overflow: hidden;
         display: flex ;
         flex-direction: column;
         position: relative;
+        height:100% ; 
     }
     #welcome svg{
         position: absolute;
-        height : 20px ; 
-        width:20px ; 
+        /* height : 20px ; 
+        width:20px ;  */
         right: 0 ; 
         bottom:0;
         cursor: pointer;
@@ -723,7 +756,7 @@ overflow: hidden;
     }
     #plusUploadPink{
         position: absolute;
-        z-index: 10;
+        /* z-index: 10; */
         width:15% ; 
         height : 15% ; 
         top:35% ; 
@@ -761,15 +794,16 @@ overflow: hidden;
         height:fit-content;
     }
     #bookName{          
-        font-size:20px;
+        font-size:1.3vw;
         font-weight: bold;
-        height:8%;
+        height:3vh;
         overflow:hidden;
         text-align: center;
+
     }
     #author{
         
-        font-size:20px;
+        font-size:1.3vw;
         font-weight: bold;
         /* height: fit-content;
         max-height : 6vh ;  */
@@ -803,7 +837,7 @@ overflow: hidden;
     }
     #bookView div{
         width:50%;
-        padding-bottom:1vh ; 
+        /* padding-bottom:1vh ;  */
 
         background-color: white ;
         border-radius: 12px;
@@ -816,17 +850,18 @@ overflow: hidden;
         border:1px solid black;
     }
     #read{
-        margin-top: 4%;
+        margin-top: 3%;
         margin-left:5%;
         /* margin-bottom: 5%; */
         border-radius: 12px;
-        font-size:20px ; 
-        padding:5px 5px 5px;
+        font-size:1.4vw ; 
+        padding: 3%;
+        padding-bottom:0 ;
         color:black ; 
         background: rgba(145, 83, 206, 0.56);
         width: fit-content;
         width:90%;
-        height:fit-content;
+        height:5vh;
         font-weight: bold;
         text-align: center;
 
@@ -942,13 +977,13 @@ overflow: hidden;
     .getBookName{
         margin-top: 5%;
         margin-left: 5%;
-        font-size: 20px;
+        font-size: 15px;
         max-height:40%;
         width:90%;
         font-family: 'Inter';
 font-style: normal;
 font-weight: 600;
-font-size: 20px;
+/* font-size: 20px; */
 /* line-height: 24px; */
 text-align: center;
 
@@ -965,6 +1000,7 @@ font-size: 15px;
 /* line-height: 18px; */
 text-align: center;
 max-height:20%;
+margin-top:2%;
 
 color: #524F4F;
 overflow: hidden;
@@ -1094,16 +1130,19 @@ cursor: pointer;
     /* top:-100%; */
     /* top:100% ;  */
 /* bottom:-10%; */
-top:0;
-top:-110%;
+/* top:0; */
+/* top:-110%; */
 /* bottom:0; */
-    font-size: 15px;
+    font-size: 1vw;
     width:fit-content ; 
     font-weight: bolder ;
     color: #000000;
+    bottom:-55% ; 
+    height : fit-content;
 }
 .bookprogress{
     margin-top: 2%;
+    margin-left: 5%;
     height : 2% ; 
     height : 1vh ; 
     width : 80%; 
@@ -1278,6 +1317,7 @@ top:-110%;
     background-color: white ;
     border-radius: 10px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    cursor : pointer  ; 
 
   }
   .idea{
@@ -1285,14 +1325,17 @@ top:-110%;
     height : 100%; 
   }
   .progressBook{
-    margin-top: 1vh;
+    /* margin-top: 1vh;
     margin-bottom: 1vh ;
-    height :  3vh ; 
+    height :  3vh ;  */
     /* background-color: rgb(199, 199, 100); */
     width : 75%;
     /* border-radius: 15px; */
     border:0;
-    background-color: white ;
+    height: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    /* background-color: white ; */
     /* border-radius : 15px ;  */
     /* background-color: black; */
     
@@ -1309,7 +1352,7 @@ top:-110%;
     position: relative;
     /* bottom:20%;  */
     /* margin-right: 2vw; */
-    background-color: white;
+    /* background-color: white; */
 }
 .progress1Div{
     position: absolute; 
@@ -1380,19 +1423,21 @@ top:-110%;
     /* font-size: 20px; */
     top:50%;
     left:30%;
-    z-index: 10;
+    /* z-index: 10; */
     position: absolute;
     color : black ; 
     font-weight: 600;
     cursor: pointer;
+    font-size:1.1vw ; 
 }
 #bookP{
     top:50%;
     left:53%;
-    z-index: 10;
+    /* z-index: 10; */
     position: absolute;
     color : black ; 
     font-weight: 600;
     cursor: pointer;
+    font-size:1.1vw;
 }
 
