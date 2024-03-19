@@ -202,7 +202,7 @@ const DeleteCanvasComponent = ({ deleteteCanvasImage , deleteBookID , bookImageS
    }
 
    fun() ; 
-  }, [deleteBookID , originalFile  ,  fileList ]); // This effect runs only once when the component mounts
+  }, [deleteBookID , originalFile  ,  fileList , deleteteCanvasImage ]); // This effect runs only once when the component mounts
 
   return <canvas className={bookClass} ref={canvasRef}  />;
 };
