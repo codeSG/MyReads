@@ -1,10 +1,10 @@
 import React, { createContext, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes
 import MainPage from './components/MainPage';
-import Login from './components/Login';
+// import Login from './components/Login';
 import WrapPage from './components/WrapPage';
 import Header from './components/Header';
-import SignUp from './components/SignUp';
+// import SignUp from './components/SignUp';
 import "./style/App.css"
 import  Joyride from 'react-joyride';
 // Create context
@@ -170,7 +170,7 @@ function App() {
                   
                     <Routes> {/* Wrap Routes */}
                         <Route path="/" element={<MainPage />} />
-                        <Route path="/login" element={<Login />} />
+                        {/* <Route path="/login" element={<Login />} /> */}
                         <Route path="/file" element={<MainPage />} />
                         <Route path="/file/showfile" element={<WrapPage />} />
                     </Routes>   

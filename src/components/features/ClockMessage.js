@@ -1,6 +1,6 @@
 import React , {useState, useRef , useContext, useEffect }from 'react'
 import "./style/ClockMessage.css"
-import {storage} from "../firebase" ;
+// import {storage} from "../firebase" ;
 // import { ContextInfo } from '../../App';
 import { useSearchParams, Link } from 'react-router-dom';
 import {ref,updateMetadata, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
@@ -49,25 +49,25 @@ const ClockMessage = ({ fileList, clockMessageRef, pdfContainer, setSinglePageMo
       setMsgArr( (prev)=> [...prev, obj] ) 
       console.log( "msgArr",msgArr)  ; 
 
-      const metaRef = ref( storage , fileList[bookIndex].path ) ;
+      // const metaRef = ref( storage , fileList[bookIndex].path ) ;
       console.log( "originalFile[bookIndex].path " , fileList[bookIndex].path );
-      const metaData= await  getMetadata(metaRef) ;
-      const objMetaData = metaData.customMetadata ; 
-      const tttt = JSON.stringify(newMsgArr)  
-      alert(`objMetaData ${objMetaData}`)
-      console.log("objMetaData" , objMetaData ) ; 
-      objMetaData.messageBody = tttt 
-      console.log("objMetaData" , objMetaData ) ;
-      const newMetadata = {
-          "customMetadata": objMetaData 
-      }         
+      // const metaData= await  getMetadata(metaRef) ;
+      // const objMetaData = metaData.customMetadata ; 
+      // const tttt = JSON.stringify(newMsgArr)  
+      // alert(`objMetaData ${objMetaData}`)
+      // console.log("objMetaData" , objMetaData ) ; 
+      // objMetaData.messageBody = tttt 
+      // console.log("objMetaData" , objMetaData ) ;
+      // const newMetadata = {
+      //     "customMetadata": objMetaData 
+      // }         
        
       ;
-      console.log( newMetadata ) ; 
-      console.log("newMetadata" , newMetadata ) ; 
-      const resultMetaData = await updateMetadata(metaRef, newMetadata) ; 
-      console.log("resultMetaData" , resultMetaData) ;
-      setComment("Comments here...")
+      // console.log( newMetadata ) ; 
+      // console.log("newMetadata" , newMetadata ) ; 
+      // const resultMetaData = await updateMetadata(metaRef, newMetadata) ; 
+      // console.log("resultMetaData" , resultMetaData) ;
+      // setComment("Comments here...")
 
   }
 

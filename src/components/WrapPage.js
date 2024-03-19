@@ -15,8 +15,8 @@ import {ChevronRight} from 'lucide-react'
 import  Joyride from 'react-joyride';
 
 
-import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js";
-let pdfviewer;
+// import {setFrequentBooks} from "../utils/updateBookRecentlyViewed.js";
+// let pdfviewer;
 export default function WrapPage() {
 
 

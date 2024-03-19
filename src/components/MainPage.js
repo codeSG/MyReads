@@ -2,7 +2,7 @@ import React , {useState} from 'react'
 import Header from './Header'
 import { Outlet } from 'react-router-dom'
 import BetterFile from './BetterFile'
-import File from './File' ; 
+// import File from './File' ; 
 import "../style/App.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

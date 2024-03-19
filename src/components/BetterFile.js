@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import { useState , useEffect , useContext} from 'react' ; 
-import {storage} from "./firebase" ; 
-import {ref, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
-import {v4} from "uuid" ; 
+// import {storage} from "./firebase" ; 
+// import {ref, uploadBytes , listAll, getDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
+// import {v4} from "uuid" ; 
 import { Link } from 'react-router-dom';
-import urlHelper from '../utils/urlHelper';
+// import urlHelper from '../utils/urlHelper';
 
 import DeletePopup from './DeletePopup';
 import Spinner from './Spinner';
@@ -237,56 +237,56 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       const [deletePath  , setDeletePath] = useState(-1) ; 
       const [ deleteBookID , setDeleteBookID ] = useState(-1) ; 
       // const 
-      const listRef = ref( storage , `${tt}/`) ;
-      console.log( "git list ref " , listRef) ;   
-      async function deleteFile(path) {
-          try {
+      // const listRef = ref( storage , `${tt}/`) ;
+      // console.log( "git list ref " , listRef) ;   
+      // async function deleteFile(path) {
+      //     try {
         
-            const desertRef = ref(storage, path);
+      //       const desertRef = ref(storage, path);
         
            
-            await deleteObject(desertRef);
-            // alert("The File got deleted Successdully !!");
+      //       await deleteObject(desertRef);
+      //       // alert("The File got deleted Successdully !!");
         
-            const res = await listAll(listRef);
+      //       const res = await listAll(listRef);
         
             
-            const ans= new Array( res.items.length )
-            for( let ind = 0 ; ind < res.items.length ; ind++ ){
-                    const item = res.items[ind] ; 
-                    const url = await getDownloadURL(item);
-                    const ppp= item._location.path_ ; 
-                    const metaRef = ref(storage, ppp );
-                    const metaData= await  getMetadata(metaRef) ;
-                    const des =  metaData.customMetadata.description ; 
-                    const ttl = metaData.customMetadata.title ; 
-                    const cP = Number(metaData.customMetadata.currentPage) ; 
-                    const tP = Number(metaData.customMetadata.totalPage);
+      //       const ans= new Array( res.items.length )
+      //       for( let ind = 0 ; ind < res.items.length ; ind++ ){
+      //               const item = res.items[ind] ; 
+      //               const url = await getDownloadURL(item);
+      //               const ppp= item._location.path_ ; 
+      //               const metaRef = ref(storage, ppp );
+      //               const metaData= await  getMetadata(metaRef) ;
+      //               const des =  metaData.customMetadata.description ; 
+      //               const ttl = metaData.customMetadata.title ; 
+      //               const cP = Number(metaData.customMetadata.currentPage) ; 
+      //               const tP = Number(metaData.customMetadata.totalPage);
 
-                    console.log( ind, "metadata" , des,ttl ) ; 
+      //               console.log( ind, "metadata" , des,ttl ) ; 
     
-                    ans[ind] = { "url": url, "path": item._location.path_ , 
-              "name" : item.name , "description":des ,
-             "title":ttl , "currentPage" : cP , "totalPage" : tP  } ;
-                    // ans[i] = { "url": url, "path": item._location.path_ };
+      //               ans[ind] = { "url": url, "path": item._location.path_ , 
+      //         "name" : item.name , "description":des ,
+      //        "title":ttl , "currentPage" : cP , "totalPage" : tP  } ;
+      //               // ans[i] = { "url": url, "path": item._location.path_ };
   
-            }
+      //       }
           
         
-            console.log("Ans is here");
-            console.log(ans);
+      //       console.log("Ans is here");
+      //       console.log(ans);
            
-            setFileList(ans);
-            setOriginalFile( ans  ) ; 
+      //       setFileList(ans);
+      //       setOriginalFile( ans  ) ; 
            
         
-            console.log("FileList is here");
-            console.log(fileList);
-          } catch (error) {
-            // Uh-oh, an error occurred!
-            alert("Error occurred: " + error.message);
-          }
-        }
+      //       console.log("FileList is here");
+      //       console.log(fileList);
+      //     } catch (error) {
+      //       // Uh-oh, an error occurred!
+      //       alert("Error occurred: " + error.message);
+      //     }
+      //   }
         
            
    
@@ -934,7 +934,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             
             ( deleteBookID !== -1 ) && <DeletePopup  
              setBlack={setBlack}
-              setDeletInd={setDeletInd}  deleteFile={deleteFile}
+              setDeletInd={setDeletInd}  
               deletePath={ deletePath} setDeletePath={setDeletePath}  deleteBookID={deleteBookID} 
               setDeleteBookID = {setDeleteBookID} deleteName={deleteName} setDeleteName={setDeleteName}
               // deleteAuthor={} deleteGenre={}

@@ -1126,7 +1126,7 @@ cursor: pointer;
     z-index: 5;
     /* left:100%; */
     /* right: 20px ;  */
-    left:102%;
+    left:101%;
     /* top:20px; */
     /* top:-100% ;  */
     /* top:-100% ;  */
@@ -1140,16 +1140,16 @@ cursor: pointer;
 /* top:0; */
 /* top:-110%; */
 /* bottom:0; */
-    font-size: 1vw;
+    font-size: 0.9vw;
     width:fit-content ; 
     font-weight: bolder ;
     color: #000000;
-    bottom:-55% ; 
+    bottom:-50% ; 
     height : fit-content;
 }
 .bookprogress{
     margin-top: 2%;
-    margin-left: 5%;
+    margin-left: 3%;
     height : 2% ; 
     height : 1vh ; 
     width : 80%; 

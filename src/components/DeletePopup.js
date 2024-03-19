@@ -5,7 +5,7 @@ import {deleteBook , setFrequentBooks} from "../utils/updateBookRecentlyViewed"
 // import FrequentCanvasComponent from './FrequentCanvasComponent';
 import DeleteCanvasComponent from "./DeleteCanvasComponent.js" ; 
 import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
-const DeletePopup = ({  eleteName , deleteAuthor , deleteGenre,  setDeleteName, setBlack, deletePath,setDeletePath,deleteFile , deleteBookID,setDeleteBookID , 
+const DeletePopup = ({  eleteName , deleteAuthor , deleteGenre,  setDeleteName, setBlack, deletePath,setDeletePath , deleteBookID,setDeleteBookID , 
 }) => {
 
   // alert(deleteBookID)  ;

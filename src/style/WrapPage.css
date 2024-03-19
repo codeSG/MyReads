@@ -20,6 +20,11 @@ body{
 /* img{
     width : 100% !important;
 } */
+
+.wrpaPageDiv{
+    background-color: rgba(145, 83, 206, 0.25);
+
+}
 .pdfContainer{
     width:96vw ; 
     height : 100vh ;
@@ -43,6 +48,8 @@ body{
     display:flex ; 
     justify-content: center;
     align-items: center;
+    background-color: rgba(145, 83, 206, 0.25);
+
 }
 
 #movePrev svg{

@@ -1,1 +1,0 @@
-export const dustbin = "https://as1.ftcdn.net/v2/jpg/01/76/20/76/1000_F_176207610_ZZhNFUdu3Zod2jiY4EJNK1xmawiANVbm.jpg" ; 

@@ -17,6 +17,8 @@
 .userNameDiv1{
     display: flex;
     height : 15vh ; 
+    width:90%
+
     /* align-items: center; */
 }
 .userNameDiv1 img{
@@ -27,6 +29,9 @@ margin-right: 20px;
 .userNameDiv1 p{
     margin-top: 10px;
     font-size:1.2vw;
+}
+.userNameDiv1 div{
+    width:70% ; 
 }
 .userNameDiv1 h1{
     margin-top: 15px;
