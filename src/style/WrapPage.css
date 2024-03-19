@@ -440,11 +440,13 @@ height:100%;
     height:15%;
     width:50%;
     font-size: 15px;
-    display: none ;
+    /* display: none ; */
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
+    /* display: none; */
+    background: linear-gradient(0deg, rgb(238, 221, 255), rgb(238, 221, 255)), linear-gradient(0deg, rgb(238, 221, 255), rgb(238, 221, 255)), linear-gradient(0deg, rgb(238, 221, 255), rgb(238, 221, 255)), rgb(238, 221, 255);
+border : 0 ;
 }
 
 
@@ -453,7 +455,7 @@ height:100%;
 
 #rightSideBar{
     position: absolute;
-    width:6vw; 
+    width:5vw; 
     height:100vh;
     right:0;
     display:flex ; 
@@ -503,9 +505,12 @@ height:100%;
     height:15%;
     width:50%;
     font-size: 15px;
-    display: none ;
+    /* display: none ; */
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    /* display: none; */
+    border:0 ; 
+    background: linear-gradient(0deg, rgb(238, 221, 255), rgb(238, 221, 255)), linear-gradient(0deg, rgb(238, 221, 255), rgb(238, 221, 255)), linear-gradient(0deg, rgb(238, 221, 255), rgb(238, 221, 255)), rgb(238, 221, 255);
 
 }

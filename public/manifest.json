@@ -2,7 +2,8 @@
   "manifest_version": 3,
   
   "name": "My Bookshelf",
-  "description": "Allows you to upload and read books + many other options",
+  "description": "Digital Bookshelf Organization: Managing and finding books on a laptop can be cumbersome, so the idea is to create a digital bookshelf where users can easily store and organize all their books."
+,
   "version": "1.0",
     "icons":   {
       "16": "openBook.png",

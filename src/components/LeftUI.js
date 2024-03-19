@@ -260,9 +260,9 @@ onChange={e => imageUploaded(e.target.files[0])} />
                                 <input key={ind}type="checkbox" checked={ calendarEntry[ind].readToday  }>
 
                                 </input>
-                                <label key={-ind -1} className="checkbox-custom tooltip">
+                                <label key={-ind -1} className="checkbox-custom tooltip ">
                                     {ind+1}
-                                    <span className="tooltiptext">
+                                    <span className="tooltiptext elevate" style={{backgroundColor:"red"}} >
                                         <label> Pages Read : {Object.keys(calendarEntry[ind].pagesRead).length  } </label>
                                         <label> Toal Minutes : {calendarEntry[ind].timeSpent}  </label>
                                        

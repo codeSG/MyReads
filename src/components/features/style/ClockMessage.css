@@ -176,7 +176,7 @@ font-size: 1.3vwpx;
 }
 
 #messageContent::placeholder{
-    color : black;
+    color : gray;
     font-family: 'Inter';
 font-style: normal;
 font-weight: 700;

@@ -8,7 +8,7 @@ import {Play,  PauseCircle , Square} from "lucide-react"
 
 const Timer = ({moveRight , showStopWatch}) => {
 
-    const [timer, setTimer ] = useState(0) ; 
+    const [timer, setTimer ] = useState(25*60) ; 
    const [ isPause , setIsPause] = useState( true ) ; 
    const [visible, setVisible] = useState("visible") ; 
   const [read, setRead] = useState( false  ) ; 
@@ -53,7 +53,7 @@ const Timer = ({moveRight , showStopWatch}) => {
         }
         
     }
-    if( timer ==4 ) moveRight() ; 
+    if( timer === 10  ) moveRight() ; 
 
     if( timer === 0 ){
 

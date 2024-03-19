@@ -908,9 +908,9 @@ styles={{
 {
   !scrollMode && 
 
-  <div id="leftSideBar" onClick={ () =>moveToPreviousPage() } onMouseEnter={()=>{ movePrevfRef.current.style.display="flex" ; 
+  <div id="leftSideBar" onClick={ () =>moveToPreviousPage() } onMouseEnter={()=>{ ; 
   completedPageRef.current.style.display="block" ;  }} 
-     onMouseLeave={()=>{movePrevfRef.current.style.display="none" ; 
+     onMouseLeave={()=>{; 
      completedPageRef.current.style.display="none" }} >
 
     <button ref={movePrevfRef} id="movePrev" >
@@ -974,11 +974,11 @@ styles={{
 
 {
   !scrollMode && 
-  <div id="rightSideBar"  onClick={ () => moveToNextPage()  } onMouseEnter={()=>{ moveNextRef.current.style.display="flex" ; completedPageRef.current.style.display="block"  }}  
-  onMouseLeave={()=>{moveNextRef.current.style.display="none" ; completedPageRef.current.style.display="none" }}
+  <div id="rightSideBar"  onClick={ () => moveToNextPage()  } onMouseEnter={()=>{ completedPageRef.current.style.display="block"  }}  
+  onMouseLeave={()=>{; completedPageRef.current.style.display="none" }}
 >
 
-    <button  ref={moveNextRef} id="moveNext">
+    <button  ref={moveNextRef} id="moveNext" style={{display : "block"}}>
     <ChevronRight  />
     </button>
 

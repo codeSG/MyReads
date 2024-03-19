@@ -25,6 +25,8 @@ import  plusUpload from "../image/plusUpload.png"
 import "../style/BetterFile.css";
 import CanvasComponent from './CanvasComponent';
 import FrequentCanvasComponent from "./FrequentCanvasComponent.js"
+import { Search } from 'lucide-react';
+
 // import 'boxicons';
 import { Play , Trash2} from 'lucide-react';
 // import {Trash2 }
@@ -538,7 +540,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 <div id="search" >
                     <input id="searchInput" placeholder="Search"
                     onChange={  (e)=>{  searchFilter(e.target.value ) ;  }} />
-                    <i id="font" className='bx bx-search-alt-2'></i> 
+                    {/* <i id="font" className='bx bx-search-alt-2'></i>  */}
+                    <Search id="font" />
     
                 </div>
             </div>
