@@ -2,11 +2,13 @@ import React, { useRef, useEffect, useContext } from 'react';
 import "../style/BetterFile.css"
 import { ContextInfo  } from '../App';
 
-const DeleteCanvasComponent = ({ deleteteCanvasImage , deleteBookID , bookImageSubstitue , bookClass , bookRecentlyViewed}) => {
+const DeleteCanvasComponent = ({ originalFile , fileList, deleteteCanvasImage , deleteBookID , bookImageSubstitue , bookClass , bookRecentlyViewed}) => {
   const canvasRef = useRef(null);
-// alert(deleteBookID) ; 
+
+
+// alert("DeleteCanvasComponentDeleteCanvasComponentDeleteCanvasComponent") ; 
 // alert(" deletr canavs componenet ")
-  const {  originalFile , fileList } = useContext( ContextInfo )
+  // const {  originalFile , fileList } = useContext( ContextInfo )
 
   const pdfDoc = useRef(null)  ; 
 
@@ -35,7 +37,7 @@ const DeleteCanvasComponent = ({ deleteteCanvasImage , deleteBookID , bookImageS
     
     const viewport = page.getViewport({ scale: 1.5 });
           const canvas = canvasRef.current;
-          if( !canvas ) return ;
+          // if( !canvas ) return ;
         const canvasContext = canvas.getContext('2d');
     
         // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
@@ -202,7 +204,7 @@ const DeleteCanvasComponent = ({ deleteteCanvasImage , deleteBookID , bookImageS
    }
 
    fun() ; 
-  }, [deleteBookID , originalFile  ,  fileList , deleteteCanvasImage ]); // This effect runs only once when the component mounts
+  }, [deleteBookID , originalFile  ,  fileList , deleteteCanvasImage  ]); // This effect runs only once when the component mounts
 
   return <canvas className={bookClass} ref={canvasRef}  />;
 };

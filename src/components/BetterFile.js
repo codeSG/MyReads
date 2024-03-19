@@ -6,7 +6,7 @@ import { useState , useEffect , useContext} from 'react' ;
 import { Link } from 'react-router-dom';
 // import urlHelper from '../utils/urlHelper';
 
-import DeletePopup from './DeletePopup';
+import DeletePopup from './DeletePopup.js';
 import Spinner from './Spinner';
 import { useSearchParams } from 'react-router-dom';
 import Calendar from "../components/features/Calendar"
@@ -53,6 +53,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       bookRecentlyViewed, setBookRecentlyViewed , 
       userName , setUserName  , firebaseFileFetched , setFirebaseFileFetched , setWrapPageRunTour
     } = useContext(ContextInfo) ;
+
+    
 
     useEffect(()=>{
       // if(firebaseFileFetched  && nameDone ) alert("  if( nameDone && firebaseFileFetched){ ")
@@ -237,6 +239,11 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       const [uploadBook , setUploadBook] = useState( false  ); 
       const [deletePath  , setDeletePath] = useState(-1) ; 
       const [ deleteBookID , setDeleteBookID ] = useState(-1) ; 
+
+
+      useEffect( ()=>{
+        // alert(" deleteBookID !== -1 && alert(33333333333333)")
+      } , [deleteBookID] )
       // const 
       // const listRef = ref( storage , `${tt}/`) ;
       // console.log( "git list ref " , listRef) ;   
@@ -589,8 +596,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                     
                     {/* {getFirstPage(  bookRecentlyViewed[1] )} */}
                     <Trash2   className="trash"   onClick={ ()=>{
-                      setDeleteBookID( bookRecentlyViewed[1]) ; 
-                      setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                      const pp = bookRecentlyViewed[1] ; 
+                      // setDeleteBookID( ()=> bookRecentlyViewed[1]) ; 
+                      // setDeleteName( getBookName(bookRecentlyViewed[1]) );
+                      setDeleteBookID( 2)
                       // alert( ele.id) ; 
                       // setBlack( true ); 
                     }}/>
@@ -936,6 +945,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           {
             
             ( deleteBookID !== -1 ) && <DeletePopup  
+            setOriginalFile={setOriginalFile}
+             setFileList={setFileList}
+            originalFile={originalFile}
+            fileList={fileList}
             deleteteCanvasImage={deleteteCanvasImage}
             setDeleteCanvasImage={setDeleteCanvasImage}
              setBlack={setBlack}

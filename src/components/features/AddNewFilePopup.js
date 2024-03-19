@@ -180,6 +180,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                     // updateFileTags(originalFileCategory) ; 
                      setFileList(prev=>[...prev , {...objectUploaded}])  ;
                 setOriginalFile( prev=>[...prev ,{...objectUploaded}] ) ; 
+                // window.location.reload() ; 
                 if( firebaseFileFetched){
                     setBlack( false ) ; 
                     setSpinner( false  ) ;  
@@ -197,6 +198,8 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                     setFirebaseFileFetched( true  ) ; 
                     localStorage.setItem("firebaseFileFetched" , true ) ;  
                 }
+
+                
 
                 // updateFileTags( originalFile)
                 // updateFileTags() ; 

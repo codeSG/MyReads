@@ -5,7 +5,7 @@ import {deleteBook , setFrequentBooks} from "../utils/updateBookRecentlyViewed"
 import FrequentCanvasComponent from './FrequentCanvasComponent';
 import DeleteCanvasComponent from "./DeleteCanvasComponent.js" ; 
 import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
-const DeletePopup = ({  deleteteCanvasImage , setDeleteCanvasImage , uploadBook  ,  setDeleteName, setBlack, deletePath,setDeletePath , deleteBookID,setDeleteBookID , 
+const DeletePopup = ({  setOriginalFile , setFileList , originalFile , fileList , deleteteCanvasImage , setDeleteCanvasImage , uploadBook  ,  setDeleteName, setBlack, deletePath,setDeletePath , deleteBookID,setDeleteBookID , 
 }) => {
 
   // alert(deleteBookID)  ;
@@ -16,10 +16,12 @@ const DeletePopup = ({  deleteteCanvasImage , setDeleteCanvasImage , uploadBook 
   // } , [deleteBookID]) ; 
   useEffect(()=>{
     // alert(deleteteCanvasImage)
-    setDeleteCanvasImage( prev => !prev ) ; 
+    // alert("     setDeleteBookID( prev => prev +1 )    ")
+     setDeleteBookID( prev => prev +1 ) ; 
+     setDeleteBookID( prev => prev -1 ) ; 
+    // setDeleteCanvasImage( prev => !prev ) ; 
   } , [] )
-  const {fileList, setFileList, originalFile, setOriginalFile,   bookRecentlyViewed, 
-    setBookRecentlyViewed} = useContext(ContextInfo) ; 
+  const {setBookRecentlyViewed,   bookRecentlyViewed } = useContext(ContextInfo) ; 
     function getPercentageCompleted(bookID ){
       if( !bookID || bookID === -1 ) return 0 ;
       
@@ -100,19 +102,19 @@ const DeletePopup = ({  deleteteCanvasImage , setDeleteCanvasImage , uploadBook 
 
        <div className="deleteFrequent" >
                 {/* <img src={getImageLink(bookRecentlyViewed[1])} /> */}
-                { (!bookRecentlyViewed[1] || bookRecentlyViewed[1] ===-1|| originalFile.length===0)?
-                <img src={bookImageSubstitue}  className='recentViewCanvas'/> :   
+             
                 
-                 
                   
-                  <DeleteCanvasComponent deleteteCanvasImage={deleteteCanvasImage}  uploadBook={uploadBook} deleteBookID={deleteBookID}  
+                  <DeleteCanvasComponent 
+                  originalFile={originalFile}  fileList={fileList} 
+                  deleteteCanvasImage={deleteteCanvasImage}  uploadBook={uploadBook} deleteBookID={deleteBookID}  
                 bookImageSubstitue={bookImageSubstitue} 
                 bookClass={"deleteRecentCanvas"} bookRecentlyViewed={bookRecentlyViewed}
                 />
                  
                 
                 
-                }
+                
                 
                 <div className="deleteDescriptionBook" >
 
@@ -133,6 +135,7 @@ const DeletePopup = ({  deleteteCanvasImage , setDeleteCanvasImage , uploadBook 
 
                 setOriginalFile( prevArr => prevArr.filter( (ele) => ele.id !== deleteBookID))
                 setFileList( prevArr => prevArr.filter( (ele) => ele.id !== deleteBookID)) ;
+                // window.location.reload() ; 
                 const delArr =  deleteBook(deleteBookID) ; 
 
                 console.log( " ADD NEW FILE POPUP JS " , delArr  ) ; 
