@@ -2,10 +2,11 @@ import React, { useRef, useEffect, useContext } from 'react';
 import "../style/BetterFile.css"
 import { ContextInfo  } from '../App';
 
-const DeleteCanvasComponent = ({ deleteBook , deleteBookID , bookImageSubstitue , bookClass , bookRecentlyViewed}) => {
+const DeleteCanvasComponent = ({ deleteteCanvasImage , deleteBookID , bookImageSubstitue , bookClass , bookRecentlyViewed}) => {
   const canvasRef = useRef(null);
 // alert(deleteBookID) ; 
-  const {  originalFile } = useContext( ContextInfo )
+// alert(" deletr canavs componenet ")
+  const {  originalFile , fileList } = useContext( ContextInfo )
 
   const pdfDoc = useRef(null)  ; 
 
@@ -34,6 +35,7 @@ const DeleteCanvasComponent = ({ deleteBook , deleteBookID , bookImageSubstitue 
     
     const viewport = page.getViewport({ scale: 1.5 });
           const canvas = canvasRef.current;
+          if( !canvas ) return ;
         const canvasContext = canvas.getContext('2d');
     
         // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
@@ -107,6 +109,7 @@ const DeleteCanvasComponent = ({ deleteBook , deleteBookID , bookImageSubstitue 
     // console.log(" the  originanFile is " , originalFile , " the id is " , bookID )
    function fun(){
 
+    // alert("222222222")
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if( !deleteBookID || deleteBookID === -1 ) {
@@ -199,7 +202,7 @@ const DeleteCanvasComponent = ({ deleteBook , deleteBookID , bookImageSubstitue 
    }
 
    fun() ; 
-  }, [deleteBookID , originalFile]); // This effect runs only once when the component mounts
+  }, [deleteBookID , originalFile  ,  fileList ]); // This effect runs only once when the component mounts
 
   return <canvas className={bookClass} ref={canvasRef}  />;
 };

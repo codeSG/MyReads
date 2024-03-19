@@ -43,6 +43,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
     const [ nameDone , setNameDone] = useState( localStorage.getItem("userName") === "" ? true : localStorage.getItem("userName") ) ; 
     const [ uploadNewBook , setUploadNewBook] = useState( false ) ; 
    
+    const [ deleteteCanvasImage , setDeleteCanvasImage] = useState(false ) ; 
     const {fileList, setFileList, originalFile, setOriginalFile, calendarEntry,setCalendarEntry, 
       hashID , setHashID, 
       dataBaseCreated,
@@ -875,6 +876,8 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                                   }} /> */}
 
                         <Trash2   className="trash"   onClick={ ()=>{
+
+                          setDeleteCanvasImage( prev => !prev )
                           setDeleteBookID( ele.id) ; 
                           setDeleteName( ele.bookName );
                         // alert( ele.id) ; 
@@ -933,10 +936,13 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           {
             
             ( deleteBookID !== -1 ) && <DeletePopup  
+            deleteteCanvasImage={deleteteCanvasImage}
+            setDeleteCanvasImage={setDeleteCanvasImage}
              setBlack={setBlack}
               setDeletInd={setDeletInd}  
               deletePath={ deletePath} setDeletePath={setDeletePath}  deleteBookID={deleteBookID} 
               setDeleteBookID = {setDeleteBookID} deleteName={deleteName} setDeleteName={setDeleteName}
+              uploadBook={uploadBook}
               // deleteAuthor={} deleteGenre={}
               
               

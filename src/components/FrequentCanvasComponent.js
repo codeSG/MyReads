@@ -34,6 +34,7 @@ const FrequentCanvasComponent = ({bookID , bookImageSubstitue , bookClass , book
     
     const viewport = page.getViewport({ scale: 1.5 });
           const canvas = canvasRef.current;
+          if( !canvas ) return ; 
         const canvasContext = canvas.getContext('2d');
     
         // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 

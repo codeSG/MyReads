@@ -325,6 +325,9 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                     //   });
                     
                     setFileUpload( null ) ; 
+                    setUploadNewBook( false ) ; 
+
+                    
                     // setSpinner( false ) ; 
                     // setBlack( false ) ;
                     return ; 
@@ -516,7 +519,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
                     </div>
                     <div className="categoryOptions fourth-step">
-                       {startingIndex != 0 && 
+                       {startingIndex !== 0 && 
                         <ChevronLeft  className='leftArrow'  onClick={()=> setStartingIndex(prev => prev-1)}/>
                        } 
 

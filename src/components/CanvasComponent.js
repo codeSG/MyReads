@@ -28,6 +28,7 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
     
     const viewport = page.getViewport({ scale: 1.5 });
     const canvas = canvasRef.current;
+    if( !canvas ) return ; 
         const canvasContext = canvas.getContext('2d');
     
         // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
@@ -98,6 +99,7 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
    function fun(){
 
     const canvas = canvasRef.current;
+    if( !canvas ) return ;
     const ctx = canvas.getContext('2d');
     if( !bookID || bookID === -1 ) {
         const img = new Image();

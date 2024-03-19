@@ -224,9 +224,9 @@ onChange={e => imageUploaded(e.target.files[0])} />
                       <label className="getPagesCompleted">{getPagesCompleted(  bookRecentlyViewed[0] )}</label>
                     
                     </div> 
-                <Link to ={getBookPath(bookRecentlyViewed[0])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[0]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[0]) }}>
+                <Link style={ {textDecoration :"none"} }to ={getBookPath(bookRecentlyViewed[0])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[0]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[0]) }}>
                             <p id="read" > 
-                          {"Continue Reading >>"}
+                        {"Continue Reading >>"}
                           </p>
                       </Link>
 

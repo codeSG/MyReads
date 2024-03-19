@@ -76,7 +76,7 @@ export default function WrapPage() {
   const completedPageRef = useRef(null)
   const iframeRef  =useRef(null)
 
-
+  const [ pagechange , setPageChange ]  = useState(true ) ; 
   const [objectURL , setObjectURL] = useState("") ;
 
   const [singlePageMode , setSinglePageMode] = useState( true   ) ;
@@ -230,6 +230,8 @@ const viewport = page.getViewport({ scale: 1.5 });
 
 if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){
 
+  // alert("")
+  // alert("if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){")
   // alert(singlePageMode) ; 
   // THE CODR FOR SSHOWING THE LEFT  HALF PAGE 
 
@@ -264,7 +266,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
  if( pageNo +1  <=  totalPage  ){
   rightCanvasRef.current.style.display = "block" ; 
-        const page2 = await pdfDoc2.current.getPage(pageNo+1);
+        const page2 = await pdfDoc3.current.getPage(pageNo+1);
           
         const viewport = page2.getViewport({ scale: 1.5 });
         const canvas = rightCanvasRef.current;
@@ -288,8 +290,15 @@ console.log(  pageNo +1 !==  totalPage ) ;
   rightCanvasRef.current.style.display = "none" ; 
  }
 
+//  alert(" setPageChange( prev => !prev ) ; ")
+// setScrollMode( true) ; 
+// setScrollMode( false) ; 
+
 
 }
+
+// setPageChange( prev => !prev ) ; 
+
 
 
 // if(!wrapPageRuntour)setWrapPageRunTour( true ) ; 
@@ -331,6 +340,7 @@ console.log(  pageNo +1 !==  totalPage ) ;
             pdfDoc3.current = doc3 ; 
         }
     
+        // alert(" loadNewDocument(doc1, pageNo); ")
         loadNewDocument(doc1, pageNo); // Load page from first document
 
 
@@ -783,6 +793,7 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
 
 // alert("hi11111111111")
 // alert(singlePageMode)
+// alert(" function moveToNextPage(){") ; 
     if( singlePageMode ){
       let num = Number( sessionStorage.getItem("currentPage")) ;
       const totalPages = Number( sessionStorage.getItem("totalPage"))
@@ -799,6 +810,7 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
     
     if( !singlePageMode) {
       // alert("hi")
+      // alert("    if( !singlePageMode) {") ; 
       let num = Number( sessionStorage.getItem("currentPage")) ;
       const totalPages = Number( sessionStorage.getItem("totalPage")) ;
       if( num >= totalPages-1  ) return  ;

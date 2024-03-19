@@ -2,10 +2,10 @@ import React , {useContext , useState , useEffect} from 'react'
 import "../style/DeletePopup.css";
 import {ContextInfo} from "../App";
 import {deleteBook , setFrequentBooks} from "../utils/updateBookRecentlyViewed"
-// import FrequentCanvasComponent from './FrequentCanvasComponent';
+import FrequentCanvasComponent from './FrequentCanvasComponent';
 import DeleteCanvasComponent from "./DeleteCanvasComponent.js" ; 
 import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
-const DeletePopup = ({  eleteName , deleteAuthor , deleteGenre,  setDeleteName, setBlack, deletePath,setDeletePath , deleteBookID,setDeleteBookID , 
+const DeletePopup = ({  deleteteCanvasImage , setDeleteCanvasImage , uploadBook  ,  setDeleteName, setBlack, deletePath,setDeletePath , deleteBookID,setDeleteBookID , 
 }) => {
 
   // alert(deleteBookID)  ;
@@ -14,6 +14,10 @@ const DeletePopup = ({  eleteName , deleteAuthor , deleteGenre,  setDeleteName, 
   //   setDeleteBook(false) ; 
   //   setDeleteBook(true ) ; 
   // } , [deleteBookID]) ; 
+  useEffect(()=>{
+    // alert(deleteteCanvasImage)
+    setDeleteCanvasImage( prev => !prev ) ; 
+  } , [] )
   const {fileList, setFileList, originalFile, setOriginalFile,   bookRecentlyViewed, 
     setBookRecentlyViewed} = useContext(ContextInfo) ; 
     function getPercentageCompleted(bookID ){
@@ -101,7 +105,7 @@ const DeletePopup = ({  eleteName , deleteAuthor , deleteGenre,  setDeleteName, 
                 
                  
                   
-                  <DeleteCanvasComponent  deleteBookID={deleteBookID}  
+                  <DeleteCanvasComponent deleteteCanvasImage={deleteteCanvasImage}  uploadBook={uploadBook} deleteBookID={deleteBookID}  
                 bookImageSubstitue={bookImageSubstitue} 
                 bookClass={"deleteRecentCanvas"} bookRecentlyViewed={bookRecentlyViewed}
                 />
