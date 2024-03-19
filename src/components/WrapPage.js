@@ -885,6 +885,10 @@ styles={{
                                
     primaryColor: 'rgba(145, 83, 206, 0.56)',
     color: 'black',
+  } , 
+  spotlight: {
+    backgroundColor: 'white',
+    opacity: "0.5"
   }
 }}        
 

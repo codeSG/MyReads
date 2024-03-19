@@ -21,3 +21,7 @@ z-index: 20;
     height:100vh !important ; 
     z-index : 100 !important;
 } */
+.react-joyride__spotlight{
+    background-color: white !important ;
+    opacity: 0.5  !important ;
+}

@@ -116,9 +116,10 @@ font-weight: 600 ;
     font-size: 1.3vw;
 }
 .deleteOptions button{
-    padding:0 25px ; 
+    /* padding:0 10% ;  */
+    width:35%;
     cursor: pointer;
-    width:fit-content; 
+    /* width:fit-content;  */
     height : 100% ; 
     border-radius: 5px;
     font-weight: bold ;
