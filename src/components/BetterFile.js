@@ -452,13 +452,25 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           }
       }
 
-      
+      setEmailUploadedToday() ; 
        fetchDataFromIndexedDB() ;
        showCalendarDetails() ; 
-          
+
           
         }, []);
 
+        function setEmailUploadedToday(){
+          const temp = new Date() ; 
+          const day = temp.getDate() ; 
+          let arr = JSON.parse(localStorage.getItem("setEmailUploadedToday") )  ; 
+          const bool = !arr ? false : arr[1] ; 
+          // if( bool ) return ; 
+          arr = [ day , bool ] ; 
+          localStorage.setItem("setEmailUploadedToday" , JSON.stringify(arr)) ;
+
+          
+
+        }
         function showCalendarDetails(){
           const temp = new Date() ; 
           const month = temp.getMonth() ; 
@@ -520,7 +532,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 
 
 
-                <label>My Book Shelf</label>
+                <label>My Bookshelf</label>
               </div>
                 
                 <div id="search" >

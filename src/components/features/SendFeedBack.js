@@ -14,8 +14,35 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
     const [ senderMail , setSenderMail] = useState("") ; 
     const [ senderFeedBack , setSenderFeedBack]  = useState( "") ;
     const[borderStyle , setBorderStyle] = useState("") ; 
-    const [ feedBackBorderStyle , setFeedBackBorderStyle] = useState("")  
+    const [ feedBackBorderStyle , setFeedBackBorderStyle] = useState("")   ; 
+    const [ canSendEmail , setCanSendEmail] = useState( true ) ; 
+
+
+    useEffect(()=>{
+        const arr = JSON.parse( localStorage.getItem("setEmailUploadedToday") ) ; 
+        // const setEmailUploadedToday = ( !arr || !arr[0] ) ? false : true ; 
+        const temp = new Date() ; 
+        const day = temp.getDate() ; 
+        let emailUploaded = false  ; 
+        // console.log( ``)
+        // console.log( arr , arr[0] , day , arr[1] , "onst arr = JSON.stringify( localStorage.getItem(setEmailUploadedToday")
+        if( arr && arr[0] === day && arr[1]){
+            emailUploaded = true ; 
+        }
+        setCanSendEmail(!emailUploaded) ; 
+        // alert( !emailUploaded) ; 
+        
+    } , [] )
     
+
+    function setEmailSent(){
+        // const arr = JSON.stringify( localStorage.getItem("setEmailUploadedToday") ) ; 
+        // const setEmailUploadedToday = ( !arr || !arr[0] ) ? false : true ; 
+        const temp = new Date() ; 
+        const day = temp.getDate() ; 
+        const arr = [ day , true ] ;
+        localStorage.setItem("setEmailUploadedToday" , JSON.stringify(arr)) ; 
+    }
     function validateEmail(email){
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValidEmail = emailRegex.test(email);
@@ -23,6 +50,12 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
     }
     const sendEmail = () => {
         // e.preventDefault();
+        if( !canSendEmail ){
+            setBlack( false  ) ; 
+            setSendFeedBack( false )  ; 
+            toast.error("Can only send 1 mail per day ||") ; 
+            return ;  
+        }
         const isValidEmail= validateEmail(senderMail) ; 
         if(!isValidEmail ){
             // alert( " not mail ") ; 
@@ -59,6 +92,9 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
                 toast.success("Your valuable response has been send successfully !!") ; 
             },
           );
+          setEmailSent() ; 
+
+
       };
 
 
@@ -82,7 +118,7 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
                 <img src={openBook} />
                 <div>
                     <p>Welcome To</p>
-                    <h1>My Book Shelf</h1>
+                    <h1>My Bookshelf</h1>
                 </div>
           </div>
         

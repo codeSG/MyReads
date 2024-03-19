@@ -420,6 +420,7 @@ width:22% ;
     font-size: 1.7vw;
     font-weight: 600;
     width:78%;
+    font-family: "Griffy", 'Inter' , system-ui ;
      
     }
 #right{
@@ -1171,7 +1172,7 @@ cursor: pointer;
     /* height:2%; */
     height:100%;
     background-color: green;
-    background-color: yellow;
+    /* background-color: yellow; */
     border-radius: 15px;
     z-index: 5;
 }
@@ -1198,8 +1199,8 @@ cursor: pointer;
     top:0; 
     left:0; 
     /* background-color: rgb(247, 247, 134);  */
-    /* background-color: gray; */
-    background-color: lightgray;
+    background-color: gray;
+    /* background-color: lightgray; */
     width: 100%;
     height:100%;
 }
@@ -1220,7 +1221,8 @@ cursor: pointer;
      position: absolute; 
     top:0; 
     left:0; 
-    background-color: rgb(192, 192, 88); 
+    /* background-color: rgb(192, 192, 88);  */
+    background-color:gray ;
     width: 100%;
     height:100%;
 }
@@ -1367,7 +1369,7 @@ cursor: pointer;
     left:0; 
     width:50%;
     /* height:2%; */
-    height:20%;
+    height: 25%;
     background-color: green;
     border-radius: 15px;
     z-index: 5;
@@ -1377,9 +1379,10 @@ cursor: pointer;
      position: absolute; 
     top:40%; 
     left:0; 
-    background-color: rgb(192, 192, 88); 
+    /* background-color: rgb(192, 192, 88);  */
+    background-color: gray;
     width: 100%;
-    height:20%;
+    height: 25%;
 }
 
 .progressBook label{

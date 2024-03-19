@@ -63,7 +63,7 @@ const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
                 <img src={openBook} />
                 <div>
                     <p>Welcome To</p>
-                    <h1>My Book Shelf</h1>
+                    <h1>My Bookshelf</h1>
                 </div>
           </div>
           <div className="userNameDiv2">

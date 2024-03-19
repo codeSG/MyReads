@@ -316,12 +316,32 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
             try{
                 console.log("111111111111111 in the Header ");
                 console.log( fileUpload) ;
+                
                 if( fileUpload === null ) return ; 
                 if( fileUpload.type !== "application/pdf" || !fileUpload.type ){
                     // alert("Only PDF files allowed !!") ; 
 
                     console.log("only pdf files ae allowed ") ; 
                     toast.error("Only PDF files allowed !!") ; 
+                    // <ToastContainer /> ; 
+                    // toast.error("Only PDF files allowed !!", {
+                    //     position: toast.POSITION.TOP_RIGHT,
+                    //   });
+                    
+                    setFileUpload( null ) ; 
+                    setUploadNewBook( false ) ; 
+
+                    
+                    // setSpinner( false ) ; 
+                    // setBlack( false ) ;
+                    return ; 
+    
+                }
+                if( originalFile.length === 15  ){
+                    // alert("Only PDF files allowed !!") ; 
+
+                    console.log("only pdf files ae allowed ") ; 
+                    toast.error("Only 15 books allowed !!") ; 
                     // <ToastContainer /> ; 
                     // toast.error("Only PDF files allowed !!", {
                     //     position: toast.POSITION.TOP_RIGHT,

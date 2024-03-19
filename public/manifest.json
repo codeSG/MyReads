@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   
-  "name": "My Book Shelf",
+  "name": "My Bookshelf",
   "description": "Allows you to upload and read books + many other options",
   "version": "1.0",
     "icons":   {

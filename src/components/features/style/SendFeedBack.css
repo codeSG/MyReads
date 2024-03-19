@@ -66,3 +66,6 @@ textarea::-ms-resizer {
     height : 13vh ;  */
   
 }
+.userNameDiv1 h1{
+    font-family: "Griffy", 'Inter' , system-ui ;
+}
