@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect ,   useState  } from 'react';
 import "../style/BetterFile.css"
 const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass} ) => {
   const canvasRef = useRef(null);
   const pdfDoc = useRef(null)  ; 
 
+  ; 
   async function loadNewDocument(doc, pageNo ) {
 
 
@@ -145,6 +146,7 @@ const CanvasComponent = ( {bookID , originalFile, bookImageSubstitue , bookClass
    fun() ; 
   }, [ originalFile , bookID  ]); // This effect runs only once when the component mounts
 
+  
   return <canvas className={bookClass} ref={canvasRef}  />;
 };
 

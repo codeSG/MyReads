@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import "../style/BetterFile.css"
 import { ContextInfo  } from '../App';
 
@@ -9,7 +9,7 @@ const DeleteCanvasComponent = ({ originalFile , fileList, deleteteCanvasImage , 
 // alert("DeleteCanvasComponentDeleteCanvasComponentDeleteCanvasComponent") ; 
 // alert(" deletr canavs componenet ")
   // const {  originalFile , fileList } = useContext( ContextInfo )
-
+const [error , setError ] = useState( false  ) ; 
   const pdfDoc = useRef(null)  ; 
 
   async function loadNewDocument(doc, pageNo ) {
@@ -37,7 +37,7 @@ const DeleteCanvasComponent = ({ originalFile , fileList, deleteteCanvasImage , 
     
     const viewport = page.getViewport({ scale: 1.5 });
           const canvas = canvasRef.current;
-          // if( !canvas ) return ;
+          if( !canvas ) return ;
         const canvasContext = canvas.getContext('2d');
     
         // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
@@ -112,7 +112,12 @@ const DeleteCanvasComponent = ({ originalFile , fileList, deleteteCanvasImage , 
    function fun(){
 
     // alert("222222222")
+    
     const canvas = canvasRef.current;
+ if( !canvas ) {
+  setError( true ) ; 
+  return ; 
+ } 
     const ctx = canvas.getContext('2d');
     if( !deleteBookID || deleteBookID === -1 ) {
 
@@ -205,6 +210,10 @@ const DeleteCanvasComponent = ({ originalFile , fileList, deleteteCanvasImage , 
 
    fun() ; 
   }, [deleteBookID , originalFile  ,  fileList , deleteteCanvasImage  ]); // This effect runs only once when the component mounts
+
+  if( error ){
+    return <img src={bookImageSubstitue}  className={bookClass}/>
+  }
 
   return <canvas className={bookClass} ref={canvasRef}  />;
 };
