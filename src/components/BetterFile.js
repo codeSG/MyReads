@@ -22,7 +22,7 @@ import bookImageSubstitue from "../image/bookImageSubstitue.jpg"
 import uploadBookImage from "../image/uploadBook.png"
 import  plusUpload from "../image/plusUpload.png"
 // import React from 'react'
-import "../style/BetterFile.css"
+import "../style/BetterFile.css";
 import CanvasComponent from './CanvasComponent';
 import FrequentCanvasComponent from "./FrequentCanvasComponent.js"
 // import 'boxicons';

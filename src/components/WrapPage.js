@@ -867,6 +867,12 @@ styles={{
       width: '100vw',
       height: '100vh',
       zIndex: 100
+  } , 
+  options: {
+                              
+                               
+    primaryColor: 'rgba(145, 83, 206, 0.56)',
+    color: 'black',
   }
 }}        
 

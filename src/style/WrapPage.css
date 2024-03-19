@@ -4,7 +4,9 @@
     z-index: 1000 !important ;
     left: 50px !important ;
 }
-
+.__floater__body button{
+    color : black  !important; 
+}
 body{
     margin :0 ; 
 }

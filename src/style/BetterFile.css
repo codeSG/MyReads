@@ -165,7 +165,9 @@ height:90%;
     /* height: fit-content; */
     width:100%;
     overflow : hidden; 
-    padding-left:10px ; 
+    /* padding-left:10px ;  */
+    padding-left: 5%;
+    padding-right: 5%;
     /* padding-top:2px ;  */
     color:rgb(65, 65, 65) ; 
     text-align: center;
@@ -173,7 +175,7 @@ height:90%;
     /* padding:1vh 0 ;  */
     padding-top: 2%;
     height : 14%;
-    margin-bottom:1%;
+    margin-bottom:2%;
     font-size:1vw ; 
     /* margin-bottom:5%; */
 }
@@ -248,8 +250,8 @@ height:90%;
     display: flex;
     align-items: center;
     /* justify-content: center; */
-    /* width: fit-content; */
-    width: 15%;
+    width: fit-content;
+    /* width: 15%; */
     max-width:20%;
     
 
@@ -306,14 +308,14 @@ align-items: center;
     font-family: Inter;
 font-style: normal;
 font-weight: 600;
-font-size: 1.7vw;
+font-size: 1.5vw;
 line-height: 29px;
 height:100%;
 
 background: rgba(145, 83, 206, 0.56);
 border-radius: 10px;
 cursor : pointer ; 
-margin-left: 5%;
+/* margin-left: 5%; */
 }
 
 .categoryOptions{
@@ -398,14 +400,17 @@ background:  rgba(145, 83, 206, 0.56) ;
 }
 #topBar{
     display:flex ; 
+    width:22%;
     
     /* background-color: red; */
     
 
 }
 #topBar img{
-width : 60px ; 
-height : 60px ; 
+/* width : 60px ; 
+height : 60px ;  */
+height : 8vh ;
+width:22% ; 
 /* padding-right: 10px; */
 }
 #topBar label{
@@ -414,6 +419,7 @@ height : 60px ;
     height:30px;
     font-size: 1.7vw;
     font-weight: 600;
+    width:78%;
      
     }
 #right{
@@ -872,10 +878,11 @@ height : 50%;
     }
     #heading{
         /* margin-top:50px; */
+        margin-top: 2vh ;
         width: 100%;
         display:flex;
         justify-content: space-between;
-        padding:10px;
+        /* padding:10px; */
         padding-bottom:0 ; 
         /* align-items: center; */
     }
@@ -1333,7 +1340,7 @@ cursor: pointer;
     /* border-radius: 15px; */
     border:0;
     height: 5%;
-    margin-top: 2%;
+    margin-top: 1%;
     margin-bottom: 2%;
     /* background-color: white ; */
     /* border-radius : 15px ;  */
