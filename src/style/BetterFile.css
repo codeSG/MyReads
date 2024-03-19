@@ -715,7 +715,7 @@ font-size: 1.3vw;
 /* line-height: 29px; */
 border : 0 ; 
 outline : 0 ; 
-width:75%;
+width:78%;
 overflow: hidden;
 height : 50%; 
 
@@ -736,8 +736,8 @@ height : 50%;
         position: absolute;
         /* height : 20px ; 
         width:20px ;  */
-        right: 0 ; 
-        bottom:0;
+        right: 2% ; 
+        bottom:8%;
         cursor: pointer;
     }
     #pinkBoxDiv{
