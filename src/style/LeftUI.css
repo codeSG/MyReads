@@ -1,0 +1,330 @@
+#bookleft{
+    width :20%;
+    /* background-color: rgb(179, 117, 237); */
+   /* background-color: gray; */
+   /* background-color: rgb(224, 222, 222);
+   background-color: #F1E9F9; */
+   background-color: rgba(145, 83, 206, 0.25);
+   
+   background-color: var( --light-purple);
+
+    position : fixed ; 
+    top : 0 ; 
+    left:0;
+    height:100%;
+    z-index: 3;
+}
+
+#name{
+    width:90%;
+    margin-left:5%;
+    margin-top:3%;
+    display : flex ;
+    /* align-items: center; */
+    justify-content: space-between;
+    align-items: center;
+    /* gap:10px; */
+    background-color: white;
+    height:8vh ; 
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+    box-shadow : var(--box-shadow)
+    /* padding:5px; */
+   
+}
+
+
+#userImage{
+    width : 20% ; 
+    height : 100% ; 
+    display : flex ; 
+    justify-content: center;
+    align-items: center;
+    /* border-right: 4px solid rgba(145, 83, 206, 0.25); */
+    /* background-color: aqua; */
+    
+
+}
+#userImage img{
+    width : 80% ; 
+    height : 80% ; 
+    border-radius: 50% ;
+    cursor : pointer ; 
+}
+#userImage svg{
+    width : 80% ; 
+    height : 80% ; 
+    border-radius: 50% ;
+    cursor : pointer ; 
+}
+#userImage input{ 
+    display : none ; 
+}
+
+
+#welcome{
+    width:77%;
+    display: flex ;
+    flex-direction: column;
+    position: relative;
+    height:100% ; 
+}
+#welcome svg{
+    position: absolute;
+    /* height : 20px ; 
+    width:20px ;  */
+    right: 2% ; 
+    bottom:8%;
+    cursor: pointer;
+}
+
+
+#greeting{
+    /* font-size:15px; */
+    padding-top:2%;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 1.3vw;
+/* line-height: 29px; */
+height : 50% ; 
+}
+
+#userName{
+    /* width:60%; */
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 1.3vw;
+/* line-height: 29px; */
+border : 0 ; 
+outline : 0 ; 
+width:78%;
+overflow: hidden;
+height : 50%; 
+
+    /* margin-top:5px; */
+    /* text-wrap: wrap; */
+}
+#userName::placeholder{
+    color: black;
+}
+
+#pinkBoxDiv{
+    width:90%;
+    height : 40vh ; 
+    margin-top: 10% ; 
+    margin-left:5%;
+    /* padding-bottom: 1vh; */
+    background-color: white;
+    border-radius: 12px ;
+    box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+    box-shadow : var(--box-shadow);
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    position: relative;
+}
+
+
+#pinkBox{
+    width:80% ; 
+    height : 90%;
+    margin-left: 10%;
+    margin-top: 5%;
+    cursor: pointer;
+}
+
+#plusUploadPink{
+    position: absolute;
+    /* z-index: 10; */
+    width:15% ; 
+    height : 15% ; 
+    top:35% ; 
+    left:45%; 
+    cursor: pointer;
+}
+
+#uploadPink{
+    cursor: pointer;
+    display: inline-block;
+    /* background-color: red ; */
+    
+    width: 30%;
+    text-align: center;
+    
+    font-weight: 600;
+    position: absolute;
+    z-index: 10;
+    /* width:10% ;  */
+    height : 10% ; 
+    top:55% ; 
+    left:38%; 
+}
+
+#bookRead{
+    width:90%;
+    margin-top: 10% ; 
+    margin-left:5%;
+    height: fit-content;
+    padding-bottom: 1vh;
+    background-color: white;
+    border-radius: 12px ;
+    box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25);
+    box-shadow : var(--box-shadow)
+}
+
+#bookName{          
+    font-size:1.3vw;
+    font-weight: bold;
+    height:3vh;
+    overflow:hidden;
+    text-align: center;
+
+}
+
+#author{
+        
+    font-size:1.3vw;
+    font-weight: bold;
+    /* height: fit-content;
+    max-height : 6vh ;  */
+    height:3vh;
+    overflow:hidden;
+    text-align: center;
+}
+
+#bookView{
+    margin-top:2%;
+    /* height:10%; */
+    height:25vh;
+    width:100%;
+    display : flex ; 
+    justify-content: center;
+    position: relative;
+    
+    /* background-color: blue; */
+    /* margin:auto 5px; */
+
+}
+#bookView div{
+    width:50%;
+    /* padding-bottom:1vh ;  */
+
+    background-color: white ;
+    border-radius: 12px;
+    /* box-shadow: 10px 10px 10px rgba(17, 2, 2, 0.25); */
+    
+}
+
+.firstViewCanvas{
+    width:100%;
+    height:100%;
+    border:1px solid black;
+}
+
+.bookprogress label{
+    position:absolute;
+    z-index: 5;
+    /* left:100%; */
+    /* right: 20px ;  */
+    left:101%;
+    /* top:20px; */
+    /* top:-100% ;  */
+    /* top:-100% ;  */
+    /* bottom:0 ;  */
+    /* font-size:10px; */
+    /* bottom:-10%; */
+    /* top:-550%; */
+    /* top:-100%; */
+    /* top:100% ;  */
+/* bottom:-10%; */
+/* top:0; */
+/* top:-110%; */
+/* bottom:0; */
+    font-size: 0.9vw;
+    width:fit-content ; 
+    font-weight: bolder ;
+    color: #000000;
+    bottom:-50% ; 
+    height : fit-content;
+}
+.bookprogress{
+    margin-top: 2%;
+    margin-left: 3%;
+    height : 2% ; 
+    height : 1vh ; 
+    width : 80%; 
+    border-radius: 15px;
+    border:0; 
+    display : flex ; 
+    /* background-color: red ; */
+    position: relative;
+    /* border-radius: 12px ; */
+    /* margin-top:5%; */
+    /* position: absolute;   */
+}
+
+.bookprogress1{
+    position: absolute; 
+    top:0; 
+    left:0; 
+    width:50%;
+    /* margin-top:5%; */
+    /* height:2%; */
+    height:100%;
+    /* background-color: green; */
+    background-color: #219821;
+    /* background-color: yellow; */
+    border-radius: 15px;
+    z-index: 5;
+}
+
+
+.bookprogress2{
+    border-radius: 15px;
+     position: absolute; 
+    top:0; 
+    left:0; 
+    /* background-color: rgb(247, 247, 134);  */
+    /* background-color: gray; */
+    background-color: lightgray;
+    width: 100%;
+    height:100%;
+}
+
+
+#read{
+    margin-top: 3%;
+    margin-left:5%;
+    /* margin-bottom: 5%; */
+    border-radius: 12px;
+    font-size:1.4vw ; 
+    padding: 3%;
+    padding-bottom:0 ;
+    color:black ; 
+    /* background: rgba(145, 83, 206, 0.56); */
+    background:var(--secondary-color) ; 
+    width: fit-content;
+    width:90%;
+    height:5vh;
+    font-weight: bold;
+    text-align: center;
+
+}
+#read a{
+    color : black ; 
+    text-decoration: none;
+}
+
+
+
+   
+
+    
+
+    
+      .idea{
+        width:100% ; 
+        height : 100%; 
+      }

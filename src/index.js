@@ -2,16 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
-import {RouterProvider, createBrowserRouter} from "react-router-dom"
-import ShowFile from "./components/ShowFile";
-import { createContext ,  useState} from 'react';
-// import File from './components/File';
-// import Login from './components/Login';
- import Header from "./components/Header" ; 
-import MainPage from "./components/MainPage";
-// import PdfViewer from './components/PdfViewer';
-import WrapPage from './components/WrapPage';
-import BetterFile from './components/BetterFile';
+import "./style/globals.css"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

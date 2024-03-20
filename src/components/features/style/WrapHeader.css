@@ -2,7 +2,8 @@
 
 #wrapHeader{
     width:100vw;
-    background-color: rgba(145, 83, 206, 0.25);
+    /* background-color: rgba(145, 83, 206, 0.25); */
+    background:var(--light-purple) ; 
     height:10vh;
     position:relative;
 }

@@ -1,5 +1,6 @@
 import React , {useContext, useEffect, useState , useRef} from 'react'
-import "../style/BetterFile.css"
+// import "../style/BetterFile.css"
+import "../style/LeftUI.css"
 import AddFile from './features/AddFile'
  import {ContextInfo}  from "../App"
 import Calendar from './features/Calendar'
@@ -12,22 +13,15 @@ import FrequentCanvasComponent from './FrequentCanvasComponent' ;
 import { Pencil , Check} from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BottomImage from './features/BottomImage'
 import goalsaathi from  "../image/goalsaathi.png" ; 
-import idea from "../image/idea.png"
-const temp = new Date() ; 
-const month = temp.getMonth() ; 
-const year = temp.getFullYear() ; 
-const currDate=temp.getDate() ; 
-let numberOfDays = new Date(year, month+1, 0).getDate();
-let monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-let currentDate = new Date();
+import idea from "../image/idea.png" ; 
 
-currentDate.setDate(1);
+import ProgressBar from './features/ProgressBar'
 
-let firstDayOfWeek = currentDate.getDay();
+
+
+
 const LeftUI = ({setUploadNewBook , setSendFeedBack , setBlack}) => {
     const [ enterName , setEnterName] = useState( true ) ;  
     // const [ userName , setUserName] = useState("") ; 
@@ -86,28 +80,7 @@ const LeftUI = ({setUploadNewBook , setSendFeedBack , setBlack}) => {
         return c ;
   
       }
-      function getPagesCompleted(bookID ){
-        if( !bookID || bookID === -1 ) return "" ;
-        
-        let arr = originalFile.filter( ele => ele.id === bookID ) ; 
-        if( arr.length === 0 ) return "" ;
-        const a  = !arr[0].currentPage ? 0 : arr[0].currentPage ; 
-        const b = !arr[0].totalPage ? 36 : arr[0].totalPage; 
-        if( a <=0 || b <=0  ) return "" ; 
-        
-        // const c = Math.ceil(  ( a/b)*100  ) ; 
-        const comp = a + "/" + b ; 
-        console.log( " pages complete aren" , comp ) ; 
-        return comp ;
   
-      }
-    function getImageLink(bookID){
-        if( !bookID || bookID === -1 ) return bookImageSubstitue ; 
-  
-        let arr = originalFile.filter( ele => ele.id === bookID ) ; 
-        if( arr.length === 0 ) return bookImageSubstitue;
-        return arr[0].bookImageLink ; 
-      }
       function getBookAuthor(bookID){
         if( !bookID || bookID === -1 ) return "" ; 
   
@@ -218,12 +191,8 @@ onChange={e => imageUploaded(e.target.files[0])} />
                        
                     </div>
                 
-                    <div className="bookprogress">
-                      <div className='bookprogress1' style={{width:`${getPercentageCompleted(  bookRecentlyViewed[0]    )}%`}} ></div>
-                      <div className='bookprogress2'></div>
-                      <label className="getPagesCompleted">{getPagesCompleted(  bookRecentlyViewed[0] )}</label>
+                    <ProgressBar outerDiv={"bookprogress"}  innerDiv1={"bookprogress1"}  innerDiv2={"bookprogress2"} progressWidth={ getPercentageCompleted(  bookRecentlyViewed[0] ) } />
                     
-                    </div> 
                 <Link style={ {textDecoration :"none"} }to ={getBookPath(bookRecentlyViewed[0])} onClick={ ()=>{  if( getBookPath(bookRecentlyViewed[0]) ) sessionStorage.setItem("bookKey" , bookRecentlyViewed[0]) }}>
                             <p id="read" > 
                         {"Continue Reading >>"}
@@ -234,62 +203,10 @@ onChange={e => imageUploaded(e.target.files[0])} />
             </div>}
            {/* </div> */}
            
-              <div id="ddateBoxDiv" className="third-step">
-              <p id="reading"  >READING TRACKER</p>
-           <div id="ddateBox" >
-                <div id="yearAndMonth">  
-                <p id="yearand">{monthNames[month]}</p>
-                <p id="andmonth">{year}</p>
-                 </div>
-                <div id="bbookdate">
-                    <label className="wweekDay">S</label>
-                    <label className="wweekDay">M</label>
-                    <label className="wweekDay">T</label>
-                    <label className="wweekDay">W</label>
-                    <label className="wweekDay">T</label>
-                    <label className="wweekDay">F</label>
-                    <label className="wweekDay">S</label>
-                    {
-                        new Array(firstDayOfWeek).fill(1).map((ele, ind)=>{
-                            return <input className="wweekDay" style={{outline:"0"  , "visibility":"hidden"}} value={""} key={-ind} disabled={true}></input>
-                        })
-                    }
-                    {
-                        new Array(numberOfDays).fill(1).map((ele, ind)=>{
-                            return < >
-                                <input key={ind}type="checkbox" checked={ calendarEntry[ind].readToday  }>
-
-                                </input>
-                                <label key={-ind -1} className="checkbox-custom tooltip ">
-                                    {ind+1}
-                                    <span className="tooltiptext elevate" style={{backgroundColor:"red"}} >
-                                        <label> Pages Read : {Object.keys(calendarEntry[ind].pagesRead).length  } </label>
-                                        <label> Toal Minutes : {calendarEntry[ind].timeSpent}  </label>
-                                       
-                                         
-                                    </span>
-                                </label>
-                               
-                            </>
-                        })
-                    }
-
-                   
-                    
-                 
-            
-                </div>
-            </div>
-
-              </div>
+             <Calendar />
           
 
-                <div id="bottomImages">
-                <img src={goalsaathi} className='goalSaathi' />
-                <div className="ideaDiv" onClick={()=> { setSendFeedBack( true ) ;  setBlack(true)}}>
-                  <img  src={idea} className="idea" />
-                </div>
-                </div>
+             <BottomImage  setSendFeedBack={setSendFeedBack}  setBlack={setBlack}/>
              
              
            

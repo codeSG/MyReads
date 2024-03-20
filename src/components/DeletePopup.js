@@ -126,6 +126,7 @@ const DeletePopup = ({  setOriginalFile , setFileList , originalFile , fileList 
               // if( deleteInd === -1 ) return ; 
               
               // deleteFile(deletePath ) ; 
+              // alert("hi")
               deleteFileFromIndexedDB(deleteBookID).then(()=>{
                 setDeleteBookID(-1) ; 
                 setDeleteName("") ;
@@ -140,7 +141,7 @@ const DeletePopup = ({  setOriginalFile , setFileList , originalFile , fileList 
 
                 console.log( " ADD NEW FILE POPUP JS " , delArr  ) ; 
                 setBookRecentlyViewed( setFrequentBooks()) ; 
-                // setBookRecentlyViewed( () => [...delArr] )
+                setBookRecentlyViewed( () => [...delArr] )
 
 
                 // setOriginalFile( prev => [...prev])

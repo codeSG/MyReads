@@ -23,7 +23,8 @@ function App() {
     const [ wrapPageRuntour , setWrapPageRunTour] = useState( false ) ; 
     const [enterYourName , setEnterYourName] = useState( localStorage.getItem("userName"))
     const [ userName , setUserName] = useState( localStorage.getItem("userName") ) ; 
-    const [firebaseFileFetched , setFirebaseFileFetched]  = useState( localStorage.getItem("firebaseFileFetched") )
+    const [firebaseFileFetched , setFirebaseFileFetched]  = useState( localStorage.getItem("firebaseFileFetched") ) ; 
+    const [ showUploadBook , setShowUploadBook] = useState( false) ; 
     const handleTourEnd = () => {
         // Handle the end of the tour, if needed
         setRunTour(false); // Stop the tour after it ends
@@ -139,7 +140,7 @@ function App() {
                 wrapPageRuntour,
                 setWrapPageRunTour , 
                 userName ,  
-                setUserName , firebaseFileFetched  , setFirebaseFileFetched
+                setUserName , firebaseFileFetched  , setFirebaseFileFetched 
 
             }}
         >

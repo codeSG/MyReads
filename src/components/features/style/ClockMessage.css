@@ -342,6 +342,7 @@ left: 4%;
     align-items: center;
     background-color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow : var(--light-box-shadow);
     cursor: pointer;
 }
 
@@ -382,6 +383,7 @@ height:100%;
     border-radius: 12px;
     background-color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow : var(--light-box-shadow);
     cursor: pointer;
 }
 .innerLink{
@@ -507,8 +509,10 @@ input::-webkit-outer-spin-button,
      
 
         .darkShadow{
-    background-color: rgba(145, 83, 206, 0.25);
+    /* background-color: rgba(145, 83, 206, 0.25); */
+    background-color:var(--light-purple) ; 
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow : var(--light-box-shadow);
 }
 
 
@@ -541,6 +545,7 @@ input::-webkit-outer-spin-button,
 #messageContent{
              
     background: rgba(145, 83, 206, 0.25);
+    background: var(----light-purple);
     caret-color:  black; 
     color :black;
     /* padding: 5px; */
@@ -577,6 +582,7 @@ bottom : 10px ; */
    outline : 0 ;
    /* border-bottom: 1px solid black ; */
    background: rgba(145, 83, 206, 0.25);
+   background:var(----light-purple);
    padding:10px ; 
    border-radius: 0;
    border-top-right-radius: 12px;
@@ -607,6 +613,7 @@ font-weight: 400;
 
 .messagesBody{
     background: rgba(203, 186, 220, 0.25);
+
     padding: 10px;
     width:95%;
     margin-bottom:4px;
@@ -716,9 +723,7 @@ font-weight: 400;
     border-bottom: 1px solid black ;
     
     outline:0 ;  
-    /* background-color: ; */
-    background-color:  rgba(145, 83, 206, 0.25);
-    background-color: rgb(203 167 239);
+
     background-color: white;
     text-align: center;
     font-size: 1.2vw;

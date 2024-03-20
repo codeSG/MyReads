@@ -6,7 +6,8 @@ import React , {useEffect , useRef, useState,useContext}from 'react'
 import {v4} from "uuid" ; 
 import { ContextInfo } from '../../App';
 import bookImageSubstitue from "../../image/bookImageSubstitue.jpg"
-import "../../style/BetterFile.css" ; 
+// import "../../style/BetterFile.css" ; 
+import "./style/AddNewFilePopup.css"
 import { ToastContainer, toast } from 'react-toastify';
 import library from "../../image/library.png" ; 
 import 'react-toastify/dist/ReactToastify.css';
