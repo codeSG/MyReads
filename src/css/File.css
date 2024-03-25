@@ -1,0 +1,9 @@
+.fileContainer{
+    display:flex;
+    
+    margin-top:80px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding:10px 0 ; 
+    /* justify-content: flex-start; */
+}

@@ -1,11 +1,11 @@
 import React, { createContext, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes
-import MainPage from './components/MainPage';
+import MainPage from './pages/MainPage';
 // import Login from './components/Login';
-import WrapPage from './components/WrapPage';
-import Header from './components/Header';
+import WrapPage from './pages/PdfView/WrapPage';
+
 // import SignUp from './components/SignUp';
-import "./style/App.css"
+import "./css/App.css"
 import  Joyride from 'react-joyride';
 // Create context
 const ContextInfo = createContext();
