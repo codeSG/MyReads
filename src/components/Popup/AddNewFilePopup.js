@@ -202,29 +202,10 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
 
                 
 
-                // updateFileTags( originalFile)
-                // updateFileTags() ; 
-               
-                
-                // setBlack( false ) ; 
-                // setSpinner( false  ) ;  
-                //  setFileUpload( null ) ; 
-        
-                    // Update state or perform other actions with the key ID
-                    // For example, you can store it in state or use it for further processing
+              
                 };
 
-	        // store.put( {...fileObject}  );
-
-            // store.transaction.oncomplete = () => {
-            //     // console.log(  " all things are uploaded ") ;
-            //     // setFileList(prev=>[...prev , {...fileObject}])  ;
-            //     // setOriginalFile( prev=>[...prev ,{...fileObject}] ) ; 
-            //     setBlack( false ) ; 
-            //     setSpinner( false  ) ;  
-            //      setFileUpload( null ) ; 
-            // };
-                
+	      
 
                 };
 
@@ -525,10 +506,6 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
   return (       
                 <div id="addBook">
 
-{/* <svg width="103" height="19" viewBox="0 0 103 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M19.2083 9.5C19.2083 10.7311 18.9658 11.9502 18.4946 13.0877C18.0235 14.2251 17.3329 15.2586 16.4624 16.1291C15.5918 16.9997 14.5583 17.6902 13.4209 18.1614C12.2835 18.6325 11.0644 18.875 9.83325 18.875C8.60211 18.875 7.38302 18.6325 6.24559 18.1614C5.10817 17.6902 4.07468 16.9997 3.20413 16.1291C2.33358 15.2586 1.64302 14.2251 1.17188 13.0877C0.700744 11.9502 0.458252 10.7311 0.458252 9.5C0.458252 7.0136 1.44597 4.62903 3.20413 2.87087C4.96228 1.11272 7.34685 0.125 9.83325 0.125C12.3197 0.125 14.7042 1.11272 16.4624 2.87087C18.2205 4.62903 19.2083 7.0136 19.2083 9.5ZM60.8749 9.5C60.8749 11.9864 59.8872 14.371 58.129 16.1291C56.3709 17.8873 53.9863 18.875 51.4999 18.875C49.0135 18.875 46.629 17.8873 44.8708 16.1291C43.1126 14.371 42.1249 11.9864 42.1249 9.5C42.1249 7.0136 43.1126 4.62903 44.8708 2.87087C46.629 1.11272 49.0135 0.125 51.4999 0.125C53.9863 0.125 56.3709 1.11272 58.129 2.87087C59.8872 4.62903 60.8749 7.0136 60.8749 9.5ZM93.1666 18.875C95.653 18.875 98.0376 17.8873 99.7957 16.1291C101.554 14.371 102.542 11.9864 102.542 9.5C102.542 7.0136 101.554 4.62903 99.7957 2.87087C98.0376 1.11272 95.653 0.125 93.1666 0.125C90.6802 0.125 88.2956 1.11272 86.5375 2.87087C84.7793 4.62903 83.7916 7.0136 83.7916 9.5C83.7916 11.9864 84.7793 14.371 86.5375 16.1291C88.2956 17.8873 90.6802 18.875 93.1666 18.875Z" fill="#9153CE" fill-opacity="0.56"/>
-</svg> */}
-
 
 
                  {/* <div id="threeCircle"></div> */}
@@ -579,8 +556,7 @@ const AddNewFilePopup = ( { setUploadBook, setBlack, fileUpload, setFileUpload, 
                     <button id="done" 
                     onClick={()=>{
                        
-                            // setUploadBook( true ) ; 
-                            // setBlack( true ) ; 
+                       
                             setUpload();
                         }}
                     

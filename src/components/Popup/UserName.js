@@ -11,42 +11,7 @@ const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
     const {userName , setUserName , wrapPageRuntour, setWrapPageRunTour ,
       firebaseFileFetched , setFirebaseFileFetched } = useContext(ContextInfo) ; 
     const [ name , setName] = useState("") ; 
-    // const [ nameDone , setNameDone] = useState( localStorage.getItem("userName") === "" ? true : localStorage.getItem("userName") ) ; 
-    // useEffect(()=>{
-
-    //   if( nameDone && firebaseFileFetched){
-    //     setUserName(name);
-    //     console.log( "nameDone && firebaseFileFetched ")
-    //     setBlack(false) ; 
-        
-    //     setSpinner( false ) ; 
-    //     setWrapPageRunTour( true) ; 
-                
-    //   }
-    // } , [ nameDone ] ) ; 
-  
-    // useEffect(()=>{
-    //   // if(firebaseFileFetched  && nameDone ) alert("  if( nameDone && firebaseFileFetched){ ")
-
-    //   if( nameDone && firebaseFileFetched){
-    //     localStorage.setItem("userName" , name)
-    //     setUserName(name);
-    //     setBlack(false) ; 
-      
-    //     setSpinner( false ) ; 
-    //     setWrapPageRunTour( true) ; 
-                
-    //   }
-    // } , [ firebaseFileFetched  , nameDone ] ) ; 
-
-    // if( firebaseFileFetched && nameDone  ) {
-    //   setUserName(name);
-    //   console.log( "nameDone && firebaseFileFetched ")
-    //   setBlack(false) ; 
-      
-    //   setSpinner( false ) ; 
-    //   setWrapPageRunTour( true) ; 
-    // }
+   
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
         // Perform an action when Enter key is pressed
