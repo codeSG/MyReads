@@ -1,13 +1,12 @@
 import React, { createContext, useState } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'; 
 import MainPage from './pages/MainPage';
-// import Login from './components/Login';
+
 import WrapPage from './pages/PdfView/WrapPage';
 
-// import SignUp from './components/SignUp';
+
 import "./css/App.css"
 import  Joyride from 'react-joyride';
-// Create context
 const ContextInfo = createContext();
 
 function App() {
@@ -21,17 +20,16 @@ function App() {
     const [ bookRecentlyViewed, setBookRecentlyViewed] = useState([]) ; 
     const [runTour, setRunTour] = useState(true);
     const [ wrapPageRuntour , setWrapPageRunTour] = useState( false ) ; 
-    const [enterYourName , setEnterYourName] = useState( localStorage.getItem("userName"))
+    
     const [ userName , setUserName] = useState( localStorage.getItem("userName") ) ; 
     const [firebaseFileFetched , setFirebaseFileFetched]  = useState( localStorage.getItem("firebaseFileFetched") ) ; 
-    const [ showUploadBook , setShowUploadBook] = useState( false) ; 
+    
     const handleTourEnd = () => {
         // Handle the end of the tour, if needed
         setRunTour(false); // Stop the tour after it ends
     };
     const steps1 = [
         {
-          // selector: '.first-step1, .first-step2',
           target: '.first-step',
           content: 'Managing and finding book on laptop is a tedious task, why not add all books, that are easy to place on your digital bookshelf',
           disableBeacon: true
@@ -146,13 +144,10 @@ function App() {
         >
             <Router>
                 <div id="App">
-                    {/* <Header /> */}
-                    {/* <Joyride 
-                    steps={steps1}                                       
-                    /> */}
+                  
 
                     <Joyride
-                    // wrapPageRuntour 
+                    
                       run={wrapPageRuntour}
                             steps={steps1}
                             continuous={true}    
@@ -168,10 +163,9 @@ function App() {
                             }} 
                                            
                     />
-                  
-                    <Routes> {/* Wrap Routes */}
+                    <Routes> 
                         <Route path="/" element={<MainPage />} />
-                        {/* <Route path="/login" element={<Login />} /> */}
+                        
                         <Route path="/file" element={<MainPage />} />
                         <Route path="/file/showfile" element={<WrapPage />} />
                     </Routes>   

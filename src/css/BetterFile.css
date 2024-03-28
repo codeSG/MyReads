@@ -1,4 +1,12 @@
+.__floater __floater__open button{
+    border : 0 !important ; 
+    outline: 0 !important ;
+}
 
+.__floater__body button{
+    border : 0 !important ; 
+    outline: 0 !important ;
+}
 *{
     /* padding:0 ; 
     margin: 0;  */

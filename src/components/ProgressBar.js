@@ -8,8 +8,6 @@ return (
                       <div className={innerDiv2}></div>
                       <label>{`${  progressWidth }%`}</label>
     </div>
-
 )
-
 } ; 
   export default  ProgressBar; 

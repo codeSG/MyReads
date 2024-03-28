@@ -1,6 +1,5 @@
 import React from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
-
 function Spinner() {
   return (
     <div id="Spinner" style={{ position:"fixed", 
@@ -11,5 +10,4 @@ function Spinner() {
     </div>
   );
 };
-
 export default Spinner;

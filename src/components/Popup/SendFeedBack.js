@@ -1,44 +1,31 @@
 
 import React , {useContext , useState  , useEffect} from "react";
 import "../../css/SendFeedBack.css"
-// import x from "../../"
 import openBook from  "../../assets/openBook.png"
-import proceed from "../../assets/proceed.png"
 import goalsaathi from "../../assets/goalsaathi.png"
-
-// import goalsaathi from "../../image/goalsaathi.png"
 import emailjs from '@emailjs/browser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const SendFeedBack = ({setBlack , setSendFeedBack })=>{
     const [ senderMail , setSenderMail] = useState("") ; 
     const [ senderFeedBack , setSenderFeedBack]  = useState( "") ;
     const[borderStyle , setBorderStyle] = useState("") ; 
     const [ feedBackBorderStyle , setFeedBackBorderStyle] = useState("")   ; 
     const [ canSendEmail , setCanSendEmail] = useState( true ) ; 
-
-
     useEffect(()=>{
-        const arr = JSON.parse( localStorage.getItem("setEmailUploadedToday") ) ; 
-        // const setEmailUploadedToday = ( !arr || !arr[0] ) ? false : true ; 
+        const arr = JSON.parse( localStorage.getItem("setEmailUploadedToday") ) ;
         const temp = new Date() ; 
         const day = temp.getDate() ; 
         let emailUploaded = false  ; 
-        // console.log( ``)
-        // console.log( arr , arr[0] , day , arr[1] , "onst arr = JSON.stringify( localStorage.getItem(setEmailUploadedToday")
-        if( arr && arr[0] === day && arr[1]){
+           if( arr && arr[0] === day && arr[1]){
             emailUploaded = true ; 
         }
         setCanSendEmail(!emailUploaded) ; 
-        // alert( !emailUploaded) ; 
         
     } , [] )
     
 
     function setEmailSent(){
-        // const arr = JSON.stringify( localStorage.getItem("setEmailUploadedToday") ) ; 
-        // const setEmailUploadedToday = ( !arr || !arr[0] ) ? false : true ; 
         const temp = new Date() ; 
         const day = temp.getDate() ; 
         const arr = [ day , true ] ;
@@ -50,7 +37,6 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
         return isValidEmail ; 
     }
     const sendEmail = () => {
-        // e.preventDefault();
         if( !canSendEmail ){
             setBlack( false  ) ; 
             setSendFeedBack( false )  ; 
@@ -59,7 +45,6 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
         }
         const isValidEmail= validateEmail(senderMail) ; 
         if(!isValidEmail ){
-            // alert( " not mail ") ; 
             setBorderStyle("2px solid red")
             return ; 
         }else{
@@ -82,7 +67,6 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
           })
           .then(
             () => {
-            //   alert('SUCCESS!');
             setBlack( false ) ; 
             setSendFeedBack( false )  ; 
             toast.success("Your valuable response has been send successfully !!") ; 
@@ -95,22 +79,7 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
           );
           setEmailSent() ; 
 
-
       };
-
-
-//     useEffect(()=>{
-//   setBlack(true) ; 
-//     } , [ ] )
-
-
-
-
-   
-
-   
-      
-
 
     return (
         <div id="_userName" style={{padding:"20px 0 " , margin:"auto" , top:"25vh" , left:"35vw"}}> 
@@ -132,11 +101,7 @@ const SendFeedBack = ({setBlack , setSendFeedBack })=>{
                 </p>
                 <img src={goalsaathi} />
             </div>
-          
-        
         </div>
     )
-  
 }
-
 export default SendFeedBack ; 

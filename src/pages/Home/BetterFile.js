@@ -1,34 +1,17 @@
 import React, { useRef } from 'react'
 import { useState , useEffect , useContext} from 'react' ; 
-// import {storage} from "./firebase" ; 
-// import {ref, uploadBytes , listAll, BDownloadURL, deleteObject, getMetadata} from "firebase/storage" ; 
-// import {v4} from "uuid" ; 
 import { Link } from 'react-router-dom';
-// import urlHelper from '../utils/urlHelper';
-
 import DeletePopup from '../../components/Popup/DeletePopup.js';
 import Spinner from '../../components/Popup/Spinner.js';
-import { useSearchParams } from 'react-router-dom';
-import Calendar from "../../components/Calendar.js"
-// import { Link } from 'react-router-dom';
 import AddNewFilePopup from '../../components/Popup/AddNewFilePopup.js';
 import UserName from '../../components/Popup/UserName.js';
-
 import {ContextInfo}  from "../../App.js" ; 
 import bookImageSubstitue from "../../assets/bookImageSubstitue.jpg"
-import uploadBookImage from "../../assets/uploadBook.png"
-import  plusUpload from "../../assets/plusUpload.png"
-// import React from 'react'
 import "../../css/BetterFile.css";
 import CanvasComponent from '../../components/Canvas/CanvasComponent.js';
 import FrequentCanvasComponent from "../../components/Canvas/FrequentCanvasComponent.js"
 import Heading from './Heading.js';
-import openDatabase from "../../utils/openDatabase.js"
-
-// import getBookAuthor from '../utils/getBookAuthor.js';
-// import 'boxicons';
 import { Play , Trash2} from 'lucide-react';
-// import {Trash2 }
 
 import LeftUI from './LeftUI.js';
 import { setFrequentBooks } from '../../utils/updateBookRecentlyViewed.js';
@@ -40,18 +23,13 @@ import RecentlyViewedBook from './RecentlyViewedBook.js';
 import ProgressBar from '../../components/ProgressBar.js';
 import getPercentageCompleted from '../../utils/getPercentageCompleted.js';
 import fetchDataFromIndexedDB from "../../utils/fetchDataFromIndexedDB.js"
-import readAllData from "../../utils/readAllData.js"
-
 const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName , 
   setSpinner}) => {
 
     const [ sendFeedBack , setSendFeedBack] = useState( false ) ; 
-    // const [ firstTimeViewName  , setFirstTimeViewName ] = useState( localStorage.getItem("userName")  ) ; 
-    const [ nameDone , setNameDone] = useState( localStorage.getItem("userName") === "" ? true : localStorage.getItem("userName") ) ; 
+     const [ nameDone , setNameDone] = useState( localStorage.getItem("userName") === "" ? true : localStorage.getItem("userName") ) ; 
     const [ uploadNewBook , setUploadNewBook] = useState( false ) ; 
-   
-      // const [] = useState( false ) ; 
-    
+
     const {fileList, setFileList, originalFile, setOriginalFile, calendarEntry,setCalendarEntry, 
       hashID , setHashID, 
       bookRecentlyViewed, setBookRecentlyViewed , 
@@ -59,48 +37,38 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
     } = useContext(ContextInfo) ;
 
     
-
-
-
-
-
-
-    
-      
     const [search , setSearch] = useState("") ; 
-      // const tt =  hash.get("id") ;
-     
       const [black , setBlack] = useState( true ) ;  
       const [deleteName , setDeleteName ]  = useState("") ; 
       const [ deleteInd , setDeletInd ] = useState(-1) ; 
       const [uploadBook , setUploadBook] = useState( false  ); 
       const [deletePath  , setDeletePath] = useState(-1) ; 
       const [ deleteBookID , setDeleteBookID ] = useState(-1) ; 
+  useEffect(()=>{
+    
+    if( firebaseFileFetched && nameDone ){
+      setBlack( false ) ; 
+      setSpinner( false )  ; 
+      if( !localStorage.getItem("betterFileFirstVisist")){
+        localStorage.setItem("betterFileFirstVisist" , true )  ;  
+        setWrapPageRunTour( true ) ; 
+      }
+     
+    }
 
-  
-   
-      
-    
-    
+  } , [firebaseFileFetched , nameDone] )    
 
 
       useEffect( () => {
-        // setSpinner(false) ; 
-        // setBlack( false) ; 
-        // alert(getEmail()) ; 
           if( !firebaseFileFetched ) {
             showCalendarDetails() ; 
             return ; 
           } 
     
-
-        
-
       setEmailUploadedToday() ; 
        fetchDataFromIndexedDB(setBlack, setSpinner , setBookRecentlyViewed, setFileList, setOriginalFile ,  userName , setFrequentBooks) ;
        showCalendarDetails() ; 
 
-          
         }, []);
 
         function setEmailUploadedToday(){
@@ -157,11 +125,7 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
             })
             setFileList( filterArr ) ; 
         }
-      //  if( originalFile.length === 0 ){
-      //   setBlack(true) ;setSpinner(true);
-      //  }else{
-      //   setBlack(false )  ; setSpinner(false)
-      //  }
+    
   return (
     <div id="bookBox"> 
       <LeftUI
@@ -171,38 +135,25 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
       />
       <div id="right">
            
-            <Heading searchFilter={searchFilter} />
-        
-          
+            <Heading searchFilter={searchFilter} />          
             <RecentlyViewedBook setDeleteName={setDeleteName}  
             bookRecentlyViewed ={bookRecentlyViewed} FrequentCanvasComponent={FrequentCanvasComponent}
               
           
              setDeleteBookID={setDeleteBookID} 
              setUploadNewBook={setUploadNewBook}
-            />
-
-         
-
-           
-          
+            />       
            
             <AddNewFilePopup setUploadBook={setUploadBook} setBlack={setBlack} 
             fileUpload={fileUpload} setFileUpload={setFileUpload}  setSpinner={setSpinner}
             hashID={hashID} setHashID={setHashID} 
             uploadNewBook={uploadNewBook}  setUploadNewBook={setUploadNewBook} />
-          {/* <div id="addBook">
-            <p>YOUR LIBRARY</p>
-            <button>+ ADD BOOK</button>
-          </div> */}
+
           <div id="book-container">
           {
             fileList.map( (ele, ind)=>
                     {
 
-                      // const key = "" + ind ; 
-                      //     urlHelper( key, ele.url , 1 ) ;
-                      // {alert("fileList.map( (ele, ind)=>")} 
                       return(
                       
                         <div  className='textBook fifth-step'>
@@ -213,55 +164,34 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                           <CanvasComponent  bookID={ele.id}  originalFile={originalFile}
                   bookImageSubstitue={bookImageSubstitue}
                   bookClass={"canvasImage"} />
-                    </Link>
-                          
-                          
-                          
-                             
-                           
+                    </Link>                  
                               
                           </div>
-                          {/* <div> */}
+  
                           <div className="progressBook">
                             
                           <ProgressBar
               outerDiv={"progressBookDiv"}  innerDiv1={"progress1Div"}  innerDiv2={"progress2Div"} progressWidth={ getPercentageCompleted(  ele.id  , originalFile) }                
               
                               />
-                          
-                            
                           </div>
-                          {/* </div> */}
                           <div id="content">
-                          
-                          
                                 <div className="bookoptions"  >
                                 
-                                  
                                   <Link   className="FileLink" to={`/file/showfile?bookID=${ele.id}`} >
                                   <button>Read</button>
                                   
                                   </Link>
-                                 
-                                
-
                         <Trash2   className="trash"   onClick={ ()=>{
 
-                          
                           setDeleteBookID( ele.id) ; 
                           setDeleteName( ele.bookName );
-                        // alert( ele.id) ; 
-                        // setBlack( true ); 
                       }}/>
 
 
                               </div>
                           
                               
-
-                          
-                          
-                         
                           </div>
                       </div>
                      
@@ -275,16 +205,9 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
           
           
 
-
-
-
-
             </div>
       </div>
       
-
-
-
 
         {
             black && <div  onClick={()=>{if( sendFeedBack) {setSendFeedBack(false) ;  setBlack(false)}} }
@@ -318,13 +241,10 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
               setDeletInd={setDeletInd}  
               deletePath={ deletePath} setDeletePath={setDeletePath}  deleteBookID={deleteBookID} 
               setDeleteBookID = {setDeleteBookID} deleteName={deleteName} setDeleteName={setDeleteName}
-              uploadBook={uploadBook}
-              // deleteAuthor={} deleteGenre={}
-              
+              uploadBook={uploadBook} 
               
             />
             
-          
           }
            {
             
@@ -354,9 +274,6 @@ const BetterFile = ({fileUpload, setFileUpload,spinner,fileName, setFileName ,
                 <Spinner/>
             </div>
           }
-
-         
-
  
     </div>
 

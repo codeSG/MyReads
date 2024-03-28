@@ -1,28 +1,18 @@
 import React, { useState, useEffect , useRef } from 'react';
-// import { Document, Page } from 'pdfjs-dist/react-pdf.js';
 import "../../css/WrapPage.css"
 import { useContext } from 'react';
-// import ClockMessage from './features/ClockMessage.js';
 import { ContextInfo } from '../../App.js';
-// import WrapHeader from './features/WrapHeader.js';
 import "../../css/WrapPage.css"
 import ClockMessage from './ClockMessage.js';
 import {readBook} from "../../utils/updateBookRecentlyViewed.js"
 import { Link, useLocation } from 'react-router-dom';
-// import './iframeResizer.min.js';
 import {ChevronLeft} from 'lucide-react'
 import {ChevronRight} from 'lucide-react'
 import  Joyride from 'react-joyride';
 import moveToNextPage from '../../utils/moveToNextPage.js';
 import moveToPreviousPage from '../../utils/moveToPreviousPage.js';
 import updateCurrentPageOfBook from '../../utils/updateCurrentPageOfBook.js';
-import wrapPageLoadNewDocument from "../../utils/wrapPageLoadNewDocument.js"
 export default function WrapPage() {
-
-
-
-  const containerRef = useRef(null); 
-  // const baseUrl = `${window.location.protocol}//${window.location.host}/assets/`;
 
   const steps2 = [
     {
@@ -48,198 +38,172 @@ export default function WrapPage() {
  
   ];
 	const canvasRef = useRef(null);
- 
   const location = useLocation(); 
-
   const clockMessageRef= useRef(null);
   const pdfContainer  = useState(null)
-  const btnRef=useRef(null) ; 
-  const pdfRef = useRef(null);
-
   const leftCanvasRef = useRef(null) ; 
   const rightCanvasRef = useRef(null) ; 
-
   const movePrevfRef = useRef( null ) ; 
-
   const moveNextRef = useRef(null) ; 
   const canvasDivRef = useRef(null) ; 
   const twoCanvasDiv = useRef(null) ; 
-
   const completedPageLabelRef = useRef(null ) ; 
-  // const totalLabelRef = useRef(null) ; 
-
   const completedPageRef = useRef(null)
-  const iframeRef  =useRef(null)
-
+  const iframeRef  =useRef(null) ;
   const [singlePageMode , setSinglePageMode] = useState( true   ) ;
-
-  const [scrollMode , setScrollMode] = useState( false ) ; 
-
+  const [scrollMode , setScrollMode] = useState( false ) ;
   const [ _iframeURL , setIframeURL] = useState("") ; 
-
   const [iframePageNumber , setIframePageNumber] = useState(1 ) ; 
-
-  // const [ readingTimeOut, setReadingTimeOut] = useState( 0 ) ; 
 
   let pdfDoc1 = useRef(null)  ; 
   let pdfDoc2 = useRef(null)  ; 
   let pdfDoc3 = useRef(null) ; 
-// const [totalPages, setTotalPages] = useState(0) ; 
 
-// const [currentPage , setCurrentPage] = useState(1) ; 
+  const {setCalendarEntry, setBookRecentlyViewed,  } = useContext(ContextInfo) ;
 
-  const {fileList, setFileList, originalFile, setOriginalFile,setCalendarEntry, setMetadataPath, 
-    bookRecentlyViewed, setBookRecentlyViewed,  } = useContext(ContextInfo) ;
+  async function loadNewDocument(doc, pageNo ) {
 
 
+  const totalPage = pdfDoc1.current.numPages;
+  sessionStorage.setItem("totalPage" , totalPage ) ; 
 
-
-
-
-async function loadNewDocument(doc, pageNo ) {
-
-
-const totalPage = pdfDoc1.current.numPages;
-sessionStorage.setItem("totalPage" , totalPage ) ; 
-
-// Log the total number of pages
-console.log('Total number of pages:', totalPage);
-// setTotalPages(totalPage ) 
-console.log( " is it null " , pdfDoc1.current ) ;
+  // Log the total number of pages
+  console.log('Total number of pages:', totalPage);
+  // setTotalPages(totalPage ) 
+  console.log( " is it null " , pdfDoc1.current ) ;
 
 
 
 
-// Prepare canvas using PDF page dimensions.
+  // Prepare canvas using PDF page dimensions.
 
-const readingTimeOut = JSON.parse( localStorage.getItem("readingTimeOut"))
-if( readingTimeOut ){
-  clearTimeout( readingTimeOut ) ; 
-  console.log(" the time inteval isbing cleard here ", readingTimeOut)
-}
-console.log(" the time inteval isbing    NOT cleard here " ,readingTimeOut )
+  const readingTimeOut = JSON.parse( localStorage.getItem("readingTimeOut"))
+  if( readingTimeOut ){
+    clearTimeout( readingTimeOut ) ; 
+    console.log(" the time inteval isbing cleard here ", readingTimeOut)
+  }
+  console.log(" the time inteval isbing    NOT cleard here " ,readingTimeOut )
 
-const readTimeOut = setTimeout( ()=>{
-  let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
-  if( calendarArr){
-    const date = new Date();
-    let day = date.getDate();
-    const key = Number(sessionStorage.getItem("bookKey"));
-    const pageString = `${key}-${pageNo}` ; 
-    calendarArr[day-1].pagesRead[pageString] = true ;
-    calendarArr[day-1].readToday = true ; 
-    // calendarArr[day-1].timeSpent =   ( calendarArr[day-1].timeSpent + 1 ) % 1000  ; 
-    localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
-    setCalendarEntry([...calendarArr])
+  const readTimeOut = setTimeout( ()=>{
+    let calendarArr = JSON.parse(localStorage.getItem("calendarArray") ); 
+    if( calendarArr){
+      const date = new Date();
+      let day = date.getDate();
+      const key = Number(sessionStorage.getItem("bookKey"));
+      const pageString = `${key}-${pageNo}` ; 
+      calendarArr[day-1].pagesRead[pageString] = true ;
+      calendarArr[day-1].readToday = true ; 
+      // calendarArr[day-1].timeSpent =   ( calendarArr[day-1].timeSpent + 1 ) % 1000  ; 
+      localStorage.setItem("calendarArray" , JSON.stringify(calendarArr)) ; 
+      setCalendarEntry([...calendarArr])
+    }
+
+  } , 1000*60 ) ; 
+
+  console.log(  "the readTimeOut" , readTimeOut ) ; 
+  // setReadingTimeOut( readTimeOut ) ; 
+  localStorage.setItem("readingTimeOut" , JSON.stringify( readTimeOut ))
+  // alert( readingTimeOut )
+  if( singlePageMode && canvasRef.current && pdfDoc3.current ){
+
+    // alert(singlePageMode)
+    const page = await pdfDoc3.current.getPage(pageNo);
+
+
+  const viewport = page.getViewport({ scale: 1.5 });
+        const canvas = canvasRef.current;
+      const canvasContext = canvas.getContext('2d');
+
+      // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
+
+      // canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      // canvasContext.beginPath();
+
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      // Render PDF page into canvas context.
+      const renderContext = { canvasContext, viewport };
+      const renderTask =  page.render(renderContext);
+
+      const temp = pageNo + " / " + totalPage ; 
+      completedPageLabelRef.current.innerText = temp ; 
+
+
+
+
+    
   }
 
-} , 1000*60 ) ; 
+  if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){
 
-console.log(  "the readTimeOut" , readTimeOut ) ; 
-// setReadingTimeOut( readTimeOut ) ; 
-localStorage.setItem("readingTimeOut" , JSON.stringify( readTimeOut ))
-// alert( readingTimeOut )
-if( singlePageMode && canvasRef.current && pdfDoc3.current ){
+    // alert("")
+    // alert("if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){")
+    // alert(singlePageMode) ; 
+    // THE CODR FOR SSHOWING THE LEFT  HALF PAGE 
 
-  // alert(singlePageMode)
-  const page = await pdfDoc3.current.getPage(pageNo);
+    const page1 = await pdfDoc1.current.getPage(pageNo);
+    
+  const viewport = page1.getViewport({ scale: 1.5 });
+  const canvas = leftCanvasRef.current;
+  const canvasContext = canvas.getContext('2d');
 
+  // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
 
-const viewport = page.getViewport({ scale: 1.5 });
-      const canvas = canvasRef.current;
-    const canvasContext = canvas.getContext('2d');
+  // canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+  canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+  // canvasContext.beginPath();
 
-    // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
+  canvas.height = viewport.height;
+  canvas.width = viewport.width;
 
-    // canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-    // canvasContext.beginPath();
+  // Render PDF page into canvas context.
+  // alert( pageNo + 1 )
+  const renderContext = { canvasContext, viewport };
+  const renderTask =  page1.render(renderContext);
 
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
-
-    // Render PDF page into canvas context.
-    const renderContext = { canvasContext, viewport };
-    const renderTask =  page.render(renderContext);
-
-    const temp = pageNo + " / " + totalPage ; 
-    completedPageLabelRef.current.innerText = temp ; 
+  const temp = pageNo + " / " + totalPage ; 
+  completedPageLabelRef.current.innerText = temp ; 
 
 
+  //   THE CODE FOR SHOWING THE RIGHT HALF PAGE 
+
+  console.log(  pageNo +1 !==  totalPage ) ; 
 
 
+  if( pageNo +1  <=  totalPage  ){
+    rightCanvasRef.current.style.display = "block" ; 
+          const page2 = await pdfDoc3.current.getPage(pageNo+1);
+            
+          const viewport = page2.getViewport({ scale: 1.5 });
+          const canvas = rightCanvasRef.current;
+          const canvasContext = canvas.getContext('2d');
+
+          // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
+
+          // canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+          canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+          // canvasContext.beginPath();
+
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          // Render PDF page into canvas context.
+          const renderContext = { canvasContext, viewport };
+          const renderTask =  page2.render(renderContext);
+
+  }
+  else{
+    rightCanvasRef.current.style.display = "none" ; 
+  }
+
+
+
+
+  }
   
-}
-
-if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){
-
-  // alert("")
-  // alert("if( !singlePageMode && leftCanvasRef.current && rightCanvasRef.current && pdfDoc1.current && pdfDoc2.current){")
-  // alert(singlePageMode) ; 
-  // THE CODR FOR SSHOWING THE LEFT  HALF PAGE 
-
-  const page1 = await pdfDoc1.current.getPage(pageNo);
-  
-const viewport = page1.getViewport({ scale: 1.5 });
-const canvas = leftCanvasRef.current;
-const canvasContext = canvas.getContext('2d');
-
-// CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
-
-// canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-// canvasContext.beginPath();
-
-canvas.height = viewport.height;
-canvas.width = viewport.width;
-
-// Render PDF page into canvas context.
-// alert( pageNo + 1 )
-const renderContext = { canvasContext, viewport };
-const renderTask =  page1.render(renderContext);
-
-const temp = pageNo + " / " + totalPage ; 
-completedPageLabelRef.current.innerText = temp ; 
-
-
-//   THE CODE FOR SHOWING THE RIGHT HALF PAGE 
-
-console.log(  pageNo +1 !==  totalPage ) ; 
-
-
- if( pageNo +1  <=  totalPage  ){
-  rightCanvasRef.current.style.display = "block" ; 
-        const page2 = await pdfDoc3.current.getPage(pageNo+1);
-          
-        const viewport = page2.getViewport({ scale: 1.5 });
-        const canvas = rightCanvasRef.current;
-        const canvasContext = canvas.getContext('2d');
-
-        // CLEARING THE CANVAS HERE TO SOLVETHE PROBLEMOF RERENDER 
-
-        // canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-        // canvasContext.beginPath();
-
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        // Render PDF page into canvas context.
-        const renderContext = { canvasContext, viewport };
-        const renderTask =  page2.render(renderContext);
-
- }
- else{
-  rightCanvasRef.current.style.display = "none" ; 
- }
-
-
-
-
-}
- 
-}
-
+  }
 
     async function pageMovement(    pageNo  ) {
       // if( objectURL === "" ) return ; 
@@ -295,178 +259,111 @@ console.log(  pageNo +1 !==  totalPage ) ;
 
 
     useEffect(()=>{
-      // alert( `useEffect ${singlePageMode} is this 1111111 `)
+     
       if( singlePageMode && canvasRef.current )    {
         twoCanvasDiv.current.style.display = "none" ;
         canvasDivRef.current.style.display= "flex" ;  
         pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
         
-
-
       }
        if( !singlePageMode && leftCanvasRef.current  && rightCanvasRef.current)     {
         twoCanvasDiv.current.style.display = "flex" ;
         canvasDivRef.current.style.display= "none" ; 
-        // alert(" 2222222222 here ")
         pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
 
       }
    
       
     } , [singlePageMode] )
-	
-
-
 
 useEffect( ()=>{
 
-
   if( iframeRef.current && scrollMode ){
-
-
     const searchParams = new URLSearchParams(location.search);
-  
     const param1 = Number(searchParams.get('bookID')) ;
     sessionStorage.setItem("bookKey" , param1) ; 
-  
-  
-  
     const openDBRequest = indexedDB.open("BooksDatabase", 1);
-  
-        openDBRequest.onsuccess = function(event) {
-  
+    openDBRequest.onsuccess = function(event) {
+
+    
+        const db = event.target.result;
+
+        const transaction = db.transaction("booksinformation", "readonly");
+        const objectStore = transaction.objectStore("booksinformation");
+
+        const key = Number(sessionStorage.getItem("bookKey"))  ;
+
+        console.log( " the key is " , key )
+        const getRequest = objectStore.get(key);
+
+        getRequest.onsuccess =   async function(event) {
+            const record = event.target.result;
+            // if (record) {
+            //     setRecord(record);
+            // } else {
+            //     console.log("Record not found");
+            // }
+
+            console.log( " the record is " , record ) ; 
+            console.log( "the detalis of the recird are ...." , record.currentPage,record.totalPage,  record.data) ; 
         
-            const db = event.target.result;
-  
-            const transaction = db.transaction("booksinformation", "readonly");
-            const objectStore = transaction.objectStore("booksinformation");
-  
-            const key = Number(sessionStorage.getItem("bookKey"))  ;
-  
-            console.log( " the key is " , key )
-            const getRequest = objectStore.get(key);
-  
-            getRequest.onsuccess =   async function(event) {
-                const record = event.target.result;
-                // if (record) {
-                //     setRecord(record);
-                // } else {
-                //     console.log("Record not found");
-                // }
-  
-                console.log( " the record is " , record ) ; 
-                console.log( "the detalis of the recird are ...." , record.currentPage,record.totalPage,  record.data) ; 
-           
-                const bookID = record.id ; 
-  
-                console.log( " the id of the nook is " , bookID )
-             // SETING HERE THE FACT THAT THE RECEBT BOOK ID IS BEING VISTED 
-                setBookRecentlyViewed(readBook(bookID) )
-           
-              
-                const blob = new Blob(  [record.data] , { type: 'application/pdf' });
-                const objectUrl = URL.createObjectURL(blob);
-                sessionStorage.setItem('OBJECTURL' , objectUrl ) ; 
-  
-                setIframeURL(objectUrl) ; 
-  
-                // setObjectURL(objectUrl) ; 
-                console.log( " the obecjt url is this " , objectUrl ) ;
-  
-                // sessionStorage.setItem("currentPage" , record.currentPage ) ; 
-                sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
-                sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
-  
-                const iframe = iframeRef.current;
-  
-                iframe.src = objectUrl + `#page=${iframePageNumber}`;
-              };
-  
-            getRequest.onerror = function(event) {
-                console.error("Error retrieving record:", event.target.error);
-            };
+            const bookID = record.id ; 
+
+            console.log( " the id of the nook is " , bookID )
+          // SETING HERE THE FACT THAT THE RECEBT BOOK ID IS BEING VISTED 
+            setBookRecentlyViewed(readBook(bookID) )
+        
+          
+            const blob = new Blob(  [record.data] , { type: 'application/pdf' });
+            const objectUrl = URL.createObjectURL(blob);
+            sessionStorage.setItem('OBJECTURL' , objectUrl ) ; 
+
+            setIframeURL(objectUrl) ; 
+
+            // setObjectURL(objectUrl) ; 
+            console.log( " the obecjt url is this " , objectUrl ) ;
+
+            // sessionStorage.setItem("currentPage" , record.currentPage ) ; 
+            sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
+            sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
+
+            const iframe = iframeRef.current;
+
+            iframe.src = objectUrl + `#page=${iframePageNumber}`;
+          };
+
+        getRequest.onerror = function(event) {
+            console.error("Error retrieving record:", event.target.error);
         };
-  
-  
-        function handleScroll(){
-          alert( " getting scrolled !! ")
-        }
-  
-        iframeRef.current.addEventListener('scroll', handleScroll);
-  
-  
-  
-  
-  
+    };
+   
   
   }
 
-
-
-
 } , [iframePageNumber])
-
-
-
   useEffect(()=>{ 
-
-// alert(  `the scrollMode is ${scrollMode}` )
 if( iframeRef.current && scrollMode  ){
-
-
-  const handleMessageFromIframe = (event) => {
-    const { type, data } = event.data;
-    if (type === 'annotationAdded' || type === 'annotationModified') {
-      // Update annotations data structure with received annotation
-      
-      // annotationsData.push(data);
-      console.log("handleMessageFromIframe", data)
-      // Save annotations to local storage
-      // saveAnnotationsToLocalStorage(annotationsData);
-    }
-  };
-  console.log( "iframeRef.current" , iframeRef.current)
-
-  iframeRef.current.addEventListener('message', handleMessageFromIframe);
-
-
   const searchParams = new URLSearchParams(location.search);
 
   const param1 = Number(searchParams.get('bookID')) ;
   sessionStorage.setItem("bookKey" , param1) ; 
 
-
-
   const openDBRequest = indexedDB.open("BooksDatabase", 1);
 
       openDBRequest.onsuccess = function(event) {
 
-      
           const db = event.target.result;
 
           const transaction = db.transaction("booksinformation", "readonly");
           const objectStore = transaction.objectStore("booksinformation");
 
           const key = Number(sessionStorage.getItem("bookKey"))  ;
-
-          console.log( " the key is " , key )
           const getRequest = objectStore.get(key);
 
           getRequest.onsuccess =   async function(event) {
               const record = event.target.result;
-              // if (record) {
-              //     setRecord(record);
-              // } else {
-              //     console.log("Record not found");
-              // }
-
-              console.log( " the record is " , record ) ; 
-              console.log( "the detalis of the recird are ...." , record.currentPage,record.totalPage,  record.data) ; 
-         
-              const bookID = record.id ; 
-
-              console.log( " the id of the nook is " , bookID )
-           // SETING HERE THE FACT THAT THE RECEBT BOOK ID IS BEING VISTED 
+           
+              const bookID = record.id ;
               setBookRecentlyViewed(readBook(bookID) )
          
             
@@ -474,10 +371,6 @@ if( iframeRef.current && scrollMode  ){
               const objectUrl = URL.createObjectURL(blob);
 
               setIframeURL(objectUrl) ; 
-// alert(objectUrl)
-              // setObjectURL(objectUrl) ; 
-              console.log( " the obecjt url is this " , objectUrl ) ;
-
               sessionStorage.setItem("currentPage" , record.currentPage ) ; 
               sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
               sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
@@ -492,18 +385,6 @@ if( iframeRef.current && scrollMode  ){
           };
       };
 
-
-      function handleScroll(){
-        alert( " getting scrolled !! ")
-      }
-
-      iframeRef.current.addEventListener('scroll', handleScroll);
-
-
-
-
-
-
 }
 
 
@@ -513,8 +394,6 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
   canvasDivRef.current.style.display= "flex" ;  
   pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
   
-
-
 }
 
  if( !scrollMode && !singlePageMode && leftCanvasRef.current 
@@ -524,28 +403,18 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
   pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
 
 }
-
-
   } , [scrollMode]) ; 
 
   
   useEffect(() => {
-
-
     
     const handleKeyDown = (event) => {
       if (event.key === "ArrowRight") {
-        // Right arrow key was pressed
-        // Add your logic here
-        // console.log("Right arrow key pressed");
         moveToNextPage( singlePageMode,pageMovement ) ; 
       }
 
       if (event.key === "ArrowLeft") {
-        // Left arrow key was pressed
-        // Add your logic here
         moveToPreviousPage( singlePageMode,pageMovement ) ; 
-        // console.log("Left arrow key pressed");
       }
     };
 
@@ -555,13 +424,10 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
     const param1 = Number(searchParams.get('bookID')) ;
     sessionStorage.setItem("bookKey" , param1) ; 
 
-
-
     const openDBRequest = indexedDB.open("BooksDatabase", 1);
 
         openDBRequest.onsuccess = function(event) {
 
-        
             const db = event.target.result;
 
             const transaction = db.transaction("booksinformation", "readonly");
@@ -574,40 +440,19 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
 
             getRequest.onsuccess =   async function(event) {
                 const record = event.target.result;
-                // if (record) {
-                //     setRecord(record);
-                // } else {
-                //     console.log("Record not found");
-                // }
-
-                console.log( " the record is " , record ) ; 
-                console.log( "the detalis of the recird are ...." , record.currentPage,record.totalPage,  record.data) ; 
-           
                 const bookID = record.id ; 
 
-                console.log( " the id of the nook is " , bookID )
-             // SETING HERE THE FACT THAT THE RECEBT BOOK ID IS BEING VISTED 
                 setBookRecentlyViewed(readBook(bookID) )
            
-              
                 const blob = new Blob(  [record.data] , { type: 'application/pdf' });
                 const objectUrl = URL.createObjectURL(blob);
-
-                // setObjectURL(objectUrl) ; 
-                console.log( " the obecjt url is this " , objectUrl ) ;
-
                 sessionStorage.setItem("currentPage" , record.currentPage ) ; 
                 sessionStorage.setItem("totalPage" ,  record.totalPage  ) ; 
                 sessionStorage.setItem("objectUrl" ,  objectUrl  ) ; 
                 sessionStorage.setItem("OBJECTURL" ,  objectUrl  ) ; 
 
-              console.log( "the object url can fit in sesion storgae " , objectUrl  ) ; 
-              
-              // if( singlePageMode )
               pageMovement(Number(sessionStorage.getItem('currentPage')))
              
-
-           
               };
 
             getRequest.onerror = function(event) {
@@ -631,8 +476,6 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
             setCalendarEntry([...calendarArr])
           }
 
-
-
         }, 1000*60 );
         return ()=>{
 
@@ -641,63 +484,42 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
           clearInterval( readingInterval );
           const readingTimeOut = JSON.parse( localStorage.getItem("readingTimeOut"))
           clearTimeout( readingTimeOut ) 
-          // window.removeEventListener("wheel", handleScroll);
-
-
-
-        }
-
-		
+        
+        }		
 	}, []);
-	
- 
-
-
-  return (
-  
+  return (  
     <div style={{"width":"100vw" , height:"100vh" , position:"absolute"}} className="wrpaPageDiv">
-    
+   
 {
-
-  
    !localStorage.getItem("firstTimeView") && 
-<Joyride className='joyride2'
-
-
-run={ true   }
-steps={steps2}
-continuous={true}    
-showProgress={true}       
-showSkipButton={true}  
-callback={({ status }) => {
-  if (status === 'finished' || status === 'skipped') {
-    // setIsTourOpen(false);
-    localStorage.setItem("firstTimeView" , true )
-  }
-}}
-styles={{
- 
-  overlay: {
-      width: '100vw',
-      height: '100vh',
-      zIndex: 100
-  } , 
-  options: {
-                              
-                               
-    primaryColor: 'rgba(145, 83, 206, 0.56)',
-    color: 'black',
-  } , 
-  spotlight: {
-    backgroundColor: 'white',
-    opacity: "0.5"
-  }
-}}        
-
-
+    <Joyride className='joyride2'
+    run={ true   }
+    steps={steps2}
+    continuous={true}    
+    showProgress={true}       
+    showSkipButton={true}  
+    callback={({ status }) => {
+      if (status === 'finished' || status === 'skipped') {
+        localStorage.setItem("firstTimeView" , true )
+      }
+    }}
+    styles={{
+      overlay: {
+          width: '100vw',
+          height: '100vh',
+          zIndex: 100
+      } , 
+      options: {          
+        primaryColor: 'rgba(145, 83, 206, 0.56)',
+        color: 'black',
+      } , 
+      spotlight: {
+        backgroundColor: 'white',
+        opacity: "0.5"
+      }
+    }}        
 />
 }
-
 
 
 { <ClockMessage  clockMessageRef={clockMessageRef} pdfContainer={pdfContainer} fileList={[]}
@@ -707,8 +529,6 @@ styles={{
                setIframePageNumber={setIframePageNumber}/> 
                
 }
-               
-
 <div className='pdfContainer' ref={pdfContainer}>
 
 {
@@ -725,7 +545,6 @@ styles={{
 
  </div>
 }
- 
 
 {
   scrollMode && 
@@ -739,20 +558,10 @@ styles={{
 
 
 />
-
-
- 
 }
-
-
-
-
-
-
 
 { !scrollMode  &&  <div id="canvasDiv" ref={canvasDivRef} >
   <canvas className="fullCanvas" ref={canvasRef}  />
-  {/* <canvas className="fullCanvas" ref={canvasRef}  /> */}
   </div>  
 }
 { 
@@ -763,8 +572,6 @@ styles={{
   </div>
 
 }
-
-
 {
   !scrollMode && 
   <div id="rightSideBar"  onClick={ () => moveToNextPage( singlePageMode,pageMovement )  } onMouseEnter={()=>{ completedPageRef.current.style.display="block"  }}  
@@ -778,32 +585,16 @@ styles={{
   </div>
 }
 
-
-
-
 <div id="completedPage"  ref={completedPageRef}>
 
   <label ref={completedPageLabelRef}>{"1 / 1"}</label>
  
-
+</div>
 
 </div>
 
-
-</div>
-
-
-
-</div>
-
-
-    
+</div>    
   );
-
-
-
-
-
 
 
 }

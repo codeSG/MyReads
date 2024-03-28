@@ -6,19 +6,13 @@ import proceed from "../../assets/proceed.png"
 import goalsaathi from "../../assets/goalsaathi.png"
 import { ContextInfo } from "../../App";
 const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
-
-
-    const {userName , setUserName , wrapPageRuntour, setWrapPageRunTour ,
-      firebaseFileFetched , setFirebaseFileFetched } = useContext(ContextInfo) ; 
+    const { setUserName  } = useContext(ContextInfo) ; 
     const [ name , setName] = useState("") ; 
-   
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
-        // Perform an action when Enter key is pressed
         localStorage.setItem("userName" , name)
         setUserName(name);
         setNameDone(true) ; 
-        // You can perform any action here like submitting the form, etc.
       }
     };
     return (
@@ -37,8 +31,6 @@ const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
                localStorage.setItem("userName" , name)
                setUserName(name);
                setNameDone(true) ; 
-          
-            // setUserName(null);
                 } }/>
 
           </div>
@@ -49,7 +41,6 @@ const UserName = ({setBlack , setSpinner , nameDone , setNameDone })=>{
         
         </div>
     )
-  
 }
 
 export default UserName ; 

@@ -18,11 +18,7 @@
       "128": "openBook.png"
     }
   },
-  "permissions": [
-    "tabs",
-    "scripting",
-    "webRequest"
-  ],
+  "permissions": [ ],
  
   "background": {
     "service_worker": "background.js"

@@ -1,7 +1,5 @@
 import React  , {useContext} from 'react'
 import "../css/Calendar.css"
-// import {Con}
-// import { useContext } from 'react';
 import { ContextInfo } from '../App';
 
 const temp = new Date() ; 
@@ -42,13 +40,13 @@ const Calendar = () => {
           <label className="wweekDay">S</label>
           {
               new Array(firstDayOfWeek).fill(1).map((ele, ind)=>{
-                  return <input className="wweekDay" style={{outline:"0"  , "visibility":"hidden"}} value={""} key={-ind} disabled={true}></input>
+                  return <input key={-ind-1}  className="wweekDay" style={{outline:"0"  , "visibility":"hidden"}} value={""} disabled={true}></input>
               })
           }
           {
               new Array(numberOfDays).fill(1).map((ele, ind)=>{
                   return < >
-                      <input key={ind}type="checkbox" checked={ calendarEntry[ind].readToday  }>
+                      <input key={ind} type="checkbox" checked={ calendarEntry[ind].readToday  }>
 
                       </input>
                       <label key={-ind -1} className="checkbox-custom tooltip ">
@@ -65,10 +63,6 @@ const Calendar = () => {
               })
           }
 
-         
-          
-       
-  
       </div>
   </div>
 

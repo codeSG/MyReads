@@ -4,8 +4,6 @@ function readBook(newID ){
         localStorage.setItem("bookID2" , -1  ) ; 
         localStorage.setItem("bookID3" , -1  ) ; 
         localStorage.setItem("bookID4" , -1  ) ; 
-
-        console.log("")
     }
 
     let bookID1 = Number(localStorage.getItem("bookID1")) ;
@@ -13,7 +11,6 @@ function readBook(newID ){
     let bookID3 = Number(localStorage.getItem("bookID3")) ;
     let bookID4 = Number(localStorage.getItem("bookID4")) ;
 
-    console.log( "from where the zero is cminfg ",  bookID1,bookID2,bookID3,bookID4)
 let arr = [] ; 
     if( bookID1 === -1 ){
 
@@ -56,7 +53,6 @@ let arr = [] ;
             arr = [ newID , bookID1, bookID2, bookID3]
         
     }
-
     return arr ; 
 
 }
@@ -67,8 +63,6 @@ function deleteBook( newID ){
         localStorage.setItem("bookID2" , -1  ) ; 
         localStorage.setItem("bookID3" , -1  ) ; 
         localStorage.setItem("bookID4" , -1  ) ; 
-
-        console.log("")
     }
 
     let bookID1 = Number(localStorage.getItem("bookID1")) ;
