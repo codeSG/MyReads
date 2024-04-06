@@ -256,6 +256,20 @@ export default function WrapPage() {
         pageMovement(Number(sessionStorage.getItem('currentPage'))) ; 
 
       }
+      const handleKeyDown = (event) => {
+        if (event.key === "ArrowRight") {
+          moveToNextPage( singlePageMode,pageMovement ) ; 
+        }
+  
+        if (event.key === "ArrowLeft") {
+          moveToPreviousPage( singlePageMode,pageMovement ) ; 
+        }
+      };
+      document.addEventListener("keydown", handleKeyDown);
+
+      return ()=>{
+        document.removeEventListener("keydown", handleKeyDown);
+      }
    
       
     } , [singlePageMode] )
@@ -381,15 +395,16 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
   
   useEffect(() => {
     
-    const handleKeyDown = (event) => {
-      if (event.key === "ArrowRight") {
-        moveToNextPage( singlePageMode,pageMovement ) ; 
-      }
+    // alert(singlePageMode) ; 
+    // const handleKeyDown = (event) => {
+    //   if (event.key === "ArrowRight") {
+    //     moveToNextPage( singlePageMode,pageMovement ) ; 
+    //   }
 
-      if (event.key === "ArrowLeft") {
-        moveToPreviousPage( singlePageMode,pageMovement ) ; 
-      }
-    };
+    //   if (event.key === "ArrowLeft") {
+    //     moveToPreviousPage( singlePageMode,pageMovement ) ; 
+    //   }
+    // };
 
    
     const searchParams = new URLSearchParams(location.search);
@@ -433,7 +448,7 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
 
 
 
-        document.addEventListener("keydown", handleKeyDown);
+        // document.addEventListener("keydown", handleKeyDown);
 
      
         const readingInterval = setInterval(() => {
@@ -451,7 +466,7 @@ if( !scrollMode && singlePageMode && canvasRef.current && pdfDoc3.current )    {
         return ()=>{
 
           updateCurrentPageOfBook() ; 
-          document.removeEventListener("keydown", handleKeyDown);
+          // document.removeEventListener("keydown", handleKeyDown);
           clearInterval( readingInterval );
           const readingTimeOut = JSON.parse( localStorage.getItem("readingTimeOut"))
           clearTimeout( readingTimeOut ) 

@@ -1,5 +1,6 @@
 function moveToNextPage( singlePageMode,pageMovement ){
 
+  // alert("Single page mode ") ; 
         if( singlePageMode ){
           let num = Number( sessionStorage.getItem("currentPage")) ;
           const totalPages = Number( sessionStorage.getItem("totalPage"))
@@ -12,6 +13,8 @@ function moveToNextPage( singlePageMode,pageMovement ){
         }
         
         if( !singlePageMode) {
+
+          // alert("not single page mode ")
           let num = Number( sessionStorage.getItem("currentPage")) ;
           const totalPages = Number( sessionStorage.getItem("totalPage")) ;
           if( num >= totalPages-1  ) return  ;
