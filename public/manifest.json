@@ -6,7 +6,9 @@
 ,
   "version": "1.0",
     "icons":   {
-     
+      "16": "openBook.png",   
+      "48": "openBook.png",  
+      "128": "openBook.png" 
     }
   ,
   "action": {
